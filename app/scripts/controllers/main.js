@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularFeedsApp')
+angular.module('angular-feeds')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

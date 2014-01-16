@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angularFeedsApp', [
+angular.module('angular-feeds', [
   'ngSanitize',
   'ngRoute'
 ])
