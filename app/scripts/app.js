@@ -2,7 +2,8 @@
 
 angular.module('angular-feeds', [
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'chieffancypants.loadingBar'
 ])
   .config(function ($routeProvider) {
     $routeProvider
