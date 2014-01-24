@@ -21,7 +21,52 @@
   </head>
   <body ng-app="angular-feeds">
 
-    <div class="container" ng-view=""></div>
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Angular Feeds</a>
+          </div>
+          <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                  <li class="active" class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Feeds <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="#">DZone</a></li>
+                          <li><a href="#">Reddit Programming</a></li>
+                      </ul>
+                  </li>
+                  <li><a href="#markup">Markup</a></li>
+              </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+  </div>
+
+  <div class="container">
+      <div class="page-header">
+          <h1>Feeds</h1>
+      </div>
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="panel panel-primary">
+                  <div class="panel-heading">
+                      <h3 class="panel-title">Panel title</h3>
+                  </div>
+                  <div class="panel-body">
+                      Panel content
+                  </div>
+              </div>
+          </div><!-- /.col-sm-12 -->
+      </div>
+  </div>
+
+
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
