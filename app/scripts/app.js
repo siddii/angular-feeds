@@ -1,17 +1,6 @@
 'use strict';
 
-angular.module('angular-feeds', [
+angular.module('angular-feeds-demo', [
   'ngSanitize',
-  'ngRoute',
-  'chieffancypants.loadingBar'
-])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+  'ngRoute'
+]);
