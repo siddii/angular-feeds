@@ -2,7 +2,8 @@
 
 angular.module('feeds-directives', []).directive('feed', ['feedsService', function (feedsService) {
     return  {
-        restrict: 'A',
+        restrict: 'E',
+        replace: false,
         link: function ($scope, $element) {
             console.log('##### Feed Directive', feedsService);
         }
