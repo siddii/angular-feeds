@@ -15,25 +15,13 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 //            feed.includeHistoricalEntries();
 //            feed.setNumEntries($routeParams.count);
 
-            function extractFeedAttributes(feedEntry) {
-                var thumbnail = $(feedEntry.content).find('img').first();
-                if (!thumbnail.attr('src')) {
-                    feedEntry.feedThumbnailSrc = 'app/images/th-not-available.jpg';
-                }
-                else {
-                    feedEntry.feedThumbnailSrc = 'http:' + thumbnail.attr('src');
-                }
-                sanitizeFeedEntry(feedEntry);
-            }
-
             feed.load(function (response) {
                 if (response.error) {
-                    console.error('###### response.error = ' + JSON.stringify(response.error));
                     deferred.reject(response.error);
                 }
                 else {
                     for (var i = 0; i < response.feed.entries.length; i++) {
-                        extractFeedAttributes(response.feed.entries[i]);
+                      sanitizeFeedEntry(response.feed.entries[i]);
                     }
                     deferred.resolve(response.feed.entries);
                 }
