@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'StorageService', '$routeParams', function ($q, $sce, StorageService, $routeParams) {
+angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'feedsStorage', '$routeParams', function ($q, $sce, feedsStorage, $routeParams) {
 
         function sanitizeFeedEntry(feedEntry) {
             feedEntry.feedTitle = $sce.trustAsHtml(feedEntry.title);
@@ -13,8 +13,8 @@ angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'Sto
             var routeParams = JSON.stringify($routeParams);
             var deferred = $q.defer();
 
-            if (!ignoreCache && StorageService.hasCache(routeParams)) {
-                var feeds = StorageService.getCache(routeParams);
+            if (!ignoreCache && feedsStorage.hasCache(routeParams)) {
+                var feeds = feedsStorage.getCache(routeParams);
                 for (var i = 0; i < feeds.length; i++) {
                     sanitizeFeedEntry(feeds[i]);
                 }
@@ -47,7 +47,7 @@ angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'Sto
                     for (var i = 0; i < response.feed.entries.length; i++) {
                         extractFeedAttributes(response.feed.entries[i]);
                     }
-                    StorageService.setCache(routeParams, response.feed.entries);
+                    feedsStorage.setCache(routeParams, response.feed.entries);
                     deferred.resolve(response.feed.entries);
                 }
             });

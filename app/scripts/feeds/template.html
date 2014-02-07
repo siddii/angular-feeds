@@ -1,0 +1,28 @@
+<div>
+    <div ng-if="!loading && error" class="alert alert-danger">
+        <h4 class="text-center">Oops... Something bad happened, please try later :(</h4>
+    </div>
+
+    <div ng-if="feeds.length == 0" class="alert alert-info">
+        <h4 class="text-center">Nothing to show here... <br/> Please try later...</h4>
+    </div>
+
+    <ul class="media-list">
+        <li feeds ng-repeat="feed in feeds | orderBy: '-publishedDate'" class="media">
+            <div class="pull-left">
+                <a target="_new" href="{{feed.link}}" class="thumbnail">
+                    <img class="media-object" style="width:80px;height:80px;" ng-src="{{feed.feedThumbnailSrc}}"/>
+                </a>
+            </div>
+            <div class="media-body">
+                <span class="text-muted fa-stack pull-right">
+                    <i class="fa fa-calendar-o fa-stack-2x"></i>
+                    <div class="time-ago" title="{{feed.publishedDate}}"/>
+                </span>
+                <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.feedTitle"></a></h4>
+                <p ng-bind-html="feed.feedContentSnippet"></p>
+            </div>
+            <hr/>
+        </li>
+    </ul>
+</div>
