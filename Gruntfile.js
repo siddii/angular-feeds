@@ -242,6 +242,14 @@ module.exports = function (grunt) {
       }
     },
 
+    ngtemplates:  {
+      feeds:        {
+        cwd:  'app/scripts/feeds/',
+        src:  '**.html',
+        dest: 'app/scripts/feeds/templates.js'
+      }
+    },
+
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {

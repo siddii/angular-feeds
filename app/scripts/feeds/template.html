@@ -9,11 +9,6 @@
 
     <ul class="media-list">
         <li feeds ng-repeat="feed in feeds | orderBy: '-publishedDate'" class="media">
-            <div class="pull-left">
-                <a target="_new" href="{{feed.link}}" class="thumbnail">
-                    <img class="media-object" style="width:80px;height:80px;" ng-src="{{feed.feedThumbnailSrc}}"/>
-                </a>
-            </div>
             <div class="media-body">
                 <span class="text-muted fa-stack pull-right">
                     <i class="fa fa-calendar-o fa-stack-2x"></i>
@@ -22,7 +17,7 @@
                 <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.feedTitle"></a></h4>
                 <p ng-bind-html="feed.feedContentSnippet"></p>
             </div>
-            <hr/>
+            <hr ng-if="!$last"/>
         </li>
     </ul>
 </div>

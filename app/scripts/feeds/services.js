@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'feedsStorage', '$routeParams', function ($q, $sce, feedsStorage, $routeParams) {
+angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feedStorage', function ($q, $sce, feedStorage) {
 
         function sanitizeFeedEntry(feedEntry) {
             feedEntry.feedTitle = $sce.trustAsHtml(feedEntry.title);
@@ -8,24 +8,12 @@ angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'fee
             return feedEntry;
         }
 
-        var getFeeds = function (ignoreCache) {
-            console.log('##### getting feeds ');
-            var routeParams = JSON.stringify($routeParams);
+        var getFeeds = function (src) {
             var deferred = $q.defer();
 
-            if (!ignoreCache && feedsStorage.hasCache(routeParams)) {
-                var feeds = feedsStorage.getCache(routeParams);
-                for (var i = 0; i < feeds.length; i++) {
-                    sanitizeFeedEntry(feeds[i]);
-                }
-                deferred.resolve(feeds);
-                return deferred.promise;
-            }
-
-            var feedURL = app.buildFeedURL($routeParams);
-            var feed = new google.feeds.Feed(feedURL);
-            feed.includeHistoricalEntries();
-            feed.setNumEntries($routeParams.count);
+            var feed = new google.feeds.Feed(src);
+//            feed.includeHistoricalEntries();
+//            feed.setNumEntries($routeParams.count);
 
             function extractFeedAttributes(feedEntry) {
                 var thumbnail = $(feedEntry.content).find('img').first();
@@ -47,7 +35,6 @@ angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'fee
                     for (var i = 0; i < response.feed.entries.length; i++) {
                         extractFeedAttributes(response.feed.entries[i]);
                     }
-                    feedsStorage.setCache(routeParams, response.feed.entries);
                     deferred.resolve(response.feed.entries);
                 }
             });
@@ -55,11 +42,10 @@ angular.module('feeds-services', []).factory('feedsService', ['$q', '$sce', 'fee
         };
 
         return {
-            getFeeds: getFeeds,
-            sanitizeFeedEntry: sanitizeFeedEntry
+            getFeeds: getFeeds
         };
     }])
-    .factory('feedsStorage', function () {
+    .factory('feedStorage', function () {
         var CACHE_INTERVAL = 1000 * 60 * 15; //15 minutes
 
         function cacheTimes() {
