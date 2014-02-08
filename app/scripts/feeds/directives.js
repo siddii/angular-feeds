@@ -3,7 +3,7 @@
 angular.module('feeds-directives', []).directive('feed', ['feedService', '$compile', '$templateCache', function (feedService, $compile, $templateCache) {
   return  {
     restrict: 'E',
-    replace: false,
+    scope: true,
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
 
       $scope.feeds = [];
@@ -11,7 +11,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
       var spinner = $templateCache.get('spinner.html');
       $element.append($compile(spinner)($scope));
 
-      feedService.getFeeds($attrs.src).then(function (feedsObj) {
+      feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
         if (feedsObj.length > 0) {
 
           $element.find('.spinner').slideUp();
