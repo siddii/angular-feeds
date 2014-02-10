@@ -3,8 +3,9 @@
 angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feedStorage', function ($q, $sce, feedStorage) {
 
     function sanitizeFeedEntry(feedEntry) {
-      feedEntry.feedTitle = $sce.trustAsHtml(feedEntry.title);
-      feedEntry.feedContentSnippet = $sce.trustAsHtml(feedEntry.contentSnippet);
+      feedEntry.title = $sce.trustAsHtml(feedEntry.title);
+      feedEntry.contentSnippet = $sce.trustAsHtml(feedEntry.contentSnippet);
+      feedEntry.content = $sce.trustAsHtml(feedEntry.content);
       return feedEntry;
     }
 

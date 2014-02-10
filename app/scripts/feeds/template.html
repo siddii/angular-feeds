@@ -14,8 +14,8 @@
                     <i class="fa fa-calendar-o fa-stack-2x"></i>
                     <div class="time-ago" title="{{feed.publishedDate}}"/>
                 </span>
-                <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.feedTitle"></a></h4>
-                <p ng-bind-html="feed.feedContentSnippet"></p>
+                <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
+                <p ng-bind-html="feed.content"></p>
             </div>
             <hr ng-if="!$last"/>
         </li>
