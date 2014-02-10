@@ -17,3 +17,8 @@ body {
 .theme-showcase > p > .btn {
     margin: 5px 0;
 }
+
+.fa-code {
+    font-weight: bold;
+    cursor: pointer;
+}
