@@ -10,12 +10,8 @@
     <ul class="media-list">
         <li feeds ng-repeat="feed in feeds | orderBy: '-publishedDate'" class="media">
             <div class="media-body">
-                <span class="text-muted fa-stack pull-right">
-                    <i class="fa fa-calendar-o fa-stack-2x"></i>
-                    <div class="time-ago" title="{{feed.publishedDate}}"/>
-                </span>
                 <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
-                <p ng-bind-html="feed.content"></p>
+                <p ng-bind-html="!summary ? feed.content : feed.contentSnippet"></p>
             </div>
             <hr ng-if="!$last"/>
         </li>

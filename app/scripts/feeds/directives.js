@@ -3,7 +3,9 @@
 angular.module('feeds-directives', []).directive('feed', ['feedService', '$compile', '$templateCache', function (feedService, $compile, $templateCache) {
   return  {
     restrict: 'E',
-    scope: true,
+    scope: {
+      summary: '=summary'
+    },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
 
       $scope.feeds = [];
