@@ -46,21 +46,20 @@
   </div>
 
   <div class="container">
-      <div class="page-header">
-          <h2>Introduction</h2>
-      </div>
       <div class="row">
           <div class="col-sm-12">
           <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
-              <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new" href="http://en.wikipedia.org/wiki/Media_RSS">Media feeds</a> using <i>simple</i> markup.
+              <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new" href="http://en.wikipedia.org/wiki/Media_RSS">Media feeds</a> using <i>simple</i> HTML markup
+              (aka Directives).
               It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for reading & parsing feeds.
-              This module comes with default templates, services & directives. However, it is up to the developer to configure them to your preference.
+              It comes with default templates, services & directives for rendering feeds. However, it is up to the developers to configure them based on their choice.
           </p>
+          <p>Following are some examples to help you understand its usage. Please feel free to checkout the code & let me know your feedback.</p>
           </div>
       </div>
 
       <div class="page-header">
-          <h2>Examples</h2>
+          <h3>Examples</h3>
       </div>
 
       <div class="row">
@@ -72,7 +71,7 @@
                   </div>
                   <div class="panel-body">
                       <!-- directive: feedMarkup <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/> -->
-                      <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/>
+                      <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"/>
                   </div>
               </div>
           </div>
