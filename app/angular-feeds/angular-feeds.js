@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-11 2:36 PM
+ * angular-feeds - v0.0.1 - 2014-02-11 2:44 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -25,7 +25,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
           $element.find('.spinner').slideUp();
 
-          $element.append($compile($templateCache.get('template.html'))($scope));
+          $element.append($compile($templateCache.get('list.html'))($scope));
 
           for (var i = 0; i < feedsObj.length; i++) {
             $scope.feeds.push(feedsObj[i]);

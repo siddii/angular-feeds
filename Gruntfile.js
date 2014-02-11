@@ -374,7 +374,7 @@ module.exports = function (grunt) {
         src: [
           'src/scripts/*.js'
         ],
-        dest: '<%= yeoman.app %>/<%= pkg.name %>.js'
+        dest: '<%= yeoman.app %>/<%= pkg.name %>/<%= pkg.name %>.js'
       },
       compile_css: {
         options: {
@@ -383,7 +383,7 @@ module.exports = function (grunt) {
         src: [
           'src/styles/*.css'
         ],
-        dest: '<%= yeoman.app %>/<%= pkg.name %>.css'
+        dest: '<%= yeoman.app %>//<%= pkg.name %>/<%= pkg.name %>.css'
       },
       dist: {}
     },
