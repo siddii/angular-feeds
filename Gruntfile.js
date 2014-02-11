@@ -244,9 +244,9 @@ module.exports = function (grunt) {
 
     ngtemplates:  {
       feeds:        {
-        cwd:  'app/scripts/feeds/',
+        cwd:  'src/templates/',
         src:  '**.html',
-        dest: 'app/scripts/feeds/templates.js'
+        dest: 'src/scripts/templates.js'
       }
     },
 

@@ -1,6 +1,16 @@
 {
-  "name": "angularfeeds",
-  "version": "0.0.0",
+  "name": "angular-feeds",
+  "version": "0.0.1",
+  "homepage": "https://github.com/siddii/angular-feeds",
+  "licenses": {
+    "type": "MIT",
+    "url": "https://github.com/siddii/angular-feeds/blob/master/LICENSE.txt"
+  },
+  "bugs": "https://github.com/siddii/angular-feeds/issues",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:siddii/angular-feeds.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -1,21 +1,7 @@
 angular.module('feeds').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('spinner.html',
-    "<div class=\"spinner\">\n" +
-    "    <div class=\"bar1\"></div>\n" +
-    "    <div class=\"bar2\"></div>\n" +
-    "    <div class=\"bar3\"></div>\n" +
-    "    <div class=\"bar4\"></div>\n" +
-    "    <div class=\"bar5\"></div>\n" +
-    "    <div class=\"bar6\"></div>\n" +
-    "    <div class=\"bar7\"></div>\n" +
-    "    <div class=\"bar8\"></div>\n" +
-    "</div>\n"
-  );
-
-
-  $templateCache.put('template.html',
+  $templateCache.put('list.html',
     "<div>\n" +
     "    <div ng-if=\"!loading && error\" class=\"alert alert-danger\">\n" +
     "        <h4 class=\"text-center\">Oops... Something bad happened, please try later :(</h4>\n" +
@@ -35,6 +21,20 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
     "        </li>\n" +
     "    </ul>\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('spinner.html',
+    "<div class=\"spinner\">\n" +
+    "    <div class=\"bar1\"></div>\n" +
+    "    <div class=\"bar2\"></div>\n" +
+    "    <div class=\"bar3\"></div>\n" +
+    "    <div class=\"bar4\"></div>\n" +
+    "    <div class=\"bar5\"></div>\n" +
+    "    <div class=\"bar6\"></div>\n" +
+    "    <div class=\"bar7\"></div>\n" +
+    "    <div class=\"bar8\"></div>\n" +
+    "</div>\n"
   );
 
 }]);
