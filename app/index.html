@@ -61,16 +61,18 @@
           <h3>Examples</h3>
       </div>
 
-      <div class="row">
+      <div class="row" ng-controller="FeedController">
           <div class="col-sm-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                      <div ng-include src="'settings-dropdown.html'"></div>
+                      <div ng-include src="'feed-control.html'"></div>
                       <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
                   </div>
                   <div class="panel-body">
-                      <!-- directive: feedMarkup <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/> -->
                       <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"/>
+                      <code style="display: none;" ng-non-bindable>
+
+                      </code>
                   </div>
               </div>
           </div>
@@ -80,7 +82,7 @@
           <div class="col-sm-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                      <div ng-include src="'settings-dropdown.html'"></div>
+                      <div ng-include src="'feed-control.html'"></div>
                       <h3 class="panel-title">Reddit (<i>/r/programming</i>)</h3>
                   </div>
                   <div class="panel-body">
@@ -95,7 +97,7 @@
           <div class="col-sm-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
-                      <div ng-include src="'settings-dropdown.html'"></div>
+                      <div ng-include src="'feed-control.html'"></div>
                       <h3 class="panel-title">Hacker News</h3>
                   </div>
                   <div class="panel-body">

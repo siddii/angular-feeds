@@ -18,7 +18,7 @@ body {
     margin: 5px 0;
 }
 
-.fa-cog {
-    font-size: 20px;
+.feed-control .fa {
+    font-weight: bold;
     cursor: pointer;
 }

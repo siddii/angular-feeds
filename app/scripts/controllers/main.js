@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('angular-feeds-demo')
-  .controller('MainCtrl', function ($scope) {
-        console.log('$scope = ', $scope);
-      });
+  .controller('FeedController', function ($scope, $element) {
+
+    $scope.toggleMarkup = function () {
+      $element.find('feed ul').fadeToggle();
+    };
+  });
