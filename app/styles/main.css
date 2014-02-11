@@ -18,7 +18,7 @@ body {
     margin: 5px 0;
 }
 
-.fa-code {
-    font-weight: bold;
+.fa-cog {
+    font-size: 20px;
     cursor: pointer;
 }
