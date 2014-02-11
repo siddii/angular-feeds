@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Angular Feeds - an AngularJS module for Atom, RSS & media feeds...</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
@@ -51,9 +51,10 @@
       </div>
       <div class="row">
           <div class="col-sm-12">
-          <p>Angular Feeds is a <i>utility</i> module for working with <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
-              <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new" href="http://en.wikipedia.org/wiki/Media_RSS">Media feeds</a>.
-              Currently, it is using <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for reading & parsing feeds.
+          <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
+              <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new" href="http://en.wikipedia.org/wiki/Media_RSS">Media feeds</a> using <i>simple</i> markup.
+              It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for reading & parsing feeds.
+              This module comes with default templates, services & directives. However, it is up to the developer to configure them to your preference.
           </p>
           </div>
       </div>
@@ -71,7 +72,7 @@
                   </div>
                   <div class="panel-body">
                       <!-- directive: feedMarkup <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/> -->
-                      <feed summary="true" src="http://stackovsserflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/>
+                      <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="10"/>
                   </div>
               </div>
           </div>
