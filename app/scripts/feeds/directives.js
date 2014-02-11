@@ -24,6 +24,9 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
             $scope.feeds.push(feedsObj[i]);
           }
         }
+      }, function (error) {
+        $scope.error = error;
+        console.error('Error loading feed ', error);
       });
     }]
   }
