@@ -18,6 +18,12 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    angularFeeds: {
+      scriptsPath: 'src/scripts',
+      stylesPath: 'src/styles',
+      templatesPath: 'src/templates'
+    },
+
     // Project settings
     yeoman: {
       // configurable paths
@@ -28,8 +34,15 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= angularFeeds.scriptsPath %>/{,*/}*.js', '<%= yeoman.app %>/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
+        options: {
+          livereload: true
+        }
+      },
+      angularFeedsScript: {
+        files: ['<%= angularFeeds.scriptsPath %>/{,*/}*.js'],
+        tasks: ['concat:angular_feeds_script'],
         options: {
           livereload: true
         }
@@ -99,6 +112,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
+        '<%= angularFeeds.scriptsPath%>/*.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ],
       test: {
@@ -367,21 +381,21 @@ module.exports = function (grunt) {
       }
     },
     concat: {
-      compile_js: {
+      angular_feeds_script: {
         options: {
           banner: '<%= meta.banner %>'
         },
         src: [
-          'src/scripts/*.js'
+          '<%= angularFeeds.scriptsPath %>/*.js'
         ],
         dest: '<%= yeoman.app %>/<%= pkg.name %>/<%= pkg.name %>.js'
       },
-      compile_css: {
+      angular_feeds_styles: {
         options: {
           banner: '<%= meta.banner %>'
         },
         src: [
-          'src/styles/*.css'
+          '<%= angularFeeds.stylesPath %>/*.css'
         ],
         dest: '<%= yeoman.app %>//<%= pkg.name %>/<%= pkg.name %>.css'
       },
