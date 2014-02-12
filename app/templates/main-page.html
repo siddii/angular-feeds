@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
+                <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new"
+                                                                                        href="http://en.wikipedia.org/wiki/Media_RSS">media
+                    feeds</a> using <i>simple</i> HTML markup.
+                It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for
+                reading & parsing feeds.
+                It comes with default template for displaying content. However, you can configure it to use a different
+                template of your choice.
+            </p>
+
+            <p>Following are some examples to help you understand its usage. Please feel free to poke around the code &
+                let me know your thoughts & feedback.</p>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h3>Examples</h3>
+    </div>
+
+    <div class="row" id="stackoverflow-feed-panel" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block">
+                        <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
+                              count="5"></feed>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/stackoverflow-feed-code.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="wikipedia-feed-panel" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Wikipedia Featured Articles</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block">
+                        <script type="text/javascript">
+                            //run only trusted code here :)
+                            function wikipediaFeedPostRender() {
+                                $('#wikipedia-feed').find('a').each(function (idx, anchor) {
+                                    anchor.target = '_new';
+                                    anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+                                })
+                            }
+                        </script>
+                        <feed id="wikipedia-feed" count="10"
+                              src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+                              template-url="templates/wikipedia-featured-article.html"
+                              post-render="wikipediaFeedPostRender();"/>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/wikipedia-feed-code.html'"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="reddit-feed-panel" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Reddit (<i>/r/programming</i>)</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block">
+                        <feed src="http://www.reddit.com/r/programming/.rss"/>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/reddit-feed-code.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
