@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 1:39 PM
+ * angular-feeds - v0.0.1 - 2014-02-12 3:31 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -59,9 +59,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
 'use strict';
 
-angular.module('feeds', ['feeds-services', 'feeds-directives']).config(function (){
-    console.log('Loading Feeds module...');
-});
+angular.module('feeds', ['feeds-services', 'feeds-directives']);
 'use strict';
 
 angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feedStorage', function ($q, $sce, feedStorage) {
