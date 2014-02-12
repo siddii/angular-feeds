@@ -1,18 +1,31 @@
 <div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#wikipedia-code-markup" data-toggle="tab">Markup</a></li>
+        <li><a href="#wikipedia-featured-article" data-toggle="tab">wikipedia-featured-article.html</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="wikipedia-code-markup">
     <pre class="prettyprint linenums">
-    &lt;script type="text/javascript"&gt;
-    //run only trusted code here :)
-    function wikipediaFeedPostRender() {
-        $('#wikipedia-feed').find('a').each(function (idx, anchor) {
-            anchor.target = '_new';
-            anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
-        })
-    }
-    &lt;/script&gt;
-    &lt;feed id="wikipedia-feed" count="10"
-          src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
-          template-url="templates/wikipedia-featured-article.html"
-          post-render="wikipediaFeedPostRender();"/&gt;</pre>
+&lt;script type="text/javascript"&gt;
+//run only trusted code here :)
+function wikipediaFeedPostRender() {
+    $('#wikipedia-feed').find('a').each(function (idx, anchor) {
+        anchor.target = '_new';
+        anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+    })
+}
+&lt;/script&gt;
+&lt;feed id="wikipedia-feed" count="10"
+      src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+      template-url="templates/wikipedia-featured-article.html"
+      post-render="wikipediaFeedPostRender();"/&gt;</pre>
+        </div>
+        <div class="tab-pane" id="wikipedia-featured-article">
+            <h1>Template</h1>
+        </div>
+    </div>
     <script type="text/javascript">
         window.prettyPrint();
     </script>
