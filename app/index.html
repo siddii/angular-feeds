@@ -60,8 +60,7 @@
             <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
                 <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new"
                                                                                         href="http://en.wikipedia.org/wiki/Media_RSS">media
-                    feeds</a> using <i>simple</i> HTML markup
-                (aka Directives).
+                    feeds</a> using <i>simple</i> HTML markup.
                 It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for
                 reading & parsing feeds.
                 It comes with default template for displaying content. However, you can configure it to use a different
@@ -132,10 +131,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div ng-include src="'feed-control.html'"></div>
-                    <h3 class="panel-title">Hacker News</h3>
+                    <h3 class="panel-title">Reddit (<i>/r/programming</i>)</h3>
                 </div>
                 <div class="panel-body">
-                    <feed src="https://news.ycombinator.com/rss"/>
+                    <div class="feed-block">
+                        <feed src="http://www.reddit.com/r/programming/.rss"/>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/reddit-feed-code.html'"></div>
                 </div>
             </div>
         </div>
