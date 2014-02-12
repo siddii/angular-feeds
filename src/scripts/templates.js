@@ -3,12 +3,8 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('feed-list.html',
     "<div>\n" +
-    "    <div ng-if=\"!loading && error\" class=\"alert alert-danger\">\n" +
-    "        <h4 class=\"text-center\">Oops... Something bad happened, please try later :(</h4>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div ng-if=\"feeds.length == 0\" class=\"alert alert-info\">\n" +
-    "        <h4 class=\"text-center\">Nothing to show here... <br/> Please try later...</h4>\n" +
+    "    <div ng-show=\"error\" class=\"alert alert-danger\">\n" +
+    "        <h5 class=\"text-center\">Oops... Something bad happened, please try later :(</h5>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"media-list\">\n" +

@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 9:21 AM
+ * angular-feeds - v0.0.1 - 2014-02-12 1:39 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -14,9 +14,9 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
       summary: '=summary'
     },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
-      $scope.$watch('finishedLoading', function (value){
+      $scope.$watch('finishedLoading', function (value) {
         if ($attrs.postRender && value) {
-          $timeout(function (){
+          $timeout(function () {
             new Function($attrs.postRender)();
           });
         }
@@ -27,31 +27,30 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
       var spinner = $templateCache.get('feed-spinner.html');
       $element.append($compile(spinner)($scope));
 
-      function pushFeeds(feedsObj) {
-        for (var i = 0; i < feedsObj.length; i++) {
-          $scope.feeds.push(feedsObj[i]);
+      function renderTemplate(templateHTML, feedsObj) {
+        $element.append($compile(templateHTML)($scope));
+        if (feedsObj) {
+          for (var i = 0; i < feedsObj.length; i++) {
+            $scope.feeds.push(feedsObj[i]);
+          }
         }
       }
 
       feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
-        if (feedsObj.length > 0) {
-
-          $element.find('.spinner').slideUp();
-          if ($attrs.templateUrl) {
-            $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml){
-              $element.append($compile(templateHtml)($scope));
-              pushFeeds(feedsObj);
-            });
-          }
-          else {
-            $element.append($compile($templateCache.get('feed-list.html'))($scope));
-            pushFeeds(feedsObj)
-          }
+        if ($attrs.templateUrl) {
+          $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
+            renderTemplate(templateHtml, feedsObj);
+          });
         }
-      }, function (error) {
-        $scope.error = error;
+        else {
+          renderTemplate($templateCache.get('feed-list.html'), feedsObj);
+        }
+      },function (error) {
         console.error('Error loading feed ', error);
-      }).finally(function (){
+        $scope.error = error;
+        renderTemplate($templateCache.get('feed-list.html'));
+      }).finally(function () {
+        $element.find('.spinner').slideUp();
         $scope.$evalAsync('finishedLoading = true')
       });
     }]
@@ -158,12 +157,8 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
 
   $templateCache.put('feed-list.html',
     "<div>\n" +
-    "    <div ng-if=\"!loading && error\" class=\"alert alert-danger\">\n" +
-    "        <h4 class=\"text-center\">Oops... Something bad happened, please try later :(</h4>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div ng-if=\"feeds.length == 0\" class=\"alert alert-info\">\n" +
-    "        <h4 class=\"text-center\">Nothing to show here... <br/> Please try later...</h4>\n" +
+    "    <div ng-show=\"error\" class=\"alert alert-danger\">\n" +
+    "        <h5 class=\"text-center\">Oops... Something bad happened, please try later :(</h5>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"media-list\">\n" +
