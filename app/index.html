@@ -1,154 +1,170 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Angular Feeds - an AngularJS module for Atom, RSS & media feeds...</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="angular-feeds/angular-feeds.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/prettify.css">
-  </head>
-  <body ng-app="angular-feeds-demo">
+</head>
+<body ng-app="angular-feeds-demo">
 
-  <!-- Fixed navbar -->
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="#"><i class="fa fa-rss"></i> Angular Feeds</a>
-          </div>
-          <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                  <li class="active" class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
-                      <ul class="dropdown-menu">
-                          <li><a href="#">Stack Overflow <i>AngularJS</i> Questions</a></li> <!-- http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest -->
-                          <li><a href="#">Wikipedia Featured Articles</a></li> <!-- http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom -->
-                          <li><a href="#">Reddit (<i>/r/programming</i>)</a></li> <!-- http://www.reddit.com/r/programming/.rss -->
-                      </ul>
-                  </li>
-                  <li><a href="#api">API</a></li>
-                  <li><a href="#code">Code</a></li>
-              </ul>
-          </div><!--/.nav-collapse -->
-      </div>
-  </div>
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-rss"></i> Angular Feeds</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Stack Overflow <i>AngularJS</i> Questions</a></li>
+                        <!-- http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest -->
+                        <li><a href="#">Wikipedia Featured Articles</a></li>
+                        <!-- http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom -->
+                        <li><a href="#">Reddit (<i>/r/programming</i>)</a></li>
+                        <!-- http://www.reddit.com/r/programming/.rss -->
+                    </ul>
+                </li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#code">Code</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
 
-  <div class="container">
-      <div class="row">
-          <div class="col-sm-12">
-          <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
-              <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new" href="http://en.wikipedia.org/wiki/Media_RSS">media feeds</a> using <i>simple</i> HTML markup
-              (aka Directives).
-              It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for reading & parsing feeds.
-              It comes with default template for displaying content. However, you can configure it to use a different template of your choice.
-          </p>
-          <p>Following are some examples to help you understand its usage. Please feel free to poke around the code & let me know your thoughts & feedback.</p>
-          </div>
-      </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
+                <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new"
+                                                                                        href="http://en.wikipedia.org/wiki/Media_RSS">media
+                    feeds</a> using <i>simple</i> HTML markup
+                (aka Directives).
+                It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for
+                reading & parsing feeds.
+                It comes with default template for displaying content. However, you can configure it to use a different
+                template of your choice.
+            </p>
 
-      <div class="page-header">
-          <h3>Examples</h3>
-      </div>
+            <p>Following are some examples to help you understand its usage. Please feel free to poke around the code &
+                let me know your thoughts & feedback.</p>
+        </div>
+    </div>
 
-      <div class="row" ng-controller="FeedController">
-          <div class="col-sm-12">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <div ng-include src="'feed-control.html'"></div>
-                      <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
-                  </div>
-                  <div class="panel-body">
-                      <div class="feed-block">
-                          <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"></feed>
-                      </div>
-                      <div style="display: none;" class="code-block" ng-include="'templates/stackoverflow-feed-code.html'"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
+    <div class="page-header">
+        <h3>Examples</h3>
+    </div>
 
-      <div class="row">
-          <div class="col-sm-12">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <div ng-include src="'feed-control.html'"></div>
-                      <h3 class="panel-title">Wikipedia Featured Articles</h3>
-                  </div>
-                  <div class="panel-body">
-                      <script type="text/javascript">
-                          function wikipediaFeedPostRender(scope) {
-                              $('#wikipedia-feed').find('a').each(function (idx, anchor) {
-                                  anchor.target = '_new';
-                                  anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
-                              })
-                          }
-                      </script>
-                      <feed id="wikipedia-feed" count="10" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();"/>
-                      <!--<pre style="display: none;" class="prettyprint linenums">&lt;script type="text/javascript"&gt;-->
-                      <!--function wikipediaFeedPostRender(scope) {-->
-                      <!--console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);-->
-                      <!--}-->
-                      <!--&lt;/script&gt;-->
-                      <!--&lt;feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" post-render="wikipediaFeedPostRender();"/&gt;</pre>-->
-                  </div>
-              </div>
-          </div>
-      </div>
+    <div class="row" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block">
+                        <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
+                              count="5"></feed>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/stackoverflow-feed-code.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      <div class="row">
-          <div class="col-sm-12">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                      <div ng-include src="'feed-control.html'"></div>
-                      <h3 class="panel-title">Hacker News</h3>
-                  </div>
-                  <div class="panel-body">
-                      <!-- directive: feedMarkup -->
-                      <feed src="https://news.ycombinator.com/rss"/>
-                  </div>
-              </div>
-          </div>
-      </div>
+    <div class="row" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Wikipedia Featured Articles</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block">
+                        <script type="text/javascript">
+                            function wikipediaFeedPostRender(scope) {
+                                $('#wikipedia-feed').find('a').each(function (idx, anchor) {
+                                    anchor.target = '_new';
+                                    anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+                                })
+                            }
+                        </script>
+                        <feed id="wikipedia-feed" count="10"
+                              src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+                              template-url="templates/wikipedia-featured-article.html"
+                              post-render="wikipediaFeedPostRender();"/>
+                    </div>
+                    <div style="display: none;" class="code-block"
+                         ng-include="'templates/wikipedia-feed-code.html'"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-controller="FeedController">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'feed-control.html'"></div>
+                    <h3 class="panel-title">Hacker News</h3>
+                </div>
+                <div class="panel-body">
+                    <feed src="https://news.ycombinator.com/rss"/>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-  </div>
+</div>
 
 
+<!-- Google Feeds script -->
+<script type="text/javascript"
+        src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
 
-  <!-- Google Feeds script -->
-  <script type="text/javascript"
-          src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
 
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.min.js"></script>
-    <![endif]-->
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="angular-feeds/angular-feeds.js"></script>
 
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="angular-feeds/angular-feeds.js"></script>
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/prettify.js"></script>
-        <script src="scripts/application.js"></script>
-  <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/prettify.js"></script>
+<script src="scripts/application.js"></script>
+<!-- endbuild -->
 </body>
 </html>
