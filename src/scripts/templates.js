@@ -1,7 +1,7 @@
 angular.module('feeds').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('list.html',
+  $templateCache.put('feed-list.html',
     "<div>\n" +
     "    <div ng-if=\"!loading && error\" class=\"alert alert-danger\">\n" +
     "        <h4 class=\"text-center\">Oops... Something bad happened, please try later :(</h4>\n" +
@@ -24,7 +24,7 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('spinner.html',
+  $templateCache.put('feed-spinner.html',
     "<div class=\"spinner\">\n" +
     "    <div class=\"bar1\"></div>\n" +
     "    <div class=\"bar2\"></div>\n" +

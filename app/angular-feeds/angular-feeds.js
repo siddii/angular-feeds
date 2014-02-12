@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-11 8:21 PM
+ * angular-feeds - v0.0.1 - 2014-02-12 8:54 AM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -25,7 +25,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
       $scope.feeds = [];
 
-      var spinner = $templateCache.get('spinner.html');
+      var spinner = $templateCache.get('feed-spinner.html');
       $element.append($compile(spinner)($scope));
 
       feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
@@ -33,7 +33,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
           $element.find('.spinner').slideUp();
 
-          $element.append($compile($templateCache.get('list.html'))($scope));
+          $element.append($compile($templateCache.get('feed-list.html'))($scope));
 
           for (var i = 0; i < feedsObj.length; i++) {
             $scope.feeds.push(feedsObj[i]);
@@ -147,7 +147,7 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 angular.module('feeds').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('list.html',
+  $templateCache.put('feed-list.html',
     "<div>\n" +
     "    <div ng-if=\"!loading && error\" class=\"alert alert-danger\">\n" +
     "        <h4 class=\"text-center\">Oops... Something bad happened, please try later :(</h4>\n" +
@@ -170,7 +170,7 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
   );
 
 
-  $templateCache.put('spinner.html',
+  $templateCache.put('feed-spinner.html',
     "<div class=\"spinner\">\n" +
     "    <div class=\"bar1\"></div>\n" +
     "    <div class=\"bar2\"></div>\n" +

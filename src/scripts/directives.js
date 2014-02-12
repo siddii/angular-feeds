@@ -18,7 +18,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
       $scope.feeds = [];
 
-      var spinner = $templateCache.get('spinner.html');
+      var spinner = $templateCache.get('feed-spinner.html');
       $element.append($compile(spinner)($scope));
 
       feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
@@ -26,7 +26,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 
           $element.find('.spinner').slideUp();
 
-          $element.append($compile($templateCache.get('list.html'))($scope));
+          $element.append($compile($templateCache.get('feed-list.html'))($scope));
 
           for (var i = 0; i < feedsObj.length; i++) {
             $scope.feeds.push(feedsObj[i]);
