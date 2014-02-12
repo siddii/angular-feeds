@@ -29,3 +29,7 @@ body {
     top: 3%;
     color: #000000;
 }
+
+.carousel-inner {
+    padding: 10px;
+}

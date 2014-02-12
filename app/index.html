@@ -90,38 +90,8 @@
                               console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
                           }
                       </script>
-                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();">
-                          <div ng-repeat="feed in feeds | orderBy: '-publishedDate'" ng-class="{active : $index==$first}">
-                              <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
-                              <p ng-bind-html="!summary ? feed.content : feed.contentSnippet"></p>
-                          </div>
-                          <!--<div id="wikipedia-featured-article-carousel" class="carousel slide" data-ride="carousel">-->
-                              <!--<ol class="carousel-indicators">-->
-                                  <!--<li data-target="#wikipedia-featured-article-carousel" data-slide-to="0" class="active">-->
-
-                                  <!--</li>-->
-                                  <!--<li data-target="#wikipedia-featured-article-carousel" data-slide-to="1"></li>-->
-                                  <!--<li data-target="#wikipedia-featured-article-carousel" data-slide-to="2"></li>-->
-                              <!--</ol>-->
-
-                              <!--&lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-                              <!--<div class="carousel-inner">-->
-                                  <!--<div ng-repeat="feed in feeds | orderBy: '-publishedDate'" ng-class="{active : $index==$first}">-->
-                                      <!--<h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>-->
-                                      <!--<p ng-bind-html="!summary ? feed.content : feed.contentSnippet"></p>-->
-                                  <!--</div>-->
-                              <!--</div>-->
-
-                              <!--&lt;!&ndash; Controls &ndash;&gt;-->
-                              <!--<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">-->
-                                  <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
-                              <!--</a>-->
-                              <!--<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">-->
-                                  <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
-                              <!--</a>-->
-                          <!--</div>-->
-                      </feed>
-                       <!--<pre style="display: none;" class="prettyprint linenums">&lt;script type="text/javascript"&gt;-->
+                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();"/>
+                      <!--<pre style="display: none;" class="prettyprint linenums">&lt;script type="text/javascript"&gt;-->
                       <!--function wikipediaFeedPostRender(scope) {-->
                       <!--console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);-->
                       <!--}-->
