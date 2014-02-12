@@ -71,8 +71,10 @@
                       <h3 class="panel-title">Stack Overflow <i>AngularJS</i> Questions</h3>
                   </div>
                   <div class="panel-body">
-                      <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"></feed>
-                      <pre style="display: none;" class="prettyprint linenums">&lt;feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"/&gt;</pre>
+                      <div class="feed-block">
+                          <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"></feed>
+                      </div>
+                      <div style="display: none;" class="code-block" ng-include="'templates/stackoverflow-feed-code.html'"></div>
                   </div>
               </div>
           </div>
@@ -88,7 +90,10 @@
                   <div class="panel-body">
                       <script type="text/javascript">
                           function wikipediaFeedPostRender(scope) {
-                              console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
+                              $('#wikipedia-feed').find('a').each(function (idx, anchor) {
+                                  anchor.target = '_new';
+                                  anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+                              })
                           }
                       </script>
                       <feed id="wikipedia-feed" count="10" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();"/>

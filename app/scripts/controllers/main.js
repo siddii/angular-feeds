@@ -1,18 +1,14 @@
 'use strict';
 
 angular.module('angular-feeds-demo')
-  .controller('FeedController', function ($scope, $element) {
-    $scope.markup = false;
-
-    $scope.toggleMarkup = function () {
-      var fadeElements = ['feed ul', 'pre'];
-
-      $element.find(!$scope.markup ? fadeElements[0] : fadeElements[1]).fadeOut(function (){
-        $element.find(!$scope.markup ? fadeElements[1] : fadeElements[0]).fadeIn(function (){
-          $scope.$apply(function (){
-            $scope.markup = !$scope.markup;
-          });
-        });
+  .controller('FeedController', ['$scope', '$element', function ($scope, $element) {
+    $scope.toggleCode = function (code) {
+      var fadeElements = ['div.feed-block', 'div.code-block'];
+      if (!code) {
+        fadeElements.reverse();
+      }
+      $element.find(fadeElements[0]).fadeOut(function () {
+        $element.find(fadeElements[1]).fadeIn();
       });
     };
-  });
+  }]);
