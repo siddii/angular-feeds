@@ -1,0 +1,6 @@
+&lt;script type="text/javascript"&gt;
+    function wikipediaFeedPostRender(scope) {
+        console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
+    }
+&lt;/script&gt;
+&lt;feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" post-render="wikipediaFeedPostRender();"/&gt;
