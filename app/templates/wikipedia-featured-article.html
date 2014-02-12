@@ -1,12 +1,9 @@
 <div id="wikipedia-featured-articles" class="carousel slide" data-ride="carousel" data-interval="false">
-    <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#wikipedia-featured-articles" data-slide-to="0" class="active"></li>
         <li data-target="#wikipedia-featured-articles" data-slide-to="1"></li>
         <li data-target="#wikipedia-featured-articles" data-slide-to="2"></li>
     </ol>
-
-    <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <div ng-repeat="feed in feeds" class="item" ng-class="{active: $index==0}">
             <h4 class="text-center"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
