@@ -91,7 +91,7 @@
                               console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
                           }
                       </script>
-                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();"/>
+                      <feed id="wikipedia-feed" count="10" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();"/>
                       <!--<pre style="display: none;" class="prettyprint linenums">&lt;script type="text/javascript"&gt;-->
                       <!--function wikipediaFeedPostRender(scope) {-->
                       <!--console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);-->
