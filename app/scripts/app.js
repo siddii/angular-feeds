@@ -30,14 +30,23 @@ angular.module('angular-feeds-demo', [
       }
     }
 
+    function checkNavbarToggle() {
+      var $navbarToggle = $('.navbar-toggle');
+      if ($navbarToggle.is(':visible')) {
+        $navbarToggle.click();
+      }
+    }
+
     $scope.gotoPage = function (pageId, panelId) {
       if ($scope.page === pageId) {
         scrollToPanel(panelId);
+        checkNavbarToggle();
         return;
       }
       $($scope.page).fadeOut();
       $(pageId).fadeIn();
       $scope.page = pageId;
       scrollToPanel(panelId);
+      checkNavbarToggle();
     };
   }]);
