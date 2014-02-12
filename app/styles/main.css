@@ -40,3 +40,8 @@ body {
 .carousel-inner {
     padding: 10px;
 }
+
+hr {
+    margin-top: 0;
+    margin-bottom: 0;
+}
