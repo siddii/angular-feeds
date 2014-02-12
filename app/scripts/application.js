@@ -152,8 +152,4 @@ $.ajaxTransport('jsonpi', function(opts, originalOptions, jqXHR) {
     }
   }
 })
-
-  setTimeout(function (){
-    window.prettyPrint();
-  }, 2000); //Yuck!
 }(window.jQuery)
