@@ -5,7 +5,77 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <p></p>
+            <p>API for this module is pretty simple. Currently it has only one directive & a service.
+                Most of the <i>heavy-weight</i> lifting is done through <a target="_new"
+                                                                           href="https://developers.google.com/feed/">Google
+                    Feeds</a>.
+                But, all those complexities are abstracted to the end user.
+            </p>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Feed Directive</h4>
+
+            <p>At the very basic you just need <code ng-non-bindable>&lt;feed/&gt;</code> directive to render the feed.
+                The only <i>required</i> attribute is the feed url.<br/>
+                <em>Note that it should be publicly accessible url.</em>
+            </p>
+            <h4>
+                Attributes</h4>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Required
+                    </th>
+                    <th>
+                        Default value
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        url
+                    </td>
+                    <td>
+                        true
+                    </td>
+                    <td>
+                        Note that it should be a publicly accessible url
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        summary<br/>
+                    </td>
+                    <td>
+                        false
+                    </td>
+                    <td>
+                        <em>false</em><br/>By default, the template displays the full feed content. If this is set to
+                        `true`, it will display only the short summary.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        template-url
+                    </td>
+                    <td>
+                        false
+                    </td>
+                    <td>
+                        This is where you can customize the display of your feed content as you desire
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

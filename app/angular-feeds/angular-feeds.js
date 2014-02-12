@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 3:31 PM
+ * angular-feeds - v0.0.1 - 2014-02-12 4:35 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -62,7 +62,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
 angular.module('feeds', ['feeds-services', 'feeds-directives']);
 'use strict';
 
-angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feedStorage', function ($q, $sce, feedStorage) {
+angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feedCache', function ($q, $sce, feedCache) {
 
     function sanitizeFeedEntry(feedEntry) {
       feedEntry.title = $sce.trustAsHtml(feedEntry.title);
@@ -71,10 +71,14 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       return feedEntry;
     }
 
-    var getFeeds = function (src, count) {
+    var getFeeds = function (feedURL, count) {
       var deferred = $q.defer();
 
-      var feed = new google.feeds.Feed(src);
+      if (feedCache.hasCache(feedURL)) {
+        return deferred.resolve(sanitizeFeedEntry(feedCache.get(feedURL)));
+      }
+
+      var feed = new google.feeds.Feed(feedURL);
       if (count) {
         feed.includeHistoricalEntries();
         feed.setNumEntries(count);
@@ -85,6 +89,7 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
           deferred.reject(response.error);
         }
         else {
+          feedCache.set(response.feed.entries);
           for (var i = 0; i < response.feed.entries.length; i++) {
             sanitizeFeedEntry(response.feed.entries[i]);
           }
@@ -98,8 +103,8 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       getFeeds: getFeeds
     };
   }])
-  .factory('feedStorage', function () {
-    var CACHE_INTERVAL = 1000 * 60 * 15; //15 minutes
+  .factory('feedCache', function () {
+    var CACHE_INTERVAL = 1000 * 60 * 5; //5 minutes
 
     function cacheTimes() {
       if ('CACHE_TIMES' in localStorage) {
@@ -114,34 +119,13 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
     }
 
     return {
-      setValue: function (key, value) {
-        if (window.Android) {
-          window.Android.setValue(key, angular.toJson(value));
-        }
-        else {
-          localStorage[key] = angular.toJson(value);
-        }
-      },
-      getValue: function (key, defaultValue) {
-        if (window.Android) {
-          var value = window.Android.getValue(key, defaultValue);
-          if (!value || value === 'undefined') {
-            return defaultValue
-          }
-          return angular.fromJson(value);
-        }
-        else if (localStorage[key] != undefined) {
-          return angular.fromJson(localStorage[key]);
-        }
-        return defaultValue ? defaultValue : null;
-      },
-      setCache: function (name, obj) {
+      set: function (name, obj) {
         localStorage[name] = angular.toJson(obj);
         var CACHE_TIMES = cacheTimes();
         CACHE_TIMES[name] = new Date().getTime();
         localStorage['CACHE_TIMES'] = angular.toJson(CACHE_TIMES);
       },
-      getCache: function (name) {
+      get: function (name) {
         if (hasCache(name)) {
           return angular.fromJson(localStorage[name]);
         }
