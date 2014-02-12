@@ -23,6 +23,13 @@ body {
     cursor: pointer;
 }
 
+.carousel-control.left {
+    background-image: none;
+}
+.carousel-control.right {
+    background-image: none;
+}
+
 .carousel-control .glyphicon-chevron-left,
 .carousel-control .glyphicon-chevron-right {
     position: absolute;
