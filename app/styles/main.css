@@ -22,3 +22,9 @@ body {
     font-weight: bold;
     cursor: pointer;
 }
+
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+    position: absolute;
+    top: 3%;
+}

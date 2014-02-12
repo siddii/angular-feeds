@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 8:54 AM
+ * angular-feeds - v0.0.1 - 2014-02-12 9:21 AM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -7,14 +7,13 @@
  */
 'use strict';
 
-angular.module('feeds-directives', []).directive('feed', ['feedService', '$compile', '$templateCache', function (feedService, $compile, $templateCache) {
+angular.module('feeds-directives', []).directive('feed', ['feedService', '$compile', '$templateCache', '$http', function (feedService, $compile, $templateCache, $http) {
   return  {
     restrict: 'E',
     scope: {
       summary: '=summary'
     },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
-
       $scope.$watch('finishedLoading', function (value){
         if ($attrs.postRender && value) {
           $timeout(function (){
@@ -28,15 +27,25 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
       var spinner = $templateCache.get('feed-spinner.html');
       $element.append($compile(spinner)($scope));
 
+      function pushFeeds(feedsObj) {
+        for (var i = 0; i < feedsObj.length; i++) {
+          $scope.feeds.push(feedsObj[i]);
+        }
+      }
+
       feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
         if (feedsObj.length > 0) {
 
           $element.find('.spinner').slideUp();
-
-          $element.append($compile($templateCache.get('feed-list.html'))($scope));
-
-          for (var i = 0; i < feedsObj.length; i++) {
-            $scope.feeds.push(feedsObj[i]);
+          if ($attrs.templateUrl) {
+            $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml){
+              $element.append($compile(templateHtml)($scope));
+              pushFeeds(feedsObj);
+            });
+          }
+          else {
+            $element.append($compile($templateCache.get('feed-list.html'))($scope));
+            pushFeeds(feedsObj)
           }
         }
       }, function (error) {

@@ -90,7 +90,7 @@
                               console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
                           }
                       </script>
-                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" post-render="wikipediaFeedPostRender();">
+                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" template-url="templates/wikipedia-featured-article.html" post-render="wikipediaFeedPostRender();">
                           <div ng-repeat="feed in feeds | orderBy: '-publishedDate'" ng-class="{active : $index==$first}">
                               <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
                               <p ng-bind-html="!summary ? feed.content : feed.contentSnippet"></p>
