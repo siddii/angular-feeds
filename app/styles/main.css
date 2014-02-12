@@ -23,6 +23,10 @@ body {
     cursor: pointer;
 }
 
+.carousel-control {
+    width: 0;
+}
+
 .carousel-control.left {
     background-image: none;
 }
