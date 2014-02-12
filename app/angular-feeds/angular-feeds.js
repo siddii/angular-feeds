@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-11 3:40 PM
+ * angular-feeds - v0.0.1 - 2014-02-11 8:00 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -15,7 +15,23 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
     },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
 
+      $scope.$watch('$last', function (oldValue, newValue){
+        console.log('#### oldValue = ', oldValue, newValue);
+        if (newValue && $attrs.postRender) {
+          console.log('#### oldValue = ', oldValue, newValue);
+          new Function($attrs.postRender)();
+        }
+      });
+
       $scope.feeds = [];
+
+      $scope.postRender = function (){
+        if ($attrs.postRender) {
+          $timeout(function (){
+            new Function($attrs.postRender)();
+          }, 2000)
+        }
+      };
 
       var spinner = $templateCache.get('spinner.html');
       $element.append($compile(spinner)($scope));
@@ -34,6 +50,8 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
       }, function (error) {
         $scope.error = error;
         console.error('Error loading feed ', error);
+      }).finally(function (){
+        $scope.postRender();
       });
     }]
   }

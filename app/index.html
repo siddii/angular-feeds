@@ -85,7 +85,12 @@
                       <h3 class="panel-title">Wikipedia Featured Articles</h3>
                   </div>
                   <div class="panel-body">
-                      <feed src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"/>
+                      <script type="text/javascript">
+                          function wikipediaFeedPostRender(scope) {
+                              console.log('#### Wikipedia Feed Post Render Anchors', $('#wikipedia-feed').find('a').length);
+                          }
+                      </script>
+                      <feed id="wikipedia-feed" src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom" post-render="wikipediaFeedPostRender();"/>
                   </div>
               </div>
           </div>
