@@ -1,5 +1,18 @@
 <div>
-    <pre class="prettyprint linenums">&lt;feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest" count="5"/&gt;</pre>
+    <pre class="prettyprint linenums">
+    &lt;script type="text/javascript"&gt;
+    //run only trusted code here :)
+    function wikipediaFeedPostRender() {
+        $('#wikipedia-feed').find('a').each(function (idx, anchor) {
+            anchor.target = '_new';
+            anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+        })
+    }
+    &lt;/script&gt;
+    &lt;feed id="wikipedia-feed" count="10"
+          src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+          template-url="templates/wikipedia-featured-article.html"
+          post-render="wikipediaFeedPostRender();"/&gt;</pre>
     <script type="text/javascript">
         window.prettyPrint();
     </script>

@@ -106,7 +106,8 @@
                 <div class="panel-body">
                     <div class="feed-block">
                         <script type="text/javascript">
-                            function wikipediaFeedPostRender(scope) {
+                            //run only trusted code here :)
+                            function wikipediaFeedPostRender() {
                                 $('#wikipedia-feed').find('a').each(function (idx, anchor) {
                                     anchor.target = '_new';
                                     anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
