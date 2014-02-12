@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('angular-feeds-demo', [
-  'feeds',
-  'ngSanitize',
-  'ngRoute'
-]).controller('FeedController', ['$scope', '$element', function ($scope, $element) {
+    'feeds',
+    'ngSanitize',
+    'ngRoute'
+  ]).controller('FeedController', ['$scope', '$element', function ($scope, $element) {
     $scope.toggleCode = function (code) {
       var fadeElements = ['div.feed-block', 'div.code-block'];
       if (!code) {
@@ -16,11 +16,28 @@ angular.module('angular-feeds-demo', [
     };
   }]).controller('NavbarController', ['$scope', '$element', function ($scope, $element) {
 
-    var pageElements = ['#main-page', '#code', '#api'];
+    $scope.page = '#main-page';
 
-    $scope.gotoPage = function (id) {
-      $(pageElements.join(',')).fadeOut(function (){
-        $(id).fadeIn();
-      });
+    function scrollToPanel(panelId) {
+      if (panelId) {
+        var target = $(panelId);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        if (target.length) {
+          $('html,body').animate({
+            scrollTop: target.offset().top - 50
+          }, 1000);
+        }
+      }
+    }
+
+    $scope.gotoPage = function (pageId, panelId) {
+      if ($scope.page === pageId) {
+        scrollToPanel(panelId);
+        return;
+      }
+      $($scope.page).fadeOut();
+      $(pageId).fadeIn();
+      $scope.page = pageId;
+      scrollToPanel(panelId);
     };
   }]);

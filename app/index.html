@@ -35,16 +35,16 @@
         </div>
         <div class="navbar-collapse collapse" ng-controller="NavbarController">
             <ul class="nav navbar-nav">
-                <li class="active" class="dropdown">
+                <li class="{{page == '#main-page' ? 'active dropdown' : 'dropdown'}}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#stackoverflow-feed-panel">Stack Overflow <i>AngularJS</i> Questions</a></li>
-                        <li><a href="#wikipedia-feed-panel">Wikipedia Featured Articles</a></li>
-                        <li><a href="#reddit-feed-panel">Reddit (<i>/r/programming</i>)</a></li>
+                        <li><a ng-click="gotoPage('#main-page', '#stackoverflow-feed-panel');" href="#">Stack Overflow <i>AngularJS</i> Questions</a></li>
+                        <li><a ng-click="gotoPage('#main-page', '#wikipedia-feed-panel');" href="#">Wikipedia Featured Articles</a></li>
+                        <li><a ng-click="gotoPage('#main-page', '#reddit-feed-panel');" href="#">Reddit (<i>/r/programming</i>)</a></li>
                     </ul>
                 </li>
-                <li><a ng-click="gotoPage('#api');" href="#">API</a></li>
-                <li><a ng-click="gotoPage('#code');" href="#">Code</a></li>
+                <li class="{{page == '#api' ? 'active' : ''}}"><a ng-click="gotoPage('#api');" href="#">API</a></li>
+                <li class="{{page == '#code' ? 'active' : ''}}"><a ng-click="gotoPage('#code');" href="#">Code</a></li>
             </ul>
         </div>
         <!--/.nav-collapse -->
