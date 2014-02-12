@@ -27,4 +27,5 @@ body {
 .carousel-control .glyphicon-chevron-right {
     position: absolute;
     top: 3%;
+    color: #000000;
 }
