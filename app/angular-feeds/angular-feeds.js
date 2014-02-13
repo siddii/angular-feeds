@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 6:44 PM
+ * angular-feeds - v0.0.1 - 2014-02-12 7:05 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -36,7 +36,7 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
         }
       }
 
-      feedService.getFeeds($attrs.src, $attrs.count).then(function (feedsObj) {
+      feedService.getFeeds($attrs.url, $attrs.count).then(function (feedsObj) {
         if ($attrs.templateUrl) {
           $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
             renderTemplate(templateHtml, feedsObj);

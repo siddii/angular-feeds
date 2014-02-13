@@ -29,7 +29,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="feed-block">
-                        <feed summary="true" src="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
+                        <feed summary="true" url="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
                               count="5"></feed>
                     </div>
                     <div style="display: none;" class="code-block"
@@ -58,7 +58,7 @@
                             }
                         </script>
                         <feed id="wikipedia-feed" count="10"
-                              src="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
+                              url="http://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom"
                               template-url="templates/wikipedia-featured-article.html"
                               post-render="wikipediaFeedPostRender();"/>
                     </div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="feed-block">
-                        <feed src="http://www.reddit.com/r/programming/.rss"/>
+                        <feed url="http://www.reddit.com/r/programming/.rss"/>
                     </div>
                     <div style="display: none;" class="code-block"
                          ng-include="'templates/reddit-feed-code.html'"></div>
