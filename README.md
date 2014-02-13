@@ -1,5 +1,6 @@
 angular-feeds
 =============
 ## Introduction
-Angular Feeds is a angular module intended for working with Atom, RSS feeds easier. It internally uses Google Feeds API. 
-However, it is upto the developer if you need to use some other feed parsers. 
+Angular Feeds renders Atom, RSS and Media feeds simple HTML markup.
+It internally uses [Google Feeds](https://developers.google.com/feed/) Google Feeds for reading & parsing feeds and comes with default template for displaying feed content.
+You can also configure it to use a different template of your choice.
