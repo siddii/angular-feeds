@@ -52,6 +52,16 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label for="inputCount" class="col-sm-2 control-label">Summary:</label>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="summary">
+                    </label>
+                </div>
+            </div>
+        </div>
     </form>
 
     <div class="panel panel-default">
@@ -81,10 +91,11 @@
                 'feeds'
             ]).controller('FeedTesterController', ['$scope', '$compile', function ($scope, $compile) {
                 $scope.count = 10;
+                $scope.summary = false;
                 $scope.showFeed = function (){
                     var $panelBody = $('.panel-body');
                     $panelBody.html('');
-                    var feedHTML = "<feed url='" + $scope.url + "' count='" + $scope.count + "'/>";
+                    var feedHTML = "<feed url='" + $scope.url + "' count='" + $scope.count + "' summary='" + $scope.summary + "'/>";
                     $panelBody.append($compile(feedHTML)($scope));
                 };
             }]);
