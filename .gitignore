@@ -5,4 +5,5 @@ dist
 app/bower_components
 .idea/
 *.iml
+.DS_Store
 
