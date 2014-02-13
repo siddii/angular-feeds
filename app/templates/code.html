@@ -1,11 +1,48 @@
 <div class="container">
     <div class="page-header">
-        <h2>Code</h2>
+        <h3>Code</h3>
     </div>
 
-    <div class="row">
+    <div class="row" id="Getting Started">
         <div class="col-sm-12">
-            <h1>This is Code</h1>
+            <h4>Getting Started</h4>
+            <ol>
+                <li><p>First make sure to include Google Feeds API script preferably in the <code>&lt;head/&gt;</code> section</p>
+                    <pre class="prettyprint linenums">
+                        <!-- Google Feeds API script -->
+&lt;script
+type="text/javascript"
+src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"&gt;&lt;/script&gt;
+                    </pre>
+                </li>
+                <li><p>Now include Angular Feeds files after including AngularJS scripts</p>
+                    <pre class="prettyprint linenums">
+&lt;head&gt;
+...
+&lt;link rel="stylesheet" href="http://siddii.github.io/angular-feeds/angular-feeds/angular-feeds.min.css"/&gt;
+&lt;script src="http://siddii.github.io/angular-feeds/angular-feeds/angular-feeds.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;                        
+                    </pre>
+                </li>
+                <li><p>Make sure to inject <em>feeds</em> module into your app</p>
+                    <pre class="prettyprint linenums">
+angular.module('angular-feeds-demo', ['feeds',...])
+                    </pre>
+                </li>
+                <li>Use <code>&lt;feeds/&gt;</code> directive as you wish...</code></li>
+            </ol>
         </div>
+    </div>
+
+    <div class="row" id="contribute">
+    <div class="col-sm-12">
+    <h4>
+        Contributions welcome!</h4>
+    <p>
+        We welcome any or all kinds of contributions! Please submit <a
+            href="https://github.com/siddii/angular-feeds/pulls" target="_new">pull requests</a> or create <a
+            href="https://github.com/siddii/angular-feeds/issues" target="_new">issues</a> to contribute to this
+        project :)</p>
+    </div>
     </div>
 </div>
