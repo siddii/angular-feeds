@@ -24,21 +24,22 @@
         }
     </style>
 </head>
-<body ng-app="angular-feeds-tester">
+<body ng-app="angular-feeds-tester" ng-controller="FeedTesterController">
 
 <div class="container">
     <div class="page-header">
+        <a ng-show="isOrigin()" class="btn btn-default btn-sm pull-right" target="_new" href="feed-tester.html"><i class="fa fa-external-link"></i> Open in new window</a>
         <h3>Feed Tester</h3>
     </div>
-    <form class="form-horizontal" role="form" ng-controller="FeedTesterController">
+    <form class="form-horizontal" role="form">
         <div class="form-group">
             <label for="inputURL" class="col-sm-2 control-label">Feed URL:</label>
             <div class="col-sm-8">
-                <input type="url" ng-model="url" class="form-control" id="inputURL" placeholder="Feed URL">
-                <em>For ex. http://api.flickr.com/services/feeds/photos_public.gne?tags=interesting</em>
+                <input type="url" ng-model="url" class="form-control" id="inputURL" placeholder="RSS, Atom or media feed url">
+                <em>For ex. http://api.flickr.com/services/feeds/photos_public.gne?tags=nature</em>
             </div>
             <div class="col-sm-2">
-                <button type="button" ng-click="showFeed();" class="btn btn-default">Show Feed</button>
+                <button type="button" ng-click="showFeed();" ng-disabled="!url" class="btn btn-default">Show Feed</button>
             </div>
         </div>
         <div class="form-group">
@@ -97,6 +98,10 @@
                     $panelBody.html('');
                     var feedHTML = "<feed url='" + $scope.url + "' count='" + $scope.count + "' summary='" + $scope.summary + "'/>";
                     $panelBody.append($compile(feedHTML)($scope));
+                };
+
+                $scope.isOrigin = function (){
+                    return window.parent.location.href.indexOf('feed-tester.html') === -1;
                 };
             }]);
 </script>
