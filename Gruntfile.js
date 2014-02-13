@@ -42,7 +42,14 @@ module.exports = function (grunt) {
       },
       angularFeedsScript: {
         files: ['<%= angularFeeds.scriptsPath %>/{,*/}*.js'],
-        tasks: ['concat:angular_feeds_script'],
+        tasks: ['concat:angular_feeds_script', 'uglify:angular_feeds_script'],
+        options: {
+          livereload: true
+        }
+      },
+      angularFeedsStyles: {
+        files: ['<%= angularFeeds.stylesPath %>/{,*/}*.css'],
+        tasks: ['concat:angular_feeds_styles', 'cssmin:angular_feeds_styles'],
         options: {
           livereload: true
         }
@@ -276,31 +283,6 @@ module.exports = function (grunt) {
         ' * Licensed <%= pkg.licenses.type %> <<%= pkg.licenses.url %>>\n' +
         ' */\n'
     },
-
-//    concat: {
-//      compile_js: {
-//        options: {
-//          banner: '<%= meta.banner %>'
-//        },
-//        src: [
-//          'app/**/*.js'
-//        ],
-//        dest: '<%= dist_dir %>/<%= pkg.name %>.js'
-//      }
-//    },
-//
-//    uglify: {
-//      options: {
-//        banner: '<%= meta.banner %>'
-//      },
-//      files: {
-//        src: ['<%= concat.compile_js.dest %>'],
-//        dest: '<%= dist_dir %>/<%= pkg.name %>.min.js'
-//      }
-//    },
-//
-//
-//
     ngtemplates: {
       feeds: {
         cwd: 'src/templates/',
