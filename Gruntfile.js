@@ -369,13 +369,14 @@ module.exports = function (grunt) {
             '<%= yeoman.app %>/styles/{,*/}*.css'
           ]
         }
-      }
-    },
-    uglify: {
-      dist: {
+      },
+      angular_feeds_styles: {
+        options: {
+          banner: '<%= meta.banner %>'
+        },
         files: {
-          '<%= yeoman.dist %>/scripts/scripts.js': [
-            '<%= yeoman.dist %>/scripts/scripts.js'
+          '<%= yeoman.app %>//<%= pkg.name %>/<%= pkg.name %>.min.css': [
+            '<%= yeoman.app %>//<%= pkg.name %>/<%= pkg.name %>.css'
           ]
         }
       }
@@ -400,6 +401,15 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.app %>//<%= pkg.name %>/<%= pkg.name %>.css'
       },
       dist: {}
+    },
+    uglify: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
+      angular_feeds_script: {
+        src: ['<%= yeoman.app %>/<%= pkg.name %>/<%= pkg.name %>.js'],
+        dest: '<%= yeoman.app %>/<%= pkg.name %>/<%= pkg.name %>.min.js'
+      }
     },
 
     // Test settings
