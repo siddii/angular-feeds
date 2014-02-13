@@ -48,3 +48,15 @@ hr {
 .underline {
     text-decoration: underline;
 }
+
+#fork-me {
+    position: absolute;
+    top:0;
+    right:0;
+}
+
+@media (max-width: 979px) {
+    #fork-me {
+        display: none;
+    }
+}
