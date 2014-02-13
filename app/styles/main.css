@@ -18,11 +18,6 @@ body {
     margin: 5px 0;
 }
 
-.feed-control .fa {
-    font-weight: bold;
-    cursor: pointer;
-}
-
 .carousel-control {
     width: 0;
 }

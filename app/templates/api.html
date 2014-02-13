@@ -1,26 +1,19 @@
 <div class="container">
     <div class="page-header">
-        <h3>API</h3>
+        <h3>Feed Directive</h3>
     </div>
+
 
     <div class="row">
         <div class="col-sm-12">
-            <p>API for this module is pretty simple. Currently it has only one directive & a service.
+            <p>At the very basic, you just need <code ng-non-bindable>&lt;feed/&gt;</code> directive for displaying the feed content.
+                The only <i>required</i> attribute is the <em>url</em>.<br/>
+                Please note that url should be publicly accessible.
+            </p>
+            <p>
                 Most of the <i>heavy-weight</i> lifting is done through <a target="_new"
                                                                            href="https://developers.google.com/feed/">Google
-                    Feeds</a>.
-                But, all those complexities are abstracted to the end user.
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <h4>Feed Directive</h4>
-
-            <p>At the very basic you just need <code ng-non-bindable>&lt;feed/&gt;</code> directive to render the feed.
-                The only <i>required</i> attribute is the feed url.<br/>
-                <em>Note that it should be publicly accessible url.</em>
+                    Feeds</a> and all the complexities are completely abstracted to the end user.
             </p>
             <h4>
                 Attributes</h4>
@@ -64,13 +57,24 @@
                 </tr>
                 <tr>
                     <td>
+                        count<br/>
+                    </td>
+                    <td>
+                        false
+                    </td>
+                    <td>
+                        None. Specify the no. of items to display
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         template-url
                     </td>
                     <td>
                         false
                     </td>
                     <td>
-                        This is where you can customize the display of your feed content as you desire
+                        Specify the template url for displaying feed content
                     </td>
                 </tr>
                 </tbody>
