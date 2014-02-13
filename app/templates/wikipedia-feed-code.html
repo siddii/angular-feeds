@@ -13,7 +13,7 @@
 function wikipediaFeedPostRender() {
     $('#wikipedia-feed').find('a').each(function (idx, anchor) {
         anchor.target = '_new';
-        anchor.href = anchor.href.replace(window.location.href, 'http://en.wikipedia.org/');
+        anchor.href = anchor.href.replace(window.location.origin, 'http://en.wikipedia.org');
     })
 }
 &lt;/script&gt;
