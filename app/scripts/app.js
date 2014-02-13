@@ -2,8 +2,7 @@
 
 angular.module('angular-feeds-demo', [
     'feeds',
-    'ngSanitize',
-    'ngRoute'
+    'ngSanitize'
   ]).controller('FeedController', ['$scope', '$element', function ($scope, $element) {
     $scope.toggleCode = function (code) {
       var fadeElements = ['div.feed-block', 'div.code-block'];
