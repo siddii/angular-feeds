@@ -2,6 +2,12 @@
   "author": "Siddique Hameed",
   "name": "angular-feeds",
   "version": "0.0.1",
+  "homepage": "https://github.com/siddii/angular-feeds",
+  "description": "AngularJS module for Atom, RSS & media feeds",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/siddii/angular-feeds.git"
+  },
   "dependencies": {
     "angular": "1.2.6",
     "json3": "~3.2.6",
@@ -15,5 +21,7 @@
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6",
     "Font-Awesome": "*"
-  }
+  },
+  "main": ["./app/angular-feeds/angular-feeds.js", "./app/angular-feeds/angular-feeds.css"],
+  "ignore": ["./node_modules/", "./app/bower_components/"]
 }
