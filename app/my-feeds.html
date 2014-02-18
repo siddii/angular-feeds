@@ -20,6 +20,11 @@
         body {
             padding-top: 0;
         }
+
+        .feed-panel {
+            height: 500px;
+            overflow: auto;
+        }
     </style>
     <!-- Google Feeds API script -->
     <script type="text/javascript"
@@ -33,8 +38,20 @@
         <h3>My Feeds</h3>
     </div>
 
-
-
+    <div id="my-feeds" class="row">
+        <div ng-repeat="feed in feeds" class="col-sm-6">
+            <div class="panel panel-default feed-panel">
+                <div class="panel-heading">
+                    <!--<div ng-include src="'templates/feed-control.html'"></div>-->
+                    <h3 class="panel-title">{{feed.title}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="feed-block" feed-widget>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -51,10 +68,24 @@
 <script>
     angular.module('angular-my-feeds', [
                 'feeds'
-            ]).controller('MyFeedsController', ['$scope', '$compile', function ($scope, $compile) {
-                var url = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+            ]).controller('MyFeedsController', ['$scope', '$compile', '$http', '$rootScope', function ($scope, $compile, $http, $rootScope) {
                 $scope.isOrigin = function (){
+                    var url = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
                     return window.parent.location.href.indexOf(url) === -1;
+                };
+
+                $http.get('my-feeds.json').success(function (feeds) {
+                    $scope.feeds = feeds;
+                });
+            }])
+            .directive('feedWidget', ['$compile', function ($compile) {
+                return  {
+                    restrict: 'A',
+                    controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element) {
+                        var feed = $scope.feed;
+                        var feedHTML = "<feed url='" + feed.url + "' count='" + feed.count + "'/>";
+                        $element.append($compile(feedHTML)($scope));
+                    }]
                 };
             }]);
 </script>

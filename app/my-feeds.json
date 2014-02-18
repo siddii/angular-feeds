@@ -1,0 +1,12 @@
+[
+    {
+      "title": "Hacker News",
+      "url": "https://news.ycombinator.com/rss",
+      "count": 10
+    },
+    {
+      "title": "DZone Top Stories",
+      "url": "http://feeds.dzone.com/dzone/frontpage?format=xml",
+      "count": 10
+    }
+]
