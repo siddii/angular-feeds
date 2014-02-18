@@ -21,7 +21,7 @@
             padding-top: 0;
         }
 
-        .feed-panel {
+        .feed-body {
             height: 500px;
             overflow: auto;
         }
@@ -40,12 +40,12 @@
 
     <div id="my-feeds" class="row">
         <div ng-repeat="feed in feeds" class="col-sm-6">
-            <div class="panel panel-default feed-panel">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     <!--<div ng-include src="'templates/feed-control.html'"></div>-->
                     <h3 class="panel-title">{{feed.title}}</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body feed-body">
                     <div class="feed-block" feed-widget>
                     </div>
                 </div>
