@@ -17,25 +17,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="angular-feeds/angular-feeds.min.css">
-    <style>
-        body {
-            padding-top: 0;
-        }
-
-        .feed-body {
-            height: 400px;
-            overflow: auto;
-        }
-
-        .media {
-            margin-top: 0;
-        }
-
-        hr {
-            margin-bottom: 10px;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/my-feeds.css">
     <!-- Google Feeds API script -->
     <script type="text/javascript"
             src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
@@ -74,33 +56,6 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 <script src="angular-feeds/angular-feeds.min.js"></script>
-<script>
-    angular.module('angular-my-feeds', [
-                'feeds'
-            ]).controller('MyFeedsController', ['$scope', '$compile', '$http', '$rootScope', function ($scope, $compile, $http, $rootScope) {
-                $scope.isOrigin = function (){
-                    var url = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-                    return window.parent.location.href.indexOf(url) !== -1;
-                };
-
-                $http.get('my-feeds.json').success(function (feeds) {
-                    $scope.feeds = feeds;
-                });
-            }])
-            .directive('feedWidget', ['$compile', function ($compile) {
-                return  {
-                    restrict: 'A',
-                    controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element) {
-                        var feed = $scope.feed;
-                        var feedHTML = "<feed url='" + feed.url + "' count='" + feed.count + "' post-render='feedPostRender()'/>";
-                        $element.append($compile(feedHTML)($scope));
-                    }]
-                };
-            }]);
-
-    function feedPostRender($element) {
-        console.log('##### $element = ', $(this));
-    }
-</script>
+<script src="scripts/my-feeds.js"></script>
 </body>
 </html>
