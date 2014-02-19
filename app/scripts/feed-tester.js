@@ -1,4 +1,4 @@
-angular.module('angular-feeds-tester', [
+angular.module('feed-tester', [
     'feeds'
   ]).controller('FeedTesterController', ['$scope', '$compile', function ($scope, $compile) {
     $scope.count = 10;

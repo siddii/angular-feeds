@@ -1,4 +1,4 @@
-angular.module('angular-my-feeds', [
+angular.module('my-feeds', [
     'feeds'
   ])
   .controller('MyFeedsController', ['$scope', '$compile', '$http', '$rootScope', function ($scope, $compile, $http, $rootScope) {
