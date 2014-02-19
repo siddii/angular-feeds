@@ -13,5 +13,11 @@
     "title": "Reddit Programming",
     "url": "http://www.reddit.com/r/programming/.rss",
     "count": 10
+  },
+  {
+    "title": "NetTuts+",
+    "url": "http://feeds.feedburner.com/nettuts",
+    "summary": true,
+    "count": 10
   }
 ]
