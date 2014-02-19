@@ -8,10 +8,11 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
     },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
       $scope.$watch('finishedLoading', function (value) {
+        console.log('##### $attrs.postRender = ', $attrs.postRender);
         if ($attrs.postRender && value) {
-          $timeout(function () {
-            new Function($attrs.postRender)();
-          });
+          $timeout(function (){
+            new Function("element", $attrs.postRender + '(element);')($element);
+          }, 0);
         }
       });
 

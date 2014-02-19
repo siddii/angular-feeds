@@ -15,12 +15,12 @@ angular.module('angular-my-feeds', [
       restrict: 'A',
       controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element) {
         var feed = $scope.feed;
-        var feedHTML = "<feed url='" + feed.url + "' count='" + feed.count + "' post-render='feedPostRender()'/>";
+        var feedHTML = "<feed url='" + feed.url + "' count='" + feed.count + "' post-render='feedPostRender'/>";
         $element.append($compile(feedHTML)($scope));
       }]
     };
   }]);
 
-function feedPostRender($element) {
-  console.log('##### $element = ', $(this));
+function feedPostRender(element) {
+  $(element).find('a').attr('target', '_blank');
 }
