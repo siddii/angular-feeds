@@ -1,0 +1,62 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Angular Feeds - AngularJS module for Atom, RSS & media feeds...</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" type="image/ico" href="favicon.ico"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bower_components/Font-Awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="angular-feeds/angular-feeds.min.css">
+    <link rel="stylesheet" href="styles/my-feeds.css">
+    <!-- Google Feeds API script -->
+    <script type="text/javascript"
+            src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
+</head>
+<body ng-app="angular-my-feeds" ng-controller="MyFeedsController">
+
+<div class="container">
+    <div class="page-header">
+        <a ng-show="!isOrigin()" class="btn btn-default btn-sm pull-right" target="_new" href="my-feeds.html"><i class="fa fa-external-link"></i> Open in new window</a>
+        <h3><i ng-show="isOrigin()" class="fa fa-rss"></i> My Feeds</h3>
+    </div>
+
+    <div id="my-feeds" class="row">
+        <div ng-controller="FeedWidgetController" ng-repeat="feed in feeds" class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div ng-include src="'templates/feed-widget-control.html'"></div>
+                    <h3 class="panel-title">{{feed.title}}</h3>
+                </div>
+                <div ng-if="!collapsed" class="panel-body feed-body">
+                    <div class="feed-block" feed-widget>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<script src="bower_components/jquery/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="angular-feeds/angular-feeds.min.js"></script>
+<script src="scripts/my-feeds.js"></script>
+</body>
+</html>

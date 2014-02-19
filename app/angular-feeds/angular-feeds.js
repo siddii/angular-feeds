@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-12 9:50 PM
+ * angular-feeds - v0.0.1 - 2014-02-19 9:15 AM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -15,10 +15,11 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
     },
     controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element, $attrs, $timeout) {
       $scope.$watch('finishedLoading', function (value) {
+        console.log('##### $attrs.postRender = ', $attrs.postRender);
         if ($attrs.postRender && value) {
-          $timeout(function () {
-            new Function($attrs.postRender)();
-          });
+          $timeout(function (){
+            new Function("element", $attrs.postRender + '(element);')($element);
+          }, 0);
         }
       });
 
