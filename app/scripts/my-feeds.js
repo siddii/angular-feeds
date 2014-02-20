@@ -28,7 +28,7 @@ angular.module('my-feeds', [
 
     $scope.deleteFeed = function (){
       if (confirm('Are you sure you want to delete this feed?') &&  $scope.feeds.indexOf($scope.feed) > -1) {
-        console.log('##### Delete this feed');
+        $scope.feeds.splice($scope.feeds.indexOf($scope.feed), 1);
       }
     }
   }]);
