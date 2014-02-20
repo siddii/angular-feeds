@@ -23,3 +23,7 @@ hr {
 .fa-chevron-circle-up {
     cursor: pointer;
 }
+
+.panel-title {
+    cursor: pointer;
+}
