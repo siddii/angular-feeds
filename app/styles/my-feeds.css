@@ -16,11 +16,7 @@ hr {
     margin-top: 10px;
 }
 
-.fa-chevron-circle-down {
-    cursor: pointer;
-}
-
-.fa-chevron-circle-up {
+.fa {
     cursor: pointer;
 }
 

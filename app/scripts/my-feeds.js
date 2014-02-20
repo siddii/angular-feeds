@@ -16,7 +16,6 @@ angular.module('my-feeds', [
       restrict: 'A',
       controller: ['$scope', '$element', '$attrs', '$timeout', function ($scope, $element) {
         var feed = $scope.feed;
-        console.log('##### feed.summary = ', feed.summary);
         var feedHTML = "<feed url='" + feed.url + "' count='" + feed.count + "' summary=" + (feed.summary ? 'true' : 'false') + " post-render='feedPostRender'/>";
         $element.append($compile(feedHTML)($scope));
       }]
@@ -26,6 +25,12 @@ angular.module('my-feeds', [
     $scope.toggleFeed = function () {
       $scope.collapsed = !$scope.collapsed;
     };
+
+    $scope.deleteFeed = function (){
+      if (confirm('Are you sure you want to delete this feed?') &&  $scope.feeds.indexOf($scope.feed) > -1) {
+        console.log('##### Delete this feed');
+      }
+    }
   }]);
 
 function feedPostRender(element) {
