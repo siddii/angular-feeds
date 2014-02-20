@@ -146,6 +146,11 @@ module.exports = function (grunt) {
         cwd: 'src/templates/',
         src: '**.html',
         dest: 'src/scripts/templates.js'
+      },
+      "app-templates": {
+        cwd: 'app/',
+        src: 'templates/**.html',
+        dest: 'app/scripts/app-templates.js'
       }
     },
 

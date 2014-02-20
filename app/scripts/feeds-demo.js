@@ -1,8 +1,11 @@
 'use strict';
 
+angular.module('app-templates',[]);
+
 angular.module('feeds-demo', [
     'feeds',
-    'ngSanitize'
+    'ngSanitize',
+    'app-templates'
   ]).controller('FeedController', ['$scope', '$element', function ($scope, $element) {
     $scope.toggleCode = function (code) {
       var fadeElements = ['div.feed-block', 'div.code-block'];

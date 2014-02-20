@@ -1,5 +1,8 @@
+angular.module('app-templates',[]);
+
 angular.module('my-feeds', [
-    'feeds'
+    'feeds',
+    'app-templates'
   ])
   .controller('MyFeedsController', ['$scope', '$compile', '$http', 'storage', function ($scope, $compile, $http, storage) {
     $scope.isOrigin = function () {

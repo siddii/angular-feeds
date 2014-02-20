@@ -1,5 +1,8 @@
+angular.module('app-templates',[]);
+
 angular.module('feed-tester', [
-    'feeds'
+    'feeds',
+    'app-templates'
   ]).controller('FeedTesterController', ['$scope', '$compile', function ($scope, $compile) {
     $scope.count = 10;
     $scope.summary = false;
