@@ -13,5 +13,23 @@
     "title": "Reddit Programming",
     "url": "http://www.reddit.com/r/programming/.rss",
     "count": 10
+  },
+  {
+    "title": "NetTuts+",
+    "url": "http://feeds.feedburner.com/nettuts",
+    "summary": true,
+    "count": 10
+  },
+  {
+    "title": "A List Apart",
+    "url": "http://feeds.feedburner.com/alistapart/main",
+    "summary": true,
+    "count": 10
+  },
+  {
+    "title": "Think Vitamin",
+    "url": "http://feeds.feedburner.com/vitaminmasterfeed",
+    "summary": true,
+    "count": 10
   }
 ]

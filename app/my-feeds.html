@@ -22,7 +22,7 @@
     <script type="text/javascript"
             src="https://www.google.com/jsapi?autoload=%7B%22modules%22%3A%5B%7B%22name%22%3A%22feeds%22%2C%22version%22%3A%221.0%22%2C%22nocss%22%3Atrue%7D%5D%7D"></script>
 </head>
-<body ng-app="angular-my-feeds" ng-controller="MyFeedsController">
+<body ng-app="my-feeds" ng-controller="MyFeedsController">
 
 <div class="container">
     <div class="page-header">
@@ -35,12 +35,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div ng-include src="'templates/feed-widget-control.html'"></div>
-                    <h3 class="panel-title">{{feed.title}}</h3>
+                    <h3 ng-click="toggleFeed();" class="panel-title">{{feed.title}}</h3>
                 </div>
                 <div ng-if="!collapsed" class="panel-body feed-body">
                     <div class="feed-block" feed-widget>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div ng-show="feeds.length == 0" class="col-sm-12">
+            <div class="alert text-center alert-warning fade in">
+                Sorry, nothing to show here :(
             </div>
         </div>
     </div>

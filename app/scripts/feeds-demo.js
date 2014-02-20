@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('angular-feeds-demo', [
+angular.module('feeds-demo', [
     'feeds',
     'ngSanitize'
   ]).controller('FeedController', ['$scope', '$element', function ($scope, $element) {

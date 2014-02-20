@@ -16,10 +16,10 @@ hr {
     margin-top: 10px;
 }
 
-.fa-chevron-circle-down {
+.fa {
     cursor: pointer;
 }
 
-.fa-chevron-circle-up {
+.panel-title {
     cursor: pointer;
 }
