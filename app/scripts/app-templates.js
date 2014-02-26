@@ -1,6 +1,20 @@
 angular.module('app-templates').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('templates/add_feed_popover.html',
+    "<div>\n" +
+    "    <div>\n" +
+    "        <label for=\"url\">URL</label>\n" +
+    "        <input type=\"url\" class=\"form-control\" id=\"url\" placeholder=\"RSS, Atom or Media feed url\">\n" +
+    "    </div>\n" +
+    "    <div>\n" +
+    "        <label for=\"exampleInputPassword1\">Password</label>\n" +
+    "        <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\" placeholder=\"Password\">\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+
   $templateCache.put('templates/api.html',
     "<div class=\"container\">\n" +
     "    <div class=\"page-header\">\n" +

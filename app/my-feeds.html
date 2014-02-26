@@ -26,7 +26,10 @@
 
 <div class="container">
     <div class="page-header">
-        <a ng-show="!isOrigin()" class="btn btn-default btn-sm pull-right" target="_new" href="my-feeds.html"><i class="fa fa-external-link"></i> Open in new window</a>
+        <div class="pull-right">
+            <a ng-show="!isOrigin()" class="btn btn-default btn-sm" target="_new" href="my-feeds.html"><i class="fa fa-external-link"></i> Open in new window</a>&nbsp;
+            <button type="button" ng-click="showPopover();" data-html="true" class="btn btn-default glyphicon glyphicon-plus add-feed" data-html="hello" data-container="body" data-toggle="popover" data-placement="bottom"/>
+        </div>
         <h3><i ng-show="isOrigin()" class="fa fa-rss"></i> My Feeds</h3>
     </div>
 

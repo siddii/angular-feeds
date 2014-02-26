@@ -1,13 +1,23 @@
-angular.module('app-templates',[]);
+angular.module('app-templates', []);
 
 angular.module('my-feeds', [
     'feeds',
     'app-templates'
   ])
-  .controller('MyFeedsController', ['$scope', '$compile', '$http', 'storage', function ($scope, $compile, $http, storage) {
+  .controller('MyFeedsController', ['$scope', '$compile', '$http', 'storage', '$templateCache', '$sce', function ($scope, $compile, $http, storage, $templateCache, $sce) {
+
     $scope.isOrigin = function () {
       var url = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
       return window.parent.location.href.indexOf(url) !== -1;
+    };
+
+    $scope.addFeedPopover = function () {
+      console.log('#### Showing Add Feed Popover');
+    };
+
+    $scope.showPopover = function () {
+      console.log('#### Showing Popover');
+      $(this).popover('show');
     };
 
     $scope.$watch('feeds', function (newValue, oldValue) {
@@ -25,6 +35,9 @@ angular.module('my-feeds', [
       $scope.feeds = storage.get('feeds');
     }
 
+//    $('button.add-feed').popover('toggle', {content: function () {
+//      return $templateCache.get('templates/add_feed_popover.html');
+//    }});
   }])
   .directive('feedWidget', ['$compile', function ($compile) {
     return  {
