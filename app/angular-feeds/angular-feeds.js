@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.1 - 2014-02-19 2:50 PM
+ * angular-feeds - v0.0.3 - 2014-11-07 12:38 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2014 
@@ -68,6 +68,8 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       feedEntry.title = $sce.trustAsHtml(feedEntry.title);
       feedEntry.contentSnippet = $sce.trustAsHtml(feedEntry.contentSnippet);
       feedEntry.content = $sce.trustAsHtml(feedEntry.content);
+      feedEntry.publishedDate = new Date(feedEntry.publishedDate).getTime();
+      console.log('##### feedEntry with date = ', feedEntry);
       return feedEntry;
     }
 
@@ -144,7 +146,7 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "\n" +
     "    <ul class=\"media-list\">\n" +
-    "        <li ng-repeat=\"feed in feeds | orderBy: '-publishedDate'\" class=\"media\">\n" +
+    "        <li ng-repeat=\"feed in feeds | orderBy:publishedDate:reverse\" class=\"media\">\n" +
     "            <div class=\"media-body\">\n" +
     "                <h4 class=\"media-heading\"><a target=\"_new\" href=\"{{feed.link}}\" ng-bind-html=\"feed.title\"></a></h4>\n" +
     "                <p ng-bind-html=\"!summary ? feed.content : feed.contentSnippet\"></p>\n" +

@@ -4,7 +4,7 @@
     </div>
 
     <ul class="media-list">
-        <li ng-repeat="feed in feeds | orderBy: '-publishedDate'" class="media">
+        <li ng-repeat="feed in feeds | orderBy:publishedDate:reverse" class="media">
             <div class="media-body">
                 <h4 class="media-heading"><a target="_new" href="{{feed.link}}" ng-bind-html="feed.title"></a></h4>
                 <p ng-bind-html="!summary ? feed.content : feed.contentSnippet"></p>

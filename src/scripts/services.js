@@ -6,6 +6,8 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       feedEntry.title = $sce.trustAsHtml(feedEntry.title);
       feedEntry.contentSnippet = $sce.trustAsHtml(feedEntry.contentSnippet);
       feedEntry.content = $sce.trustAsHtml(feedEntry.content);
+      feedEntry.publishedDate = new Date(feedEntry.publishedDate).getTime();
+      console.log('##### feedEntry with date = ', feedEntry);
       return feedEntry;
     }
 
