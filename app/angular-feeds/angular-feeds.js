@@ -1,8 +1,8 @@
 /**
- * angular-feeds - v0.0.3 - 2014-11-07 12:38 PM
+ * angular-feeds - v0.0.4 - 2015-04-07 6:38 PM
  * https://github.com/siddii/angular-feeds
  *
- * Copyright (c) 2014 
+ * Copyright (c) 2015 
  * Licensed MIT <https://github.com/siddii/angular-feeds/blob/master/LICENSE.txt>
  */
 'use strict';
@@ -69,7 +69,6 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       feedEntry.contentSnippet = $sce.trustAsHtml(feedEntry.contentSnippet);
       feedEntry.content = $sce.trustAsHtml(feedEntry.content);
       feedEntry.publishedDate = new Date(feedEntry.publishedDate).getTime();
-      console.log('##### feedEntry with date = ', feedEntry);
       return feedEntry;
     }
 
