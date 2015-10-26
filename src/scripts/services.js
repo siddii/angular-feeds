@@ -10,11 +10,19 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       return feedEntry;
     }
 
+    function sanitizeEntries(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        sanitizeFeedEntry(entries[i]);
+      }
+    }
+
     var getFeeds = function (feedURL, count) {
       var deferred = $q.defer();
 
       if (feedCache.hasCache(feedURL)) {
-        return deferred.resolve(sanitizeFeedEntry(feedCache.get(feedURL)));
+        var entries = feedCache.get(feedURL);
+        sanitizeEntries(entries);
+        deferred.resolve(entries);
       }
 
       var feed = new google.feeds.Feed(feedURL);
@@ -28,10 +36,8 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
           deferred.reject(response.error);
         }
         else {
-          feedCache.set(response.feed.entries);
-          for (var i = 0; i < response.feed.entries.length; i++) {
-            sanitizeFeedEntry(response.feed.entries[i]);
-          }
+          feedCache.set(feedURL, response.feed.entries);
+          sanitizeEntries(response.feed.entries);
           deferred.resolve(response.feed.entries);
         }
       });
@@ -47,7 +53,7 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 
     function cacheTimes() {
       if ('CACHE_TIMES' in localStorage) {
-        return angular.fromJson(localStorage['CACHE_TIMES']);
+        return angular.fromJson(localStorage.getItem('CACHE_TIMES'));
       }
       return {};
     }
@@ -59,14 +65,14 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 
     return {
       set: function (name, obj) {
-        localStorage[name] = angular.toJson(obj);
+        localStorage.setItem(name, angular.toJson(obj));
         var CACHE_TIMES = cacheTimes();
         CACHE_TIMES[name] = new Date().getTime();
-        localStorage['CACHE_TIMES'] = angular.toJson(CACHE_TIMES);
+        localStorage.setItem('CACHE_TIMES', angular.toJson(CACHE_TIMES));
       },
       get: function (name) {
         if (hasCache(name)) {
-          return angular.fromJson(localStorage[name]);
+          return angular.fromJson(localStorage.getItem(name));
         }
         return null;
       },
