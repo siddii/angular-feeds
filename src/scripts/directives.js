@@ -28,8 +28,8 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
           }
         }
       }
-      
-      $attrs.observe('url', function(url){
+
+      $attrs.$observe('url', function(url){
         feedService.getFeeds(url, $attrs.count).then(function (feedsObj) {
           if ($attrs.templateUrl) {
             $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
