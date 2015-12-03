@@ -141,7 +141,7 @@ angular.module('feeds').run(['$templateCache', function($templateCache) {
   $templateCache.put('feed-list.html',
     "<div>\n" +
     "    <div ng-show=\"error\" class=\"alert alert-danger\">\n" +
-    "        <h5 class=\"text-center\">Oops... Something bad happened, please try later :(</h5>\n" +
+    "        <h5 class=\"text-center\">There was an error retrieving feeds. Please try again later.</h5>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"media-list\">\n" +
