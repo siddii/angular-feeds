@@ -25,6 +25,7 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
         deferred.resolve(entries);
       }
 
+      google.load('feeds','1');
       var feed = new google.feeds.Feed(feedURL);
       if (count) {
         feed.includeHistoricalEntries();
