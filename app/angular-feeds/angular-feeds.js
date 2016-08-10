@@ -1,8 +1,8 @@
 /**
- * angular-feeds - v0.0.4 - 2015-04-07 6:38 PM
+ * angular-feeds - v0.0.4 - 2016-08-10 4:43 PM
  * https://github.com/siddii/angular-feeds
  *
- * Copyright (c) 2015 
+ * Copyright (c) 2016 
  * Licensed MIT <https://github.com/siddii/angular-feeds/blob/master/LICENSE.txt>
  */
 'use strict';
@@ -36,22 +36,25 @@ angular.module('feeds-directives', []).directive('feed', ['feedService', '$compi
         }
       }
 
-      feedService.getFeeds($attrs.url, $attrs.count).then(function (feedsObj) {
-        if ($attrs.templateUrl) {
-          $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
-            renderTemplate(templateHtml, feedsObj);
-          });
-        }
-        else {
-          renderTemplate($templateCache.get('feed-list.html'), feedsObj);
-        }
-      },function (error) {
-        console.error('Error loading feed ', error);
-        $scope.error = error;
-        renderTemplate($templateCache.get('feed-list.html'));
-      }).finally(function () {
-        $element.find('.spinner').slideUp();
-        $scope.$evalAsync('finishedLoading = true')
+      $attrs.$observe('url', function(url){
+        feedService.getFeeds(url, $attrs.count).then(function (feedsObj) {
+          if ($attrs.template && $templateCache.get($attrs.template)) {
+            renderTemplate($templateCache.get($attrs.template), feedsObj);
+          } else if ($attrs.templateUrl) {
+            $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
+              renderTemplate(templateHtml, feedsObj);
+            });
+          } else {
+            renderTemplate($templateCache.get('feed-list.html'), feedsObj);
+          }
+        },function (error) {
+          console.error('Error loading feed ', error);
+          $scope.error = error;
+          renderTemplate($templateCache.get('feed-list.html'));
+        }).finally(function () {
+          $element.find('.spinner').slideUp();
+          $scope.$evalAsync('finishedLoading = true')
+        });          
       });
     }]
   }
@@ -72,13 +75,22 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
       return feedEntry;
     }
 
+    function sanitizeEntries(entries) {
+      for (var i = 0; i < entries.length; i++) {
+        sanitizeFeedEntry(entries[i]);
+      }
+    }
+
     var getFeeds = function (feedURL, count) {
       var deferred = $q.defer();
 
       if (feedCache.hasCache(feedURL)) {
-        return deferred.resolve(sanitizeFeedEntry(feedCache.get(feedURL)));
+        var entries = feedCache.get(feedURL);
+        sanitizeEntries(entries);
+        deferred.resolve(entries);
       }
 
+      google.load('feeds','1');
       var feed = new google.feeds.Feed(feedURL);
       if (count) {
         feed.includeHistoricalEntries();
@@ -90,10 +102,8 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
           deferred.reject(response.error);
         }
         else {
-          feedCache.set(response.feed.entries);
-          for (var i = 0; i < response.feed.entries.length; i++) {
-            sanitizeFeedEntry(response.feed.entries[i]);
-          }
+          feedCache.set(feedURL, response.feed.entries);
+          sanitizeEntries(response.feed.entries);
           deferred.resolve(response.feed.entries);
         }
       });
@@ -109,7 +119,7 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 
     function cacheTimes() {
       if ('CACHE_TIMES' in localStorage) {
-        return angular.fromJson(localStorage['CACHE_TIMES']);
+        return angular.fromJson(localStorage.getItem('CACHE_TIMES'));
       }
       return {};
     }
@@ -121,27 +131,28 @@ angular.module('feeds-services', []).factory('feedService', ['$q', '$sce', 'feed
 
     return {
       set: function (name, obj) {
-        localStorage[name] = angular.toJson(obj);
+        localStorage.setItem(name, angular.toJson(obj));
         var CACHE_TIMES = cacheTimes();
         CACHE_TIMES[name] = new Date().getTime();
-        localStorage['CACHE_TIMES'] = angular.toJson(CACHE_TIMES);
+        localStorage.setItem('CACHE_TIMES', angular.toJson(CACHE_TIMES));
       },
       get: function (name) {
         if (hasCache(name)) {
-          return angular.fromJson(localStorage[name]);
+          return angular.fromJson(localStorage.getItem(name));
         }
         return null;
       },
       hasCache: hasCache
     };
   });
+
 angular.module('feeds').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('feed-list.html',
     "<div>\n" +
     "    <div ng-show=\"error\" class=\"alert alert-danger\">\n" +
-    "        <h5 class=\"text-center\">There was an error retrieving feeds. Please try again later.</h5>\n" +
+    "        <h5 class=\"text-center\">Oops... Something bad happened, please try later :(</h5>\n" +
     "    </div>\n" +
     "\n" +
     "    <ul class=\"media-list\">\n" +
