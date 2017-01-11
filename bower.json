@@ -20,7 +20,7 @@
     "angular-scenario": "1.2.6",
     "Font-Awesome": "*",
     "jquery": "~1.10.2",
-    "json3": "~3.2.6",
+    "json3": "~3.2.6"
   },
   "main": ["./app/angular-feeds/angular-feeds.min.js", "./app/angular-feeds/angular-feeds.min.css"],
   "ignore": ["./node_modules/", "./app/bower_components/"]
