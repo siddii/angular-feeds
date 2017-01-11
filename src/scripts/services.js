@@ -16,7 +16,6 @@ function feedService ($q, $sce, feedCache, yui) {
     };
 
     function sanitizeFeedEntry (feedEntry) {
-        console.log(feedEntry);
         var normalizedFeedEntry = {};
 
 
@@ -42,7 +41,7 @@ function feedService ($q, $sce, feedCache, yui) {
     }
 
     function sanitizeEntries (entries) {
-        var sanitezedEntries = []
+        var sanitezedEntries = [];
         for (var i = 0; i < entries.length; i++) {
             sanitezedEntries.push(sanitizeFeedEntry(entries[i]));
         }
@@ -71,8 +70,7 @@ function feedService ($q, $sce, feedCache, yui) {
                 YUI().use('yql', function (Y) {
                     var query = 'select * from feed(0,' + count + ') where url = "' + feedURL + '"';
                     var q     = Y.YQL(query, function (response) {
-                        //r now contains the result of the YQL Query as a JSON
-                        console.log(response, feedURL);
+
                         if (response.query.count) {
                             var itemsIndex = typeof response.query.results.item === 'undefined' ? 'entry' : 'item';
                             var entries    = response.query.results[itemsIndex];
@@ -88,24 +86,6 @@ function feedService ($q, $sce, feedCache, yui) {
             }
 
         }
-
-//        google.load('feeds', '1');
-//        var feed = new google.feeds.Feed(feedURL);
-//        if (count) {
-//            feed.includeHistoricalEntries();
-//            feed.setNumEntries(count);
-//        }
-//
-//        feed.load(function (response) {
-//            if (response.error) {
-//                deferred.reject(response.error);
-//            }
-//            else {
-//                feedCache.set(feedURL, response.feed.entries);
-//                sanitizeEntries(response.feed.entries);
-//                deferred.resolve(response.feed.entries);
-//            }
-//        });
 
         return deferred.promise;
     }
