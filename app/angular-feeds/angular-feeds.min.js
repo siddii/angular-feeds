@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.4 - 2017-01-17 8:47 AM
+ * angular-feeds - v0.0.4 - 2017-01-17 12:29 PM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2017 
