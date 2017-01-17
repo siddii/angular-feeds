@@ -4,20 +4,82 @@ angular.module('feeds-services', []);
 
 angular
     .module('feeds-services')
-    .factory('feedService', ['$q', '$sce', 'feedCache', 'yui', feedService]);
+    .factory('feedService', ['$q', '$sce', 'feedCache', feedService]);
 angular
     .module('feeds-services')
     .factory('feedCache', feedCache);
 
-function feedService ($q, $sce, feedCache, yui) {
-    var YQLUrl = 'http://query.yahooapis.com/v1/public/yql?q=', query = 'select * from rss where url=';
+function feedService ($q, $sce, feedCache) {
+
     return {
-        getFeeds: getFeeds
+        getFeeds: getFeeds,
+        clearCache: clearCache
     };
+
+    function clearCache(forFeed) {
+        if(feedCache.hasCache(forFeed)) {
+            feedCache.unset(forFeed);
+        }
+    }
+
+    function getFeeds (feedURL, count) {
+
+        var deferredFeedsFetch = $q.defer();
+
+        if (count === 0) {
+            console.warn('called getFeeds with count ' + count);
+            setTimeout(deferredFeedsFetch.resolve, 400);
+            return deferredFeedsFetch.promise;
+        }
+
+        feedCache.hasCache(feedURL)
+            ? deferredFeedsFetch.resolve(sanitizeEntries(feedCache.get(feedURL)))
+            : fetchFeed(feedURL);
+
+        return deferredFeedsFetch.promise;
+
+        function fetchFeed (feedURL) {
+            try {
+                YUI().use('yql', performYQLQuery(feedURL))
+            } catch (ex) {
+                deferredFeedsFetch.reject(ex);
+            }
+
+        }
+
+        function performYQLQuery (feedURL) {
+            return function (Y) {
+                var query = 'select * from feed(0,' + count + ') where url = "' + feedURL + '"';
+                Y.YQL(query, parseYQLResponse);
+            }
+
+        }
+
+
+        function parseYQLResponse (rawResponse) {
+
+            var response = [];
+
+            if (rawResponse.query.count) {
+                var itemsIndex = typeof rawResponse.query.results.item === 'undefined' ? 'entry' : 'item';
+                var entries    = rawResponse.query.results[itemsIndex];
+                feedCache.set(feedURL, entries);
+                response = sanitizeEntries(entries);
+            }
+
+            resolve(response);
+
+        }
+
+        function resolve (withData) {
+            deferredFeedsFetch.resolve(withData);
+        }
+
+
+    }
 
     function sanitizeFeedEntry (feedEntry) {
         var normalizedFeedEntry = {};
-
 
         var properties = [
             {indexName: 'content', possibleIndexNames: ['content', 'description', 'summary']},
@@ -25,14 +87,14 @@ function feedService ($q, $sce, feedCache, yui) {
             {indexName: 'link', possibleIndexNames: ['link']}
         ];
 
-        properties.forEach(function(property) {
-            property.possibleIndexNames.forEach(function(contentIndex) {
-                if(feedEntry[contentIndex]) {
+        properties.forEach(function (property) {
+            property.possibleIndexNames.forEach(function (contentIndex) {
+                if (feedEntry[contentIndex]) {
                     var content = typeof feedEntry[contentIndex] === 'string' ? feedEntry[contentIndex] : feedEntry[contentIndex].content;
-                    if(!content) {
+                    if (!content) {
                         content = feedEntry[contentIndex].href;
                     }
-                    normalizedFeedEntry[property.indexName] =  $sce.trustAsHtml(content);
+                    normalizedFeedEntry[property.indexName] = $sce.trustAsHtml(content);
                 }
             });
         });
@@ -47,47 +109,6 @@ function feedService ($q, $sce, feedCache, yui) {
         }
 
         return sanitezedEntries;
-    }
-
-    function getFeeds (feedURL, count) {
-        var deferred = $q.defer();
-
-        var fullUrlFeed = encodeURI(YQLUrl) + encodeURIComponent(query + feedURL);
-
-        if (feedCache.hasCache(fullUrlFeed)) {
-            var entries = feedCache.get(fullUrlFeed);
-            deferred.resolve(sanitizeEntries(entries));
-        } else if (count) {
-            yui
-                .load()
-                .then(fetchFeed);
-        } else {
-            console.warn('called getFeeds with count ' + count);
-        }
-
-        function fetchFeed () {
-            try {
-                YUI().use('yql', function (Y) {
-                    var query = 'select * from feed(0,' + count + ') where url = "' + feedURL + '"';
-                    var q     = Y.YQL(query, function (response) {
-
-                        if (response.query.count) {
-                            var itemsIndex = typeof response.query.results.item === 'undefined' ? 'entry' : 'item';
-                            var entries    = response.query.results[itemsIndex];
-                            feedCache.set(feedURL, entries);
-                            deferred.resolve(sanitizeEntries(entries));
-                        } else {
-                            deferred.resolve([]);
-                        }
-                    });
-                })
-            } catch(ex) {
-                deferred.reject(ex);
-            }
-
-        }
-
-        return deferred.promise;
     }
 }
 
@@ -119,47 +140,50 @@ function feedCache () {
             }
             return null;
         },
+        unset: function(name) {
+              localStorage.removeItem(name);
+        },
         hasCache: hasCache
     };
 }
 
-angular.module('feeds-services')
-    .provider('yui', [yui])
-    .run(['yui', function (yuiLoader) {
-    }]);
-
-function yui () {
-    this.$get = ['$q', loadYuiScript];
-
-    function loadYuiScript ($q) {
-        var isNotLoadingScript = true, requests = [];
-        fetchScript();
-
-        return {
-            load: fetchScript
-        };
-
-        function fetchScript () {
-            var deferred = $q.defer();
-            requests.push(deferred);
-
-            if (!document.querySelector('[src*="http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js"]')
-                && isNotLoadingScript) {
-                isNotLoadingScript = false;
-                var script         = document.createElement('script');
-                script.onload      = function () {
-                    isNotLoadingScript = true;
-                    requests.forEach(function (request) {
-                        request.resolve();
-                    });
-                };
-                script.src         = "http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js";
-                document.getElementsByTagName('head')[0].appendChild(script);
-            } else if (isNotLoadingScript) {
-                deferred.resolve();
-            }
-
-            return deferred.promise;
-        }
-    }
-}
+//angular.module('feeds-services')
+//    .provider('yui', [yui])
+//    .run(['yui', function (yuiLoader) {
+//    }]);
+//
+//function yui () {
+//    this.$get = ['$q', loadYuiScript];
+//
+//    function loadYuiScript ($q) {
+//        var isNotLoadingScript = true, requests = [];
+//        fetchScript();
+//
+//        return {
+//            load: fetchScript
+//        };
+//
+//        function fetchScript () {
+//            var deferred = $q.defer();
+//            requests.push(deferred);
+//
+//            if ((!document.querySelector('[src*="yui-min.js"]') && !document.querySelector('[src*="yui.js"]'))
+//                && isNotLoadingScript) {
+//                isNotLoadingScript = false;
+//                var script         = document.createElement('script');
+//                script.onload      = function () {
+//                    isNotLoadingScript = true;
+//                    requests.forEach(function (request) {
+//                        request.resolve();
+//                    });
+//                };
+//                script.src         = "http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js";
+//                document.getElementsByTagName('head')[0].appendChild(script);
+//            } else if (isNotLoadingScript) {
+//                deferred.resolve();
+//            }
+//
+//            return deferred.promise;
+//        }
+//    }
+//}
