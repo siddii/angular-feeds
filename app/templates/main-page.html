@@ -4,9 +4,11 @@
             <p>Angular Feeds renders <a target="_new" href="http://en.wikipedia.org/wiki/Atom_(standard)">Atom</a>,
                 <a target="_new" href="http://en.wikipedia.org/wiki/RSS">RSS</a> and <a target="_new"
                                                                                         href="http://en.wikipedia.org/wiki/Media_RSS">Media
-                    feeds</a> using <i>simple</i> HTML markup (aka <em><a target="_new" href="http://docs.angularjs.org/guide/directive">Directives</a></em>).
+                    feeds</a> using <i>simple</i> HTML markup (aka <em><a target="_new"
+                                                                          href="http://docs.angularjs.org/guide/directive">Directives</a></em>).
                 It internally uses <a target="_new" href="https://developers.google.com/feed/">Google Feeds</a> for
-                reading & parsing feeds and comes with default template for displaying feed content. You can also configure it to use a different
+                reading & parsing feeds and comes with default template for displaying feed content. You can also
+                configure it to use a different
                 template of your choice.
             </p>
 
@@ -28,8 +30,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="feed-block">
-                        <feed summary="true" url="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
-                              count="5"></feed>
+                        <feed
+                                refresh-after="500"
+                                summary="true" url="http://stackoverflow.com/feeds/tag?tagnames=angularjs&sort=newest"
+                                count="5"></feed>
                     </div>
                     <div style="display: none;" class="code-block"
                          ng-include="'templates/stackoverflow-feed-code.html'"></div>
@@ -49,10 +53,10 @@
                     <div class="feed-block">
                         <script type="text/javascript">
                             //run only trusted code here :)
-                            function wikipediaFeedPostRender() {
+                            function wikipediaFeedPostRender () {
                                 $('#wikipedia-feed').find('a').each(function (idx, anchor) {
                                     anchor.target = '_new';
-                                    anchor.href = anchor.href.replace(window.location.origin, 'http://en.wikipedia.org');
+                                    anchor.href   = anchor.href.replace(window.location.origin, 'http://en.wikipedia.org');
                                 })
                             }
                         </script>
