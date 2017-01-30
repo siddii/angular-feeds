@@ -1,0 +1,87 @@
+<style>
+    #demo .light {
+        padding: 1em;
+    }
+    #demo .dark {
+        background: #000;
+        padding: 1em;
+    }
+    #demo {
+        overflow: hidden;
+    }
+    /* needed for the chromeless version */
+    #demo h4 {
+        font-weight: normal;
+        color: #FF8800;
+    }
+    #demo h5 {
+        margin-top: 1em;
+        text-transform: uppercase;
+        color: #666;
+        border-bottom: 1px solid #D9D9D9;
+    }
+</style>
+
+<div class="intro">
+    <p>This example demonstrates the alternate skins available for Slider, and how to apply them.</p>
+</div>
+
+<div class="example">
+    {{>slider-skin-markup}}
+    {{>slider-skin-js}}
+</div>
+
+<h3>Specify the skin in the YUI config</h3>
+<p>
+    To access alternate skins for a component, specify an override in the YUI
+    configuration.  The "slider" module is actually a virtual rollup of other
+    modules, so you need to override the skin for "slider-base".
+</p>
+
+<p>Then just `use("slider")` as you normally would.</p>
+
+```
+YUI({
+    skin: {
+        overrides: {
+            "slider-base": [ "capsule" ]
+        }
+    }
+}).use( "slider", function (Y) {
+    ...
+});
+```
+
+<h3>Use the appropriate skin class in the markup</h3>
+<p>
+    The default skin is the Sam skin.  Style YUI components with this skin by
+    including the class `yui3-skin-sam` in the class list of an element that
+    contains the component.  Typically, setting `<body class="yui3-skin-sam">`
+    is good enough.
+</p>
+
+<p>
+    When overriding the default skin, use a different class on the containing
+    element.
+</p>
+
+```
+<div class="yui3-skin-round-dark">
+    <h5>Round skin (dark)</h5>
+    <div id="round_dark"><!-- Slider rendered here --></div>
+</div>
+```
+
+<h3 id="full_code_listing">Full Code Listing</h3>
+<p>This is the full code listing for this example.</p>
+
+<h4>Markup</h4>
+```
+{{>slider-skin-markup}}
+```
+
+<h4>JavaScript</h4>
+```
+{{>slider-skin-js}}
+```
+

@@ -1,0 +1,38 @@
+<link href="{{componentAssets}}/node.css" rel="stylesheet" type="text/css">
+
+<div class="intro">
+    <p>Click any of the blue boxes to copy to the other stack.</p>
+    <p>Click a box in the other stack to remove it completely.</p>
+</div>
+
+<div class="example">
+{{>dom-node-source}}
+</div>
+
+<h2>Setting up the HTML</h2>
+<p>First we need some HTML to work with.</p>
+```
+<ul id="demo">
+    <li>Dog</li>
+    <li>Cat</li>
+    <li>Fish</li>
+    <li>Bird</li>
+</ul>
+
+<ul id="demo2">
+    <li>Wheelbarrow</li>
+    <li>Ice Cream Cone</li>
+</ul>
+```
+<h2>Using DOM Methods</h2>
+<p>Most common DOM methods are available via Node instances. These can be used to add, remove, and retrieve other nodes.</p>
+```
+    clone = item.cloneNode(true);
+    list2.append(clone);
+    item.remove(); // sugar for item.get('parentNode').removeChild(item);
+```
+
+<h2>Complete Example Source</h2>
+```
+{{>dom-node-source}}
+```

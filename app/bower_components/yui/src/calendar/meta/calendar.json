@@ -1,0 +1,10 @@
+{
+    "calendar": {
+        "requires": [
+            "calendar-base",
+            "calendarnavigator"
+        ],
+
+        "skinnable": true
+    }
+}

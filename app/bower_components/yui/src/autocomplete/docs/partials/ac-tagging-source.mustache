@@ -1,0 +1,65 @@
+<div id="demo" class="yui3-skin-sam"> {{>need-skin-comment}}
+  <label for="ac-input">Tags:</label><br>
+  <input id="ac-input" type="text">
+</div>
+
+<script>
+YUI().use('autocomplete', 'autocomplete-filters', 'autocomplete-highlighters', function (Y) {
+  var inputNode = Y.one('#ac-input'),
+      tags = [
+        'css',
+        'css3',
+        'douglas crockford',
+        'ecmascript',
+        'html',
+        'html5',
+        'java',
+        'javascript',
+        'json',
+        'node.js',
+        'pie',
+        'yui'
+      ];
+
+  inputNode.plug(Y.Plugin.AutoComplete, {
+    allowTrailingDelimiter: true,
+    minQueryLength: 0,
+    queryDelay: 0,
+    queryDelimiter: ',',
+    source: tags,
+    resultHighlighter: 'startsWith',
+
+    // Chain together a startsWith filter followed by a custom result filter
+    // that only displays tags that haven't already been selected.
+    resultFilters: ['startsWith', function (query, results) {
+      // Split the current input value into an array based on comma delimiters.
+      var selected = inputNode.get('value').split(/\s*,\s*/);
+
+      // Convert the array into a hash for faster lookups.
+      selected = Y.Array.hash(selected);
+
+      // Filter out any results that are already selected, then return the
+      // array of filtered results.
+      return Y.Array.filter(results, function (result) {
+        return !selected.hasOwnProperty(result.text);
+      });
+    }]
+  });
+
+  // When the input node receives focus, send an empty query to display the full
+  // list of tag suggestions.
+  inputNode.on('focus', function () {
+    inputNode.ac.sendRequest('');
+  });
+
+  // After a tag is selected, send an empty query to update the list of tags.
+  inputNode.ac.after('select', function () {
+    // Send the query on the next tick to ensure that the input node's blur
+    // handler doesn't hide the result list right after we show it.
+    setTimeout(function () {
+      inputNode.ac.sendRequest('');
+      inputNode.ac.show();
+    }, 1);
+  });
+});
+</script>

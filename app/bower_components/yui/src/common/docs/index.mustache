@@ -1,0 +1,79 @@
+<h2>Welcome to YUI {{yuiVersion}}!</h2>
+
+<p>
+YUI is a set of utilities, infrastructure components, and widgets written in JavaScript and CSS for building richly interactive web applications. It is available under a <a href="http://yuilibrary.com/license/">BSD license</a> and is free for all uses.
+</p>
+
+<p>
+This is the static documentation for YUI {{yuiVersion}}. For the most up-to-date, searchable docs, please visit the <a href="http://yuilibrary.com/">YUI website</a>.
+</p>
+
+<h2>Links</h2>
+
+<ul>
+    <li><a href="http://yuilibrary.com/yui/quick-start/">Quick Start</a> (for developers new to YUI)</li>
+    <li><a href="../api/">Static API Documentation for this version</a></li>
+    <li><a href="https://github.com/yui/yui3/issues">Issue tracker</a></li>
+    <li><a href="https://groups.google.com/forum/#!forum/yui-support">Forums</a></li>
+    <li><a href="http://yuilibrary.com/license/">License</a></li>
+</ul>
+
+<p>
+You may also find the following additional resources useful:
+</p>
+
+<ul>
+    <li><a href="http://yuilibrary.com/yui/docs/">Latest Online Documentation</a></li>
+    <li><a href="http://yuilibrary.com/download/yui3/">Latest Production Release</a></li>
+    <li><a href="https://github.com/yui/yui3">YUI on GitHub</a></li>
+    <li><a href="http://yuilibrary.com/contribute/">How to Contribute</a></li>
+</ul>
+
+<h2>Directory Contents</h2>
+
+<p>
+This package contains the following directories:
+</p>
+
+<ul>
+  <li><p><code>api</code>: Generated API docs for the entire library in HTML format.</p></li>
+
+  <li><p><code>build</code>: Built YUI source files. This is what you should load on your web pages. The built files are generated at development time from the contents of the <code>src</code> directory. The build step generates debug files (unminified and with full comments and logging), raw files (unminified, but without debug logging), and minified files (suitable for production deployment and use).</p></li>
+
+  <li><p><code>docs</code>: User guides and examples for YUI components.</p></li>
+</ul>
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        <h2>Component User Guides</h2>
+
+        <ul>
+          {{#components}}
+            {{#meta}}
+                <li><a href="{{name}}/index.html">{{displayName}}</a></li>
+            {{/meta}}
+          {{/components}}
+        </ul>
+    </div>
+    <div class="yui3-u-1-2">
+        <h2 id="examples">Examples list</h2>
+        <ul>
+            {{#components}}
+                {{#meta}}
+                <li><a href="{{name}}/index.html">{{displayName}}</a>
+                    <ul>
+                        {{#examples}}
+                            <li><a href="{{componentName}}/{{name}}.html" title="{{description}}">{{displayName}}</a>
+                            {{#if inherited}}
+                                <small>*</small>
+                            {{/if}}
+                            </li>
+                        {{/examples}}
+                    </ul>
+                </li>
+                {{/meta}}
+            {{/components}}
+        </ul>
+        <small>* Example inherited from another component.</small>
+   </div>
+</div>

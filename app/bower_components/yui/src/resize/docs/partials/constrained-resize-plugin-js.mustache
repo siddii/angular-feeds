@@ -1,0 +1,82 @@
+    YUI().use('overlay', 'resize-plugin', 'resize-constrain', 'dd-plugin', 'yql', function(Y) {
+
+      var weatherWidget;
+
+      var getWeather = function() {
+
+        Y.YQL('select * from wunderground.forecast where location="Toronto,ON";', processWeather);
+      };
+
+      var processWeather = function(r) {
+
+        var weather = r.query.results.forecast.simpleforecast.forecastday,
+        template = {
+
+          currentTemp: '<div id="mainContainer"><img id="mainImage" src="{mainImage}"><h2 id="temp">{temp} &#176;F and {condition}</h2></div>',
+          otherDays: '<div class="day"><h3 class="dayOfWeek">{dayOfWeek}</h3><img src="{image}"><h4 class="forecast">{dayForecast} &#176;F</h4></div>'
+        },
+
+        currentData = {
+          mainImage: weather[0].icons.icon_set[9].icon_url,
+          temp: weather[0].high.fahrenheit,
+          condition: weather[0].conditions
+        },
+
+        currentHTML = '',
+        futureHTML = '<div id="futureDays">';
+
+        currentHTML = Y.Lang.sub(template.currentTemp, currentData);
+
+
+        for (var i = 1; i < weather.length; i++) {
+
+          var futureData = {
+            dayOfWeek: weather[i].date.weekday,
+            image: weather[i].icons.icon_set[9].icon_url,
+            dayForecast: weather[i].high.fahrenheit
+          };
+          futureHTML += Y.Lang.sub(template.otherDays, futureData);
+
+        }
+
+        futureHTML += "</div>";
+        currentHTML = currentHTML + futureHTML;
+        Y.one('#weatherWidgetContent').append(currentHTML);
+
+        createOverlay();
+    };
+
+    var createOverlay = function() {
+
+      weatherWidget = new Y.Overlay({
+         width: "370px",
+         height:"245px",
+         srcNode: "#weatherWidget",
+         visible: false,
+         zIndex:5,
+         align: {node:".example", points:["tc", "bc"]}
+      });
+
+      //allow resizability and draggability
+      weatherWidget.plug([Y.Plugin.Resize, Y.Plugin.Drag]);
+
+      //we can plug in the resizeConstrained plugin on the 'resize' namespace
+      weatherWidget.resize.plug(Y.Plugin.ResizeConstrained, {
+        minWidth: 369,
+        minHeight: 120,
+        maxWidth: 369,
+        maxHeight: 245,
+        preserveRatio: false
+      });
+
+      weatherWidget.render();
+      Y.one('#launchOverlay').set('disabled', false).set('value', 'Launch Weather Widget');
+    };
+
+    getWeather();
+
+    Y.one("#launchOverlay").on('click', function() {
+       weatherWidget.set('visible', true);
+    });
+
+});

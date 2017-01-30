@@ -1,0 +1,24 @@
+{
+    "text": {
+        "use": ["text-accentfold", "text-wordbreak"],
+
+        "submodules": {
+            "text-accentfold": {
+                "requires": [
+                    "array-extras",
+                    "text-data-accentfold"
+                ]
+            },
+
+            "text-data-accentfold": { "requires": [ "yui-base" ] },
+            "text-data-wordbreak": { "requires": [ "yui-base" ] },
+
+            "text-wordbreak": {
+                "requires": [
+                    "array-extras",
+                    "text-data-wordbreak"
+                ]
+            }
+        }
+    }
+}

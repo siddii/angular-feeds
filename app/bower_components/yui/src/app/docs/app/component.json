@@ -1,0 +1,38 @@
+{
+    "name"       : "app",
+    "displayName": "App Framework",
+    "description": "Rollup of the Model, Model List, Router, and View components, which make it easy to write MVC-style JavaScript applications.",
+    "author"     : ["rgrove", "ericf"],
+
+    "tags": [
+        "infrastructure", "app", "beta", "controller", "list", "model",
+        "modellist", "model-list", "mvc", "navigation", "pjax", "route",
+        "router", "routing", "sync", "template", "url", "view"
+    ],
+
+    "use": ["app"],
+
+    "examples": [
+        {
+            "name"       : "app-todo",
+            "displayName": "Todo List",
+            "description": "A basic todo list built with the Model, Model List, and View components.",
+            "modules"    : ["event-focus", "json", "model", "model-list", "view"],
+            "tags"       : [
+                "app", "todo", "model", "model-list", "view", "modellist",
+                "list"
+            ]
+        },
+
+        {
+            "name"       : "app-contributors",
+            "displayName": "GitHub Contributors",
+            "description": "An application to browse through the contributors of a GitHub project.",
+            "modules"    : ["app", "model", "model-list", "view"],
+            "tags"       : [
+                "app", "browsing", "model", "model-list", "naivgation", "pjax",
+                "view", "handlebars", "template"
+            ]
+        }
+    ]
+}

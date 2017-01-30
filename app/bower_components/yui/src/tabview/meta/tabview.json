@@ -1,0 +1,26 @@
+{
+    "tabview": {
+        "plugins": {
+            "tabview-plugin": {
+                "requires": [
+                    "tabview-base"
+                ]
+            },
+            "tabview-base": {
+                "requires": [
+                    "node-event-delegate",
+                    "classnamemanager"
+                ]
+            }
+        },
+        "requires": [
+            "widget",
+            "widget-parent",
+            "widget-child",
+            "tabview-base",
+            "node-pluginhost",
+            "node-focusmanager"
+        ],
+        "skinnable": true
+    }
+}

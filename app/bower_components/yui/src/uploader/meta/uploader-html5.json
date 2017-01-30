@@ -1,0 +1,10 @@
+{
+    "uploader-html5": {
+        "requires": [
+            "widget",
+            "node-event-simulate",
+            "file-html5",
+            "uploader-queue"
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+{
+    "history": {
+        "use": [
+            "history-base", "history-hash", "history-html5"
+        ],
+
+        "plugins": {
+            "history-hash-ie": {
+                "condition": {
+                    "trigger": "history-hash",
+                    "test": "history-hash-ie-test.js"
+                },
+
+                "requires": [
+                    "history-hash",
+                    "node-base"
+                ]
+            }
+        },
+
+        "submodules": {
+            "history-base": {
+                "requires": [
+                    "event-custom-complex"
+                ]
+            },
+
+            "history-hash": {
+                "after": [
+                    "history-html5"
+                ],
+
+                "requires": [
+                    "event-synthetic",
+                    "history-base",
+                    "yui-later"
+                ]
+            },
+
+            "history-html5": {
+                "optional": [
+                    "json"
+                ],
+
+                "requires": [
+                    "event-base",
+                    "history-base",
+                    "node-base"
+                ]
+            }
+        }
+    }
+}

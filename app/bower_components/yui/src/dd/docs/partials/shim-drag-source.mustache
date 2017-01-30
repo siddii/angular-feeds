@@ -1,0 +1,27 @@
+<style>
+    #demo {
+        height: 100px;
+        width: 100px;
+        border: 1px solid black;
+        cursor: move;
+        float: right;
+    }
+    #ifrm {
+        width: 400px;
+        height: 300px;
+    }
+</style>
+
+<p>Try dragging the proxy element over the iframe below, in most browsers this will not happen. Now click the `Turn Shim On` button and drag again. Now you can drag over the iframe.</p>
+
+<p>You can see the shim by clicking the `Turn Debugging On` button while using the shim, the default for this example is that the shim is off.</p>
+
+<p><button id="shim" value="off">Turn Shim On</button> <button id="debugShim" value="off" disabled>Turn Debugging On</button></p>
+
+<div id="demo">Drag Me</div>
+
+<iframe id="ifrm" src="{{componentAssets}}/blank.htm"></iframe>
+
+<script>
+{{>shim-drag-source-js}}
+</script>

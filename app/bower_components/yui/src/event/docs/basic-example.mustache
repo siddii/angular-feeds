@@ -1,0 +1,113 @@
+<style>
+#container {
+    background-color: #F5E3B1;
+    border: 1px solid #C2AE6D;
+    height: 76px;
+    /*padding: 1em 0 0 1em;*/
+    padding-left: 1em;
+    cursor: pointer;
+}
+#demo .hello {
+    background: url("../assets/event/earth.png") no-repeat scroll 141px -62px #000000;
+    color: #C3A7CD;
+    border-color: #000;
+    font-size: 150%;
+}
+#example-canvas #demo a {
+    color: #00c;
+    text-decoration: underline;
+}
+.message {
+    visibility: hidden;
+}
+</style>
+
+<div class="intro">
+<p>Clicking in the yellow box will give hello world feedback.
+Clicking on the first link will take you to the YUI website; clicking on the
+second link, which has the same <code>href</code> attribute, will display
+a message instead, and not navigate to a new page.</p>
+
+<p>Event Utility is used here to do two things:</p>
+
+<ol>
+	<li>Attach the <code>click</code> event handler to the yellow box;</li>
+	<li>Attach an event handler to the second <code>&lt;a&gt;</code>
+    element that uses <code>preventDefault()</code> to prevent the link,
+    when clicked, from navigating to a new page. </li>
+
+</ol>
+</div>
+
+<div class="example yui3-skin-sam">
+    {{>basic-example-source}}
+</div>
+
+<h2>Reacting to the `click` event</h2>
+
+<p>To illustrate event handling syntax, we'll create a `<div>` and
+give some feedback when that `<div>` is clicked.</p>
+
+```
+// Create a YUI instance and load the 'node' module
+YUI().use('node', function (Y) {
+
+    // A function that gives hello world feedback:
+    var helloWorld = function(e) {
+        e.target.setHTML("<p>Hello World!</p>");
+        Y.one('#container').addClass('hello');
+    }
+
+    ...
+```
+
+<p>We now use the Node's <code>on</code> method to attach our
+<code>helloWorld</code> function as a handler for the <code>click</code> event.
+
+```
+// Point to the container div with the CSS selector
+var node = Y.one('#container');
+
+node.on("click", helloWorld);
+```
+
+<p>Almost all event handling begins with a premise just this simple: we have an
+element to which something might happen (eg, it might be clicked) and, when
+that <em>does</em> happen, we want to do something (eg,
+<code>helloWorld</code>).</p>
+
+<h2 id="prevent">Preventing event behavior</h2>
+
+<p>In some cases, you may want to replace the default behavior of an event.
+For example, let's say you have two links on the page:</p>
+
+```
+<p><a href="http://yuilibrary.com/" id="firstA">The YUI Library. (Link navigates away from page.)</a></p>
+
+<p><a href="http://yuilibrary.com/" id="secondA">The YUI Library. (Link's default behavior is suppressed.)</a></p>
+```
+
+<p>Let's say that when the second link is clicked, instead of navigating away
+from the current page, you want to display a message.
+The event object passed to your event handler is a facade &mdash; not
+the actual browser event object.
+This facade supports the <code>preventDefault</code> method for cancelling
+inherent browser behavior such as anchor links loading a new page.</p>
+
+```
+// A function that stops the browser from navigating away
+// from the page, and instead displays a message.
+var interceptLink = function(e) {
+    e.preventDefault();
+    Y.one('.message').setStyle('visibility', 'visible');
+}
+
+// subscribe our interceptLink function to the second anchor
+Y.one('#secondA').on("click", interceptLink);
+```
+
+<h2 id="fullcode">Full Code Listing</h2>
+```
+{{>basic-example-source}}
+```
+

@@ -1,0 +1,38 @@
+{
+    "cssgrids-base": {
+        "optional": [
+            "cssnormalize"
+        ],
+        "type": "css"
+    },
+
+    "cssgrids-units": {
+        "requires": [
+            "cssgrids-base"
+        ],
+
+        "optional": [
+            "cssnormalize"
+        ],
+        "type": "css"
+    },
+
+    "cssgrids-responsive": {
+        "requires": [
+            "cssgrids",
+            "cssgrids-responsive-base"
+        ],
+
+        "optional": [
+            "cssnormalize"
+        ],
+        "type": "css"
+    },
+
+    "cssgrids": {
+        "optional": [
+            "cssnormalize"
+        ],
+        "type": "css"
+    }
+}

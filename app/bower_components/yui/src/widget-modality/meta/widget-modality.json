@@ -1,0 +1,11 @@
+{
+    "widget-modality": {
+        "requires": [
+            "base-build",
+            "event-outside",
+            "widget"
+        ],
+
+        "skinnable": true
+    }
+}

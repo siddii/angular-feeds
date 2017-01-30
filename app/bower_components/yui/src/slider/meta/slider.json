@@ -1,0 +1,37 @@
+{
+    "slider": {
+        "use": [
+            "slider-base",
+            "slider-value-range",
+            "clickable-rail",
+            "range-slider"
+        ],
+        "submodules": {
+
+            "slider-base": {
+                "requires": [
+                    "widget",
+                    "dd-constrain",
+                    "event-key"
+                ],
+                "skinnable": true
+            },
+
+            "slider-value-range": {
+                "requires": [ "slider-base" ]
+            },
+
+            "clickable-rail": {
+                "requires": [ "slider-base" ]
+            },
+
+            "range-slider": {
+                "requires": [
+                    "slider-base",
+                    "slider-value-range",
+                    "clickable-rail"
+                ]
+            }
+        }
+    }
+}

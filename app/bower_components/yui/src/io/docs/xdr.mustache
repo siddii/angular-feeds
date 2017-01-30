@@ -1,0 +1,104 @@
+<style>
+#output li {margin-left:2em;}
+#output { background-color:#FFFFFF; border:1px dotted #666666; padding:1em; margin-top:1em;}
+</style>
+<div class="intro">
+<p>In the example below, IO is employed to make a cross-domain request to <a href="http://pipes.yahoo.com">Yahoo! Pipes</a>.  The output of the Pipe is an RSS-style feed formatted as JSON.  We pass that output to the JSON Utility's `parse` method for sanitization and then display the contents of the Pipe in a list.</p>
+<p>This example demonstrates how IO can use the Cross-Origin Resource Sharing (http://www.w3.org/TR/cors/) mechanism for making cross-domain requests.</p>
+<p><strong>Please note: </strong> All the browsers listed in the Browser Test Baseline (http://developer.yahoo.com/yui/articles/gbs/) support CORS with the exception of IE 6.0 and IE 7.0, and Webkit on iOS 3.  In addition to browser capability, the requested resource must respond with the proper Access-Control headers for the request to succeed.</p>
+</div>
+<div class="example">
+{{>io-xdr-mock-config}}
+{{>io-xdr-source}}
+</div>
+
+<h3 class="first">Implementing a Cross-Domain Request for JSON Data</h3>
+
+<p>In this example, we begin with a YUI instance that loads the <code>io-xdr</code>, <code>json-parse</code>, and <code>node</code> modules. The <code>io-xdr</code> module is the key module. The other modules are used to process and output the results:</p>
+
+```
+//Create a YUI instance including support for IO and JSON modules:
+YUI().use("io-xdr", "json-parse", "node", function(Y) {
+    // Y is the YUI instance.
+    // The rest of the following code is encapsulated in this
+    // anonymous function.
+});
+```
+
+<p>We'll also get a Node reference to the container we'll be using to output the data we retrieve:</p>
+
+```
+//element #output:
+var output = Y.one("#output ul");
+```
+
+<p>handleSuccess is the function responsible for handling the response data.  The first thing we do is sanitize the data to ensure we have valid JSON.</p>
+```
+var oRSS = Y.JSON.parse(o.responseText);
+```
+<p>Next, we create a simple markup template and use `Y.Lang.sub()` to fill in the data, as we iterate through the JSON and output the results.</p>
+```
+//From here, we simply access the JSON data from where it's provided
+//in the Yahoo! Pipes output:
+if (oRSS && oRSS.count) {
+    var s = "<!--begin news stories fetched via Yahoo! Pipes-->",
+        //t in this case is our simple template; this is fed to
+        //Y.Lang.sub() as we loop through RSS items:
+        t = "<li><a href='{link}'>{title}</a>, {pubDate}</li>";
+
+    for (var i=0; i<oRSS.count; i++) {
+        s += Y.Lang.sub(t, oRSS.value.items[i]);
+    }
+
+    //Output the string to the page:
+    output.set("innerHTML", s);
+    output.addClass("yui-null");
+}
+```
+
+<p>Create the configuration object for the cross-domain request, setting up the  event handlers and instructing IO to use the browser's native cross-domain transport.</p>
+
+```
+var cfg = {
+    method: "GET", //If omitted, the default is HTTP GET.
+    xdr: {
+        use:'native'//For browsers that support CORS.
+    },
+    on: {
+        //Our event handlers previously defined:
+        start: handleStart,
+        success: handleSuccess,
+        failure: handleFailure
+    }
+};
+```
+
+<p>Create an event handler that will make the IO call to Yahoo! Pipes when the Load button is clicked:</p>
+
+```
+//Wire the button to a click handler to fire our request each
+//time the button is clicked:
+var handleClick = function(o) {
+    Y.log("Click detected; beginning io request to Yahoo! Pipes.", "info", "example");
+    // Remove the default "X-Requested-With" header as this will
+    // prevent the request from succeeding; the Pipes
+    // resource will not accept user-defined HTTP headers.
+    Y.io.header('X-Requested-With');
+    var obj = Y.io(
+	//this is a specific Pipes feed, populated with cycling news:
+	"http://pipes.yahooapis.com/pipes/pipe.run?_id=giWz8Vc33BG6rQEQo_NLYQ&_render=json",
+	cfg
+    );
+}
+
+//add the click handler to the Load button.
+Y.on("click", handleClick, "#pipes");
+```
+
+<h4>Full Script</h4>
+
+<p>The full script source for this example is as follows:</p>
+
+```
+{{>io-xdr-source}}
+```

@@ -1,0 +1,23 @@
+{
+    "highlight": {
+        "use": ["highlight-base", "highlight-accentfold"],
+
+        "submodules": {
+			"highlight-accentfold": {
+				"requires": [
+				    "highlight-base",
+				    "text-accentfold"
+				]
+			},
+
+            "highlight-base": {
+                "requires": [
+                    "array-extras",
+                    "classnamemanager",
+                    "escape",
+                    "text-wordbreak"
+                ]
+            }
+        }
+    }
+}

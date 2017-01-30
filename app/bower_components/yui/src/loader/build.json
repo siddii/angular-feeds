@@ -1,0 +1,54 @@
+{
+    "name": "loader",
+    "postexec": [
+        "./scripts/build_loader_tests.js"
+    ],
+    "builds": {
+        "loader-base": {
+            "replace": {
+                "@GALLERY@": "gallery-2014.07.31-18-26",
+                "@TNT@": "4",
+                "@YUI2@": "2.9.0"
+            },
+            "jsfiles": [
+                "meta.js",
+                "loader.js"
+            ]
+        },
+        "loader-yui3": {
+            "exec": [
+                "yogi loader --yes --mix --start ../"
+            ],
+            "jsfiles": [
+                "yui3.js"
+            ]
+        },
+        "loader-rollup": {
+            "jsfiles": [
+                "rollup.js"
+            ]
+        },
+        "loader-pathogen-combohandler": {
+            "jsfiles": [
+                "loader-pathogen-combohandler.js"
+            ]
+        }
+    },
+    "rollups": {
+        "loader": {
+            "files": [
+                "loader-base",
+                "loader-rollup",
+                "loader-yui3"
+            ]
+        },
+        "loader-pathogen-encoder": {
+            "files": [
+                "loader-base",
+                "loader-rollup",
+                "loader-yui3",
+                "loader-pathogen-combohandler"
+            ]
+        }
+    }
+}

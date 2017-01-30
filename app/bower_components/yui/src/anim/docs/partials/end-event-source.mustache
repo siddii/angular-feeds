@@ -1,0 +1,20 @@
+{{>end-event-source-html}}
+
+<script type="text/javascript">
+YUI().use('anim', function(Y) {
+    var anim = new Y.Anim({
+        node: '#demo',
+        to: { opacity: 0 }
+    });
+
+    var onEnd = function() {
+        var node = this.get('node');
+        node.get('parentNode').removeChild(node);
+    };
+
+    anim.on('end', onEnd);
+
+    Y.one('#demo .yui3-remove').on('click', anim.run, anim);
+
+});
+</script>

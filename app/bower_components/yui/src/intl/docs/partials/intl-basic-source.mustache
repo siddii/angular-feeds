@@ -1,0 +1,59 @@
+<div id="out"></div>
+
+<script>
+(function() {
+
+    var say = function(msg, node, cls) {
+        node.append('<p class="' + cls + '">' + msg + '</p>');
+    };
+
+    var appMetaData = {
+        myapp: {
+            base: '{{componentAssets}}/',
+            modules : {
+                "translator" : {
+                    path: 'translator/translator.js',
+                    lang: ["en", "fr", "es"]
+                }
+            }
+        }
+    };
+
+    YUI({
+        lang:"en",
+        groups: appMetaData
+    }).use("node-base", "translator", function(Y) {
+        var translator = new Y.Translator(),
+            out = Y.one("#out");
+
+        say("Speaking in: " + Y.Intl.getLang("translator"), out, "speaking");
+        say(translator.hi(), out, "word");
+        say(translator.bye(), out, "word");
+    });
+
+    YUI({
+        lang:"fr",
+        groups: appMetaData
+    }).use("node-base", "translator", function(Y) {
+        var translator = new Y.Translator(),
+            out = Y.one("#out");
+
+        say("Speaking in: " + Y.Intl.getLang("translator"), out, "speaking");
+        say(translator.hi(), out, "word");
+        say(translator.bye(), out, "word");
+    });
+
+    YUI({
+        lang:"es",
+        groups: appMetaData
+    }).use("node-base", "translator", function(Y) {
+        var translator = new Y.Translator(),
+            out = Y.one("#out");
+
+        say("Speaking in: " + Y.Intl.getLang("translator"), out, "speaking");
+        say(translator.hi(), out, "word");
+        say(translator.bye(), out, "word");
+    });
+
+}());
+</script>

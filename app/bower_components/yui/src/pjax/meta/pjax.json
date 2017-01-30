@@ -1,0 +1,34 @@
+{
+    "pjax": {
+        "requires": [
+            "pjax-base",
+            "pjax-content"
+        ],
+
+        "plugins": {
+            "pjax-plugin": {
+                "requires": [
+                    "node-pluginhost",
+                    "pjax",
+                    "plugin"
+                ]
+            }
+        }
+    },
+
+    "pjax-base": {
+        "requires": [
+            "classnamemanager",
+            "node-event-delegate",
+            "router"
+        ]
+    },
+
+    "pjax-content": {
+        "requires": [
+            "io-base",
+            "node-base",
+            "router"
+        ]
+    }
+}

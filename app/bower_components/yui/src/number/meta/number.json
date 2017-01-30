@@ -1,0 +1,13 @@
+{
+    "datatype-number": {
+        "use": [
+            "datatype-number-parse",
+            "datatype-number-format"
+        ]
+    },
+    "datatype-number-parse": {
+        "requires": ["escape"]
+    },
+    "datatype-number-format": {
+    }
+}

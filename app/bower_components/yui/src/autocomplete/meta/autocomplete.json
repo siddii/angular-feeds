@@ -1,0 +1,108 @@
+{
+    "autocomplete": {
+        "use": [
+            "autocomplete-base", "autocomplete-sources", "autocomplete-list",
+            "autocomplete-plugin"
+        ],
+
+        "submodules": {
+            "autocomplete-base": {
+                "plugins": {
+                    "autocomplete-filters": {
+                        "requires": [
+                            "array-extras",
+                            "text-wordbreak"
+                        ]
+                    },
+
+                    "autocomplete-filters-accentfold": {
+                        "requires": [
+                            "array-extras",
+                            "text-accentfold",
+                            "text-wordbreak"
+                        ]
+                    },
+
+                    "autocomplete-highlighters": {
+                        "requires": [
+                            "array-extras",
+                            "highlight-base"
+                        ]
+                    },
+
+                    "autocomplete-highlighters-accentfold": {
+                        "requires": [
+                            "array-extras",
+                            "highlight-accentfold"
+                        ]
+                    }
+                },
+
+                "optional": [
+                    "autocomplete-sources"
+                ],
+
+                "requires": [
+                    "array-extras",
+                    "base-build",
+                    "escape",
+                    "event-valuechange",
+                    "node-base"
+                ]
+            },
+
+            "autocomplete-list": {
+                "after": ["autocomplete-sources"],
+
+                "lang": ["en", "es", "hu", "it"],
+
+                "plugins": {
+                    "autocomplete-list-keys": {
+                        "condition": {
+                            "trigger": "autocomplete-list",
+                            "test": "autocomplete-list-keys-sniff.js"
+                        },
+
+                        "requires": [
+                            "autocomplete-list",
+                            "base-build"
+                        ]
+                    },
+
+                    "autocomplete-plugin": {
+                        "requires": [
+                            "autocomplete-list",
+                            "node-pluginhost"
+                        ]
+                    }
+                },
+
+                "requires": [
+                    "autocomplete-base",
+                    "event-resize",
+                    "node-screen",
+                    "selector-css3",
+                    "shim-plugin",
+                    "widget",
+                    "widget-position",
+                    "widget-position-align"
+                ],
+
+                "skinnable": true
+            },
+
+            "autocomplete-sources": {
+                "optional": [
+                    "io-base",
+                    "json-parse",
+                    "jsonp",
+                    "yql"
+                ],
+
+                "requires": [
+                    "autocomplete-base"
+                ]
+            }
+        }
+    }
+}

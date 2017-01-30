@@ -1,0 +1,14 @@
+{
+    "uploader-flash": {
+        "requires": [
+            "swfdetect",
+            "escape",
+            "widget",
+            "base",
+            "cssbutton",
+            "node",
+            "event-custom",
+            "uploader-queue"
+        ]
+    }
+}

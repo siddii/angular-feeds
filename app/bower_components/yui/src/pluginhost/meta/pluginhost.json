@@ -1,0 +1,17 @@
+{
+    "pluginhost": {
+	"use": ["pluginhost-base", "pluginhost-config"],
+        "submodules": {
+            "pluginhost-base": {
+                "requires": [
+                    "yui-base"
+                ]
+            },
+            "pluginhost-config": {
+                "requires": [
+                    "pluginhost-base"
+                ]
+            }
+        }
+    }
+}

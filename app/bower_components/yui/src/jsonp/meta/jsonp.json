@@ -1,0 +1,15 @@
+{
+    "jsonp": {
+        "requires": [
+            "get",
+            "oop"
+        ],
+        "plugins": {
+            "jsonp-url": {
+                "requires": [
+                    "jsonp"
+                ]
+            }
+        }
+    }
+}

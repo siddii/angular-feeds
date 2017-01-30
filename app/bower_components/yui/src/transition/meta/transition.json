@@ -1,0 +1,20 @@
+{
+    "transition": {
+        "requires": [
+            "node-style"
+        ],
+
+        "plugins": {
+            "transition-timer": {
+                "requires": [
+                    "transition"
+                ],
+
+                "condition": {
+                   "trigger": "transition",
+                   "test": "transition-test.js"
+                }
+            }
+        }
+    }
+}

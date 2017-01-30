@@ -1,0 +1,92 @@
+<div class="intro">
+<p>
+This example demonstrates how to provide autocomplete suggestions from a remote JSONP API. In this case, we're using the YUI Library website's search API to suggest YUI module names.
+</p>
+
+<p>
+Try typing in a YUI module name. If you cannot think of any, try typing one of these: node, widget, autocomplete.
+</p>
+</div>
+
+<div class="example">
+{{>ac-jsonp-source}}
+</div>
+
+<h2>HTML</h2>
+{{>need-skin-note}}
+```
+<div id="demo" class="yui3-skin-sam"> {{>need-skin-comment}}
+  <label for="ac-input">Enter a YUI module name:</label><br>
+  <input id="ac-input" type="text" size="45">
+</div>
+```
+
+<h2>JavaScript</h2>
+
+<h3>YUI Library Search Response Data</h3>
+
+<p>
+The YUI Library website's search API returns a JavaScript object that looks like this:
+</p>
+
+```
+{
+  "status": "success",
+  "data": {
+    "query": "node",
+    "total": 218,
+    "maxScore": 153.57176,
+    "took": 3,
+    "results": [
+      {
+        "_index": "docs",
+        "_type": "component",
+        "_id": "component#node",
+        "_score": 153.57176,
+        "name": "node",
+        "displayName": "Node",
+        "description": "Provides a wrapper for working with DOM nodes.",
+        "author": "msweeney",
+        "url": "/yui/docs/node/"
+      },
+
+      ...
+    ]
+  }
+}
+```
+
+<p>
+If the response were a simple array of strings, AutoComplete would interpret it correctly by default. However, in this case, the response is an object that contains a `data.results` property, the value of which is an array of result objects rather than an array of strings. Furthermore, we only want results whose `_type` property is `"module"`.
+</p>
+
+<p>
+This means we'll need to specify a <a href="{{apiDocs}}/classes/AutoCompleteBase.html#attr_resultListLocator">`resultListLocator`</a> to filter down the JSONP response to just an array of module results. Additionally we'll provide a values for <a href="{{apiDocs}}/classses/AutoCompleteBase.html#attr_resultTextLocator">`resultTextLocator`</a> to indicate the property on <em>each</em> result object that contains the suggestion text, as demonstrated in the implementation code below.
+</p>
+
+<h3>Implementation</h3>
+
+```
+YUI().use('array-extras', 'autocomplete', 'autocomplete-highlighters', function (Y) {
+  function locateModules(response) {
+    var results = (response && response.data && response.data.results) || [];
+
+    return Y.Array.filter(results, function (result) {
+      return result._type === 'module';
+    });
+  }
+
+  Y.one('#ac-input').plug(Y.Plugin.AutoComplete, {
+    resultHighlighter: 'phraseMatch',
+    resultListLocator: locateModules,
+    resultTextLocator: 'name',
+    source: 'http://yuilibrary.com/api/v1/search/suggest?q={query}&callback={callback}&count=50'
+  });
+});
+```
+
+<h2>Complete Example Source</h2>
+
+```
+{{>ac-jsonp-source}}
+```

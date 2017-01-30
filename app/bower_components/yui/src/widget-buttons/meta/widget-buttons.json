@@ -1,0 +1,9 @@
+{
+    "widget-buttons": {
+        "requires": [
+            "button-plugin",
+            "cssbutton",
+            "widget-stdmod"
+        ]
+    }
+}

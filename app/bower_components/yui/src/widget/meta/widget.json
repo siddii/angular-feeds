@@ -1,0 +1,56 @@
+{
+    "widget": {
+        "use": [
+            "widget-base",
+            "widget-htmlparser",
+            "widget-skin",
+            "widget-uievents"
+        ],
+
+        "submodules": {
+            "widget-base": {
+                "requires": [
+                    "attribute",
+                    "base-base",
+                    "base-pluginhost",
+                    "classnamemanager",
+                    "event-focus",
+                    "node-base",
+                    "node-style"
+                ],
+
+               "skinnable": true
+            },
+
+            "widget-base-ie": {
+                "condition": {
+                   "trigger": "widget-base",
+                   "ua"     : "ie"
+                },
+
+                "requires": [
+                    "widget-base"
+                ]
+            },
+
+            "widget-htmlparser": {
+                "requires": [
+                    "widget-base"
+                ]
+            },
+
+            "widget-uievents": {
+                "requires": [
+                    "node-event-delegate",
+                    "widget-base"
+                ]
+            },
+
+            "widget-skin": {
+                "requires": [
+                    "widget-base"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+
+.example .yui3-overlay h1, .yui3-overlay h2, .yui3-overlay h3, .yui3-overlay h4, .yui3-overlay h5 {
+  color:#666;
+  -webkit-text-shadow: 0px 1px 1px white;
+  -moz-text-shadow: 0px 1px 1px white;
+  text-shadow: 0px 1px 1px white;
+  border-bottom:none;
+  font-weight:lighter;
+}
+.example .yui3-overlay {
+    background:white;
+    color:black;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+    -moz-box-shadow: 0px 0px 5px rgba(0,0,0,0.8);
+    border:1px solid #333;
+}
+
+.example .yui3-overlay .yui3-widget-hd {
+  background: #499bea;
+  background: -moz-linear-gradient(top, #499bea 0%, #207ce5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#499bea), color-stop(100%,#207ce5));
+  background: -webkit-linear-gradient(top, #499bea 0%,#207ce5 100%);
+  background: -o-linear-gradient(top, #499bea 0%,#207ce5 100%);
+  background: -ms-linear-gradient(top, #499bea 0%,#207ce5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5',GradientType=0 );
+  background: linear-gradient(top, #499bea 0%,#207ce5 100%);
+  -webkit-text-shadow: 0px 1px 1px #4FBCF7;
+  -moz-text-shadow: 0px 1px 1px #4FBCF7;
+  text-shadow: 0px 1px 1px #4FBCF7;
+  color: #0F4C82;
+  font-weight:bold;
+  height:30px;
+  font-size:16px;
+  text-align:center;
+  padding-top:10px;
+  border-radius:3px;
+}
+.example .yui3-overlay #weatherWidgetContent {
+  overflow:hidden;
+}
+.example .yui3-overlay .yui3-widget-bd {
+  background: #e0eff9;
+  background: -moz-linear-gradient(top, #e0eff9 0%, #ffffff 4%, #f2f2f2 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0eff9), color-stop(4%,#ffffff), color-stop(100%,#f2f2f2));
+  background: -webkit-linear-gradient(top, #e0eff9 0%,#ffffff 4%,#f2f2f2 100%);
+  background: -o-linear-gradient(top, #e0eff9 0%,#ffffff 4%,#f2f2f2 100%);
+  background: -ms-linear-gradient(top, #e0eff9 0%,#ffffff 4%,#f2f2f2 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0eff9', endColorstr='#f2f2f2',GradientType=0 );
+  background: linear-gradient(top, #e0eff9 0%,#ffffff 4%,#f2f2f2 100%);
+}
+.example .yui3-overlay #weatherWidgetContent #mainContainer, .example .yui3-overlay #weatherWidgetContent #futureDays  {
+
+  color:#333;
+
+}
+
+#mainContainer {
+    padding:10px;
+    height:60px;
+    width:85%;
+    margin:0 auto;
+
+}
+
+#mainContainer #temp {
+  font-size:20px;
+  margin: 0 auto auto 10px;
+  position: absolute;
+  top: 66px;
+  left:81px;
+}
+#futureDays .day {
+  float:left;
+  padding:10px;
+  border-top:1px solid #ddd;
+  background:#EDF3F7;
+
+}
+#futureDays h3, #futureDays h4 {
+  margin:5px 0;
+  text-align:center;
+}
+#futureDays h3 {
+  font-size:90%;
+  color: #5ea3d3;
+}
+#futureDays h4 {
+  margin: 5px 0;
+  text-align: center;
+  font-weight: bold;
+  color: #304166;
+}
+#mainContainer .clearfix {
+  clear:both;
+}
+#weatherWidget {
+    display: none;
+}
+#weatherWidget.yui3-overlay-content {
+    display: block;
+}

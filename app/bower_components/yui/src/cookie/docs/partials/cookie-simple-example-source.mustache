@@ -1,0 +1,19 @@
+<pre id="results"></pre>
+
+<script>
+YUI().use('node', 'cookie', function (Y) {
+
+    var pre = Y.one('#results'),
+        log = function(str) {
+            pre.append(str + '<br>\n');
+        };
+
+    var currentValue = Y.Cookie.get("example");
+    log("Cookie's current value is '" + currentValue + "'");
+
+    var newValue = "yui" + Math.round(Math.random() * Math.PI * 1000);
+    log("Setting cookie's value to '" + newValue + "'");
+    Y.Cookie.set("example", newValue);
+
+});
+</script>

@@ -1,0 +1,97 @@
+<form id="demo">
+    <h4>JSON</h4>
+    <h6>Data</h6>
+    <pre>
+{
+    "query": {
+        "count": 51,
+        "created": "2013-06-04T22:50:08Z",
+        "lang": "en-US",
+        "results": {
+            "place": [
+                {
+                    "lang": "en-US",
+                    "uri": "http://where.yahooapis.com/v1/place/2347575",
+                    "woeid": "2347575",
+                    "placeTypeName": {
+                        "code": "8",
+                        "content": "State"
+                    },
+                    "name": "Kansas"
+                },
+                {
+                    "lang": "en-US",
+                    "uri": "http://where.yahooapis.com/v1/place/2347595",
+                    "woeid": "2347595",
+                    "placeTypeName": {
+                        "code": "8",
+                        "content": "State"
+                    },
+                    "name": "Oklahoma"
+                },
+                {
+                    "lang": "en-US",
+                    "uri": "http://where.yahooapis.com/v1/place/2347584",
+                    "woeid": "2347584",
+                    "placeTypeName": {
+                        "code": "8",
+                        "content": "State"
+                    },
+                    "name": "Missouri"
+                },
+                ...
+            ]
+        }
+    }
+}
+    </pre>
+
+    <h6>Schema</h6>
+    <pre>
+{
+    resultListLocator: "query.results.place",
+    resultFields: ["name"]
+}
+    </pre>
+
+    <h6>Normalized data</h6>
+    <input type="button" id="demo_json" value="Retrieve data">
+    <div id="demo_output_json" class="output"></div>
+</form>
+
+<script type="text/javascript">
+YUI().use("json-stringify", "node", "datasource-get", "datasource-jsonschema", function (Y) {
+    var myDataSource = new Y.DataSource.Get({
+            source: "http://query.yahooapis.com/v1/public/yql?format=json&"
+        });
+
+    myDataSource.plug(Y.Plugin.DataSourceJSONSchema, {
+        schema: {
+            resultListLocator: "query.results.place",
+            resultFields: ["name"]
+        }
+    });
+
+    Y.on("click", function(e){
+        // See what states are in the United States
+        myDataSource.sendRequest({
+            request: 'q=select * from geo.states where place="United States"',
+            callback: {
+                success: function(e){
+                    Y.one("#demo_output_json")
+                        .setHTML("<pre>" +
+                            Y.JSON.stringify(e.response, null, 4)
+                                .replace(/&/g,"&amp;")
+                                .replace(/</g,"&lt;")
+                                .replace(/>/g,"&gt;") +
+                                "</pre>");
+                },
+                failure: function(e){
+                    Y.one("#demo_output_json").setHTML('The data could not be retrieved. Please <a href="?mock=true">try this example with mocked data</a> instead.');
+                }
+            }
+        });
+    }, "#demo_json");
+});
+</script>
+

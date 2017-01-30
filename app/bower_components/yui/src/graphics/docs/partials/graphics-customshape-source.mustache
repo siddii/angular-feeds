@@ -1,0 +1,67 @@
+<div id="mygraphiccontainer"></div>
+<script>
+YUI({filter:"raw"}).use('graphics', function (Y)
+{
+    var RoundedRect = function()
+    {
+        RoundedRect.superclass.constructor.apply(this, arguments);
+    }
+    RoundedRect.NAME = "roundedRect";
+    Y.extend(RoundedRect, Y.Shape, {
+        _draw: function()
+        {
+            var w = this.get("width"),
+                h = this.get("height"),
+                ew = this.get("ellipseWidth"),
+                eh = this.get("ellipseHeight");
+            this.clear();
+            this.moveTo(0, eh);
+            this.lineTo(0, h - eh);
+            this.quadraticCurveTo(0, h, ew, h);
+            this.lineTo(w - ew, h);
+            this.quadraticCurveTo(w, h, w, h - eh);
+            this.lineTo(w, eh);
+            this.quadraticCurveTo(w, 0, w - ew, 0);
+            this.lineTo(ew, 0);
+            this.quadraticCurveTo(0, 0, 0, eh);
+            this.end();
+        }
+    }, {
+        ATTRS: Y.mix({
+            ellipseWidth: {
+                value: 4
+            },
+
+            ellipseHeight: {
+                value: 4
+            }
+        }, Y.Shape.ATTRS)
+    });
+    Y.RoundedRect = RoundedRect;
+
+    var mygraphic = new Y.Graphic({render: "#mygraphiccontainer"}),
+        myroundrect = mygraphic.addShape({
+            type: Y.RoundedRect,
+            width: 300,
+            height: 200,
+            x: 50,
+            y: 50,
+            ellipseWidth: 12,
+            ellipseHeight: 12,
+            fill: {
+                type: "linear",
+                stops: [
+                    {color: "#9aa9bb", offset: 0},
+                    {color: "#eeefff", offset: 0.4},
+                    {color: "#00000f", offset: 0.8},
+                    {color: "#9aa9bb", offset: 1}
+                ],
+                rotation: 45
+            },
+            stroke: {
+                weight: 2,
+                color: "#000"
+            }
+        });
+    });
+</script>

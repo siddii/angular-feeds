@@ -1,0 +1,19 @@
+{
+    "yui": {
+        "submodules": {
+            "yui-base": {},
+            "features": {
+                "requires": ["yui-base"]
+            },
+            "yui-later": {
+                "requires": ["yui-base"]
+            },
+            "yui-log": {
+                "requires": ["yui-base"]
+            },
+            "intl-base": {
+                "requires": ["yui-base"]
+            }
+        }
+    }
+}

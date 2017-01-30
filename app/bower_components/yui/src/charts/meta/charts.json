@@ -1,0 +1,5 @@
+{
+    "charts": {
+        "use":["charts-base"]
+    }
+}

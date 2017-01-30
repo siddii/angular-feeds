@@ -1,0 +1,68 @@
+{
+    "anim": {
+        "use": [
+            "anim-base",
+            "anim-color",
+            "anim-curve",
+            "anim-easing",
+            "anim-node-plugin",
+            "anim-scroll",
+            "anim-xy"
+        ],
+
+        "submodules": {
+            "anim-base": {
+                "requires": [
+                    "base-base",
+                    "node-style",
+                    "color-base"
+                ]
+            },
+            "anim-color": {
+                "requires": [
+                    "anim-base"
+                ]
+            },
+            "anim-curve": {
+                "requires": [
+                    "anim-xy"
+                ]
+            },
+            "anim-easing": {
+                "requires": [
+                    "anim-base"
+                ]
+            },
+            "anim-node-plugin": {
+                "requires": [
+                    "node-pluginhost",
+                    "anim-base"
+                ]
+            },
+            "anim-scroll": {
+                "requires": [
+                    "anim-base"
+                ]
+            },
+            "anim-xy": {
+                "requires": [
+                    "anim-base",
+                    "node-screen"
+                ]
+            },
+            "anim-shape": {
+                "requires": [
+                    "anim-base",
+                    "anim-easing",
+                    "anim-color",
+                    "matrix"
+                ]
+            },
+            "anim-shape-transform": {
+                "use": [
+                    "anim-shape"
+                ]
+            }
+        }
+    }
+}

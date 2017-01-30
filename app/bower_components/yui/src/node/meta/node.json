@@ -1,0 +1,84 @@
+{
+    "node": {
+        "use": [
+            "node-base",
+            "node-event-delegate",
+            "node-pluginhost",
+            "node-screen",
+            "node-style"
+        ],
+
+        "plugins": {
+            "align-plugin": {
+                "requires": [
+                    "node-screen",
+                    "node-pluginhost"
+                ]
+            },
+            "node-event-simulate": {
+                "requires": [
+                    "node-base",
+                    "event-simulate",
+                    "gesture-simulate"
+                ]
+            },
+            "shim-plugin": {
+                "requires": [
+                    "node-style",
+                    "node-pluginhost"
+                ]
+            },
+            "node-load": {
+                "requires": [
+                    "node-base",
+                    "io-base"
+                ]
+            }
+        },
+        "submodules": {
+            "node-core": {
+                "requires": [
+                    "dom-core",
+                    "selector"
+                ]
+            },
+            "node-base": {
+                "requires": [
+                    "event-base",
+                    "node-core",
+                    "dom-base",
+                    "dom-style"
+                ]
+            },
+            "node-event-delegate": {
+                "requires": [
+                    "node-base",
+                    "event-delegate"
+                ]
+            },
+            "node-event-html5": {
+                "requires": [
+                    "node-base"
+                ]
+            },
+            "node-pluginhost": {
+                "requires": [
+                    "node-base",
+                    "pluginhost"
+                ]
+            },
+            "node-screen": {
+                "requires": [
+                    "dom-screen",
+                    "node-base"
+                ]
+            },
+            "node-style": {
+                "requires": [
+                    "dom-style",
+                    "node-base"
+                ]
+            }
+        }
+    }
+}

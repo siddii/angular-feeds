@@ -1,0 +1,27 @@
+<div class="intro">
+<p>This example makes multiple sortable lists that are fully joined together.</p>
+</div>
+
+<div class="example">
+    <style>
+    {{>sortable-multi-source-css}}
+    {{>sortable-indent-css}}
+    {{>sortable-arrows-css}}
+    </style>
+
+    {{>sortable-multi-source-indent-html}}
+    {{>sortable-arrows}}
+
+    <script>
+    {{>sortable-multi-full-source-js}}
+    </script>
+</div>
+
+{{>sortable-multi-base}}
+
+{{>sortable-multi-source-join}}
+
+<h3>Putting it together</h3>
+```
+{{>sortable-multi-full-source-js}}
+```

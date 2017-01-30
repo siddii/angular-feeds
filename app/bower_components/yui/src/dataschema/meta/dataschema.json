@@ -1,0 +1,39 @@
+{
+    "dataschema": {
+        "use": [
+            "dataschema-base",
+            "dataschema-json",
+            "dataschema-xml",
+            "dataschema-array",
+            "dataschema-text"
+        ],
+        "submodules": {
+            "dataschema-array": {
+                "requires": [
+                    "dataschema-base"
+                ]
+            },
+            "dataschema-base": {
+                "requires": [
+                    "base"
+                ]
+            },
+            "dataschema-json": {
+                "requires": [
+                    "dataschema-base",
+                    "json"
+                ]
+            },
+            "dataschema-text": {
+                "requires": [
+                    "dataschema-base"
+                ]
+            },
+            "dataschema-xml": {
+                "requires": [
+                    "dataschema-base"
+                ]
+            }
+        }
+    }
+}

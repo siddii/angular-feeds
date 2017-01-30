@@ -1,0 +1,98 @@
+{
+    "editor": {
+        "use": [
+            "frame", "editor-selection", "exec-command", "editor-base", "editor-para",
+            "editor-br", "editor-bidi", "editor-tab", "createlink-base"
+        ],
+        "submodules": {
+            "content-editable": {
+                "requires": [
+                    "node-base",
+                    "editor-selection",
+                    "stylesheet",
+                    "plugin"
+                ]
+            },
+            "frame": {
+                "requires": [
+                    "base",
+                    "node",
+                    "plugin",
+                    "selector-css3",
+                    "yui-throttle"
+                ]
+            },
+            "editor-inline": {
+                "requires": [
+                    "editor-base",
+                    "content-editable"
+                ]
+            },
+            "editor-base": {
+                "requires": [
+                    "base",
+                    "frame",
+                    "node",
+                    "exec-command",
+                    "editor-selection"
+                ]
+            },
+            "editor-selection": {
+                "requires": [
+                    "node"
+                ]
+            },
+            "exec-command": {
+                "requires": [
+                    "frame"
+                ]
+            },
+            "editor-lists": {
+                "requires": [
+                    "editor-base"
+                ]
+            },
+            "editor-tab": {
+                "requires": [
+                    "editor-base"
+                ]
+            },
+            "editor-bidi": {
+                "requires": [
+                    "editor-base"
+                ]
+            },
+            "editor-para": {
+                "requires": [
+                    "editor-para-base"
+                ]
+            },
+            "editor-para-ie": {
+                "condition": {
+                    "trigger": "editor-para",
+                    "ua": "ie",
+                    "when": "instead"
+                },
+                "requires": [
+                    "editor-para-base"
+                ]
+            },
+            "editor-para-base": {
+                "requires": [
+                    "editor-base"
+                ]
+            },
+            "editor-br": {
+                "requires": [
+                    "editor-base"
+                ]
+            },
+            "createlink-base": {
+                "requires": [
+                    "editor-base"
+                ]
+            }
+        }
+    }
+}
+

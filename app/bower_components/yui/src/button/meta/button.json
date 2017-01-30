@@ -1,0 +1,38 @@
+{
+    "button-core": {
+        "requires": [
+            "attribute-core",
+            "classnamemanager",
+            "node-base",
+            "escape"
+        ]
+    },
+
+    "button-plugin": {
+        "requires": [
+            "button-core",
+            "cssbutton",
+            "node-pluginhost"
+        ]
+    },
+
+    "button": {
+        "requires": [
+            "button-core",
+            "cssbutton",
+            "widget"
+        ]
+    },
+
+    "button-group": {
+        "requires": [
+            "button-plugin",
+            "cssbutton",
+            "widget"
+        ]
+    },
+
+    "cssbutton": {
+        "type": "css"
+    }
+}

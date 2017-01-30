@@ -1,0 +1,49 @@
+.example .arrow {
+    display: none;
+    height: 28px;
+    margin: 10px auto;
+    width: 300px;
+    position: relative;
+    background-repeat: no-repeat;
+}
+
+.example .arrow em {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 28px;
+    width: 19px;
+    background-repeat: no-repeat;
+}
+
+.example .arrow div {
+    height: 8px;
+    position: relative;
+    top: 10px;
+    margin: 0 5px;
+    font-size: 1px; /* for IE */
+    background-color: #d9d9d9;
+}
+
+.example .arrow-full {
+    display: block;
+    background-image: url({{{componentAssets}}}/arrow-left.png);
+}
+
+.example .arrow-full em {
+    background-image: url({{{componentAssets}}}/arrow-right.png);
+}
+
+.example .arrow-out {
+    display: block;
+}
+
+.example .arrow-out em {
+    background-image: url({{{componentAssets}}}/arrow-right.png);
+}
+
+.example .arrow-in {
+    display: block;
+    background-image: url({{{componentAssets}}}/arrow-left.png);
+}

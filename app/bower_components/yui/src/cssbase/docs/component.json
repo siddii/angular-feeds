@@ -1,0 +1,50 @@
+{
+    "name"       : "cssbase",
+    "displayName": "CSS Base",
+    "description": "CSS Base applies a consistent style foundation for common HTML elements across A-grade browsers.",
+    "author"     : "msweeney",
+
+    "tags": ["css"],
+    "use" : ["cssbase"],
+
+    "hideAPILink": true,
+
+    "examples": [
+        {
+            "newWindow"  : "true",
+            "name"       : "cssbase-basic",
+            "displayName": "Global (Page-Level) Example",
+            "description": "When CSS Base is included in a page it provides consistent and basic cross-browser styling for HTML elements.",
+            "modules"    : ["cssbase"],
+            "tags"       : ["cssbase"],
+
+            "hideTableOfContents": true
+        },
+
+        {
+            "newWindow"  : "true",
+            "name"       : "cssbase-context",
+            "displayName": "Contextual Example",
+            "description": "CSS Base applied to a portion of a page based on the location of a class value.",
+            "modules"    : ["cssbase"],
+            "tags"       : ["cssbase"],
+
+            "hideTableOfContents": true
+        }
+
+    ],
+
+    "pages": {
+        "cssbase-basic-example": {
+            "name"       : "cssbase-basic",
+            "displayName": "CSS Base Page Example",
+            "layout"     : "cssbase-basic-example"
+        },
+
+        "cssbase-context-example": {
+            "name"       : "cssbase-context",
+            "displayName": "CSS Base Contextual Example",
+            "layout"     : "cssbase-context-example"
+        }
+    }
+}

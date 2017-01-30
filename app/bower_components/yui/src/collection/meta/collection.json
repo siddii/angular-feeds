@@ -1,0 +1,26 @@
+{
+    "collection": {
+        "use": [
+            "array-extras",
+            "arraylist",
+            "arraylist-add",
+            "arraylist-filter",
+            "array-invoke"
+        ],
+        "submodules": {
+            "array-extras": { "requires": [ "yui-base" ] },
+            "array-invoke": { "requires": [ "yui-base" ] },
+            "arraylist": { "requires": [ "yui-base" ] },
+            "arraylist-add": {
+                "requires": [
+                    "arraylist"
+                ]
+            },
+            "arraylist-filter": {
+                "requires": [
+                    "arraylist"
+                ]
+            }
+        }
+    }
+}

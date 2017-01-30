@@ -1,0 +1,12 @@
+{
+    "node-scroll-info": {
+        "requires": [
+            "array-extras",
+            "base-build",
+            "event-resize",
+            "node-pluginhost",
+            "plugin",
+            "selector"
+        ]
+    }
+}

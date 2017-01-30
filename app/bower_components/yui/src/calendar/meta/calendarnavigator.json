@@ -1,0 +1,11 @@
+{
+    "calendarnavigator": {
+        "requires": [
+            "plugin",
+            "classnamemanager",
+            "datatype-date",
+            "node"
+        ],
+        "skinnable": true
+    }
+}

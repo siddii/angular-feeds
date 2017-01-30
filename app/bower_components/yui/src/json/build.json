@@ -1,0 +1,25 @@
+{
+    "name": "json",
+    "builds": {
+        "json-stringify": {
+            "jsfiles": [
+                "stringify.js"
+            ]
+        },
+        "json-parse": {
+            "jsfiles": [
+                "parse.js"
+            ]
+        },
+        "json-stringify-shim": {
+            "jsfiles": [
+                "stringify-shim.js"
+            ]
+        },
+        "json-parse-shim": {
+            "jsfiles": [
+                "parse-shim.js"
+            ]
+        }
+    }
+}

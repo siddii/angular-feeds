@@ -1,0 +1,18 @@
+{
+    "querystring": {
+        "use": [ "querystring-parse", "querystring-stringify" ],
+        "submodules": {
+            "querystring-parse": {
+                "requires": [
+                    "yui-base",
+                    "array-extras"
+                ]
+            },
+            "querystring-stringify": {
+                "requires": [
+                    "yui-base"
+                ]
+            }
+        }
+    }
+}

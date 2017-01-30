@@ -1,0 +1,52 @@
+{
+    "io": {
+        "use": [
+             "io-base",
+             "io-xdr",
+             "io-form",
+             "io-upload-iframe",
+             "io-queue"
+         ],
+        "submodules": {
+            "io-base": {
+                "requires": [
+                    "event-custom-base",
+                    "querystring-stringify-simple"
+                ]
+            },
+            "io-form": {
+                "requires": [
+                    "io-base",
+                    "node-base"
+                ]
+            },
+            "io-nodejs": {
+                "condition": {
+                    "trigger": "io-base",
+                    "ua": "nodejs"
+                },
+                "requires": [
+                    "io-base"
+                ]
+            },
+            "io-queue": {
+                "requires": [
+                    "io-base",
+                    "queue-promote"
+                ]
+            },
+            "io-upload-iframe": {
+                "requires": [
+                    "io-base",
+                    "node-base"
+                ]
+            },
+            "io-xdr": {
+                "requires": [
+                    "io-base",
+                    "datatype-xml-parse"
+                ]
+            }
+        }
+    }
+}

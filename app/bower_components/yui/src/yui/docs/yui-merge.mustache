@@ -1,0 +1,43 @@
+<div class="intro">
+<p>Combine data sets and create shallow copies of objects with `merge`</p>
+</div>
+
+<div class="example">
+    {{>yui-merge}}
+</div>
+
+
+<h3>Using `merge`</h3>
+
+```
+YUI().use('node', 'dump', function(Y) {
+    // This method is in the core of the library, so we don't have to use() any
+    // additional modules to access it.  However, this example requires 'node' and 'dump'.
+```
+
+<h3>Merging hash tables</h3>
+<p>When the "Merge" button is clicked, we merge three object literals in the form
+of hash tables.  Note the key values in later parameters override those in
+previous parameters.</p>
+
+```
+{{>yui-merge-js1}}
+```
+
+<h3>Creating Shallow Copies</h3>
+<p>When the "Copy" button is clicked, we create use merge on a single
+object in order to create a shallow clone.  The code illustrates the
+fact that object properties of the result object are shared with
+the input object.</p>
+
+```
+{{>yui-merge-js2}}
+```
+
+<p>See the `clone` method to create deep copies of objects.</p>
+
+<h3>Full Javascript Source</h3>
+
+```
+{{>yui-merge-js}}
+```

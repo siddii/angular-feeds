@@ -1,0 +1,811 @@
+<div class="intro">
+<p>
+A Model List is an array-like ordered list of <a href="../model/index.html">Model</a> instances with methods for adding, removing, sorting, filtering, and performing other actions on models in the list.
+</p>
+
+<p>
+A Model instance may exist in zero or more lists. All events fired by a model automatically bubble up to all the lists that contain that model, so lists serve as convenient aggregators for model events.
+</p>
+
+<p>
+`Y.ModelList` also exposes a sync API similar to the one used by `Y.Model`, making it easy to implement syncing logic to load lists of models from a persistence layer or remote server.
+</p>
+</div>
+
+{{>getting-started}}
+
+<h2>Using Model List</h2>
+
+<h3>Instantiating a Model List</h3>
+
+<p>
+Most of the classes in the App Framework are meant to be extended, but if your needs are simple and you don't plan to implement a custom sort comparator or sync layer for your lists, you can just instantiate `Y.ModelList` directly.
+</p>
+
+```
+// Instantiate a new list and add some models to it.
+var list = new Y.ModelList();
+
+list.add([
+  {name: 'Model One', arbitraryData: 'foo'},
+  {name: 'Model Two', arbitraryData: 'bar'}
+]);
+```
+
+<p>
+Alternatively, you can specify the models you want to add in an `items` config parameter that you pass to ModelList's constructor. Adding items this way won't cause an [[#List Events|`add` event]] to be fired.
+</p>
+
+```
+var list = new Y.ModelList({
+  items: [
+    {name: 'Model One', arbitraryData: 'foo'},
+    {name: 'Model Two', arbitraryData: 'bar'}
+  ]
+});
+```
+
+<p>
+If you already have existing `Y.Model` instances, you can add those instead of passing in new objects.
+</p>
+
+```
+var modelOne = new Y.Model({name: 'Model One', arbitraryData: 'foo'}),
+    modelTwo = new Y.Model({name: 'Model Two', arbitraryData: 'bar'});
+
+list.add([modelOne, modelTwo]);
+```
+
+<p>
+ModelList's `model` config parameter allows you to specify the default Model class the list should use to create a new model when you pass a plain object to `add()` or `create()`. For example, if you set `model` to `Y.PieModel` (which you can read more about in the <a href="../model/index.html">Model User Guide</a>), then the list will create new instances of that class instead of `Y.Model`.
+</p>
+
+```
+var list = new Y.ModelList({model: Y.PieModel});
+
+list.add([
+  {type: 'Pumpkin', slices: 6},
+  {type: 'Pecan', slices: 9}
+]);
+```
+
+<h3>Extending `Y.ModelList`</h3>
+
+<p>
+Extending the `Y.ModelList` class allows you to create a custom class in which you may provide a custom sort comparator function, sync layer, or other logic specific to your lists. This is optional, but is a great way to add custom functionality to a model list in an efficient and maintainable way as your application's needs become more complex.
+</p>
+
+<p>
+In this example, we'll create a `Y.PieList` class. Each instance of this class will contain `Y.PieModel` instances representing delicious pies.
+</p>
+
+```
+Y.PieList = Y.Base.create('pieList', Y.ModelList, [], {
+  // Add prototype properties and methods for your List here if desired. These
+  // will be available to all instances of your List.
+
+  // Specifies that this list is meant to contain instances of Y.PieModel.
+  model: Y.PieModel,
+
+  // Returns an array of PieModel instances that have been eaten.
+  eaten: function () {
+    return Y.Array.filter(this.toArray(), function (model) {
+      return model.get('slices') === 0;
+    });
+  },
+
+  // Returns the total number of pie slices remaining among all the pies in
+  // the list.
+  totalSlices: function () {
+    var slices = 0;
+
+    this.each(function (model) {
+      slices += model.get('slices');
+    });
+
+    return slices;
+  }
+});
+```
+
+<p>
+You can now create instances of `Y.PieList`.
+</p>
+
+```
+var pies = new Y.PieList();
+```
+
+<h3>Adding, Removing, and Retrieving Models</h3>
+
+<h4>Adding Models</h4>
+
+<p>
+Use the <a href="{{apiDocs}}/classes/ModelList.html#method_add">`add()`</a>, <a href="{{apiDocs}}/classes/ModelList.html#method_create">`create()`</a>, and <a href="{{apiDocs}}/classes/ModelList.html#method_reset">`reset()`</a> methods to put models into a list.
+</p>
+
+<p>
+The difference between `add()` and `create()` is that `add()` simply adds one or more models to the list, while `create()` first saves a model and only adds it to the list once the model's sync layer indicates that the save operation was successful.
+</p>
+
+```
+// Add a single model to the list.
+pies.add(new Y.PieModel({type: 'pecan'}));
+
+// Add multiple models to the list.
+pies.add([
+  new Y.PieModel({type: 'apple'}),
+  new Y.PieModel({type: 'maple custard'})
+]);
+
+// Save a model, then add it to the list.
+pies.create(new Y.PieModel({type: 'pumpkin'}));
+```
+
+<p>
+You may also pass plain object hashes to the `add()` and `create()` methods, and the list will automatically create new model instances for you using the Model class specified by the list's `model` property (which defaults to `Y.Model`).
+</p>
+
+```
+// Add a single model to the list.
+pies.add({type: 'pecan'});
+
+// Add multiple models to the list.
+pies.add([
+  {type: 'apple'},
+  {type: 'maple custard'}
+]);
+
+// Save a model, then add it to the list.
+pies.create({type: 'pumpkin'});
+```
+
+<p>
+You can even pass another ModelList instance to `add()` to add all the models from that list to this one as well.
+</p>
+
+```
+// Assuming `cheesecakes` is another ModelList instance, we can add all its
+// models to the `pies` list like this.
+pies.add(cheesecakes);
+```
+
+<p>
+To add one or more models to a list at instantiation time, specify them in the `items` property of the config object passed to ModelList's constructor. When models are added this way, the `add` event is not fired.
+</p>
+
+```
+// Create a new list containing a single model.
+var pies = new Y.ModelList({items: {type: 'pecan'}});
+
+// Create a new list containing multiple models.
+var pies = new Y.ModelList({
+  items: [
+    {type: 'apple'},
+    {type: 'maple custard'}
+  ]
+});
+
+// Create a new list containing the contents of another list.
+var pies = new Y.ModelList({items: otherList});
+```
+
+<p>
+Models are automatically inserted into the list at the correct index based on the current sort comparator, so the list is always guaranteed to be sorted. By default, no sort comparator is defined, so models are sorted in insertion order. See [[#Creating a Custom Sort Comparator]] for details on customizing how a list is sorted.
+</p>
+
+<p>
+To add one or more models at a specific index in the list regardless of the current sort order, specify a value for the `index` option:
+</p>
+
+```
+// Add a pie at index 2, regardless of the current sort order.
+pies.add({type: 'lemon meringue'}, {index: 2});
+```
+
+<p>
+The `create()` method accepts an optional callback function, which will be executed when the save operation finishes. Provide a callback if you'd like to be notified of the success or failure of the save operation.
+</p>
+
+```
+pies.create({type: 'watermelon chiffon'}, function (err) {
+  if (!err) {
+    // The save operation was successful!
+  }
+});
+```
+
+<p>
+The `reset()` method removes any models that are already in the list and then adds the models you specify. Instead of generating many `add` and `remove` events, the `reset()` method only generates a single `reset` event. Use `reset()` when you need to repopulate the entire list efficiently.
+</p>
+
+```
+// Remove all existing models from the list and add new ones.
+pies.reset([
+  {type: 'lemon meringue'},
+  {type: 'banana cream'}
+]);
+```
+
+<p>
+Just like with `add()`, you can pass another ModelList instance to `reset()` to add all the models from that list to the receiving list as well.
+</p>
+
+<p>
+You can also call `reset()` with no arguments to quickly empty the list.
+</p>
+
+```
+// Empty the list.
+pies.reset();
+```
+
+<h4>Retrieving Models</h4>
+
+<p>
+Models in the list can be retrieved by their `id` attribute, their `clientId` attribute, or by their numeric index within the list.
+</p>
+
+```
+// Look up a model by its id.
+pies.getById('1234');
+
+// Look up a model by its clientId.
+pies.getByClientId('pie_42');
+
+// Look up a model by its numeric index within the list.
+pies.item(0);
+
+// Find the index of a model instance within the list.
+pies.indexOf(pies.getById('1234'));
+```
+
+<h4>Filtering Models</h4>
+
+<p>
+The `filter()` method allows you to specify a custom callback function to select arbitrary models from the list based on your own criteria. It returns an array of models for which the callback function returns a truthy value.
+</p>
+
+```
+var applePies = pies.filter(function (pie) {
+  return pie.get('type') === 'apple';
+});
+
+// applePies is now an array of only apple pies.
+```
+
+<p>
+Pass `{asList: true}` as the first argument to `filter()` to get back a new ModelList containing the filtered models instead of a plain array.
+</p>
+
+```
+var applePiesList = pies.filter({asList: true}, function (pie) {
+  return pie.get('type') === 'apple';
+});
+
+// applePiesList is now a ModelList containing only apple pies.
+```
+
+<h4>Removing Models</h4>
+
+<p>
+Pass a model index, array of model indices, model instance, or array of model instances to the <a href="{{apiDocs}}/classes/ModelList.html#method_remove">`remove()`</a> method to remove them from the list.
+</p>
+
+```
+// Remove the model at index 1 from the list.
+pies.remove(1);
+
+// Remove multiple models from the list by index.
+pies.remove([0, 3, 4]);
+
+// Remove a specific model instance from the list, regardless of its index.
+pies.remove(pies.getById('1234'));
+
+// Remove multiple model instances from the list.
+pies.remove([
+  pies.getById('1235'),
+  pies.getById('1236')
+]);
+```
+
+<p>
+This will only remove the specified models from the list; it won't actually call the models' <a href="{{apiDocs}}/classes/Model.html#method_destroy">`destroy()`</a> methods or delete them via the models' sync layer. Calling a model's `destroy()` method will automatically remove it from any lists it's in, so that would be a better option if you want to both remove and destroy or delete a model.
+</p>
+
+<p>
+You can also pass another ModelList instance to `remove()` to remove all the models that exist in that list from this list (note that you may get `error` events if some of the models in the other list don't exist in the list you're trying to remove them from).
+</p>
+
+<h3>List Attributes</h3>
+
+<p>
+Model Lists themselves don't provide any attributes, but calling the <a href="{{apiDocs}}/classes/ModelList.html#method_get">`get()`</a>, <a href="{{apiDocs}}/classes/ModelList.html#method_getAsHTML">`getAsHTML()`</a>, or <a href="{{apiDocs}}/classes/ModelList.html#method_getAsURL">`getAsURL()`</a> methods on the list will return an array containing the specified attribute values from every model in the list.
+</p>
+
+```
+pies.add([
+  {type: 'pecan'},
+  {type: 'strawberries & cream'},
+  {type: 'blueberry'}
+]);
+
+pies.get('type');
+// => ["pecan", "strawberries & cream", "blueberry"]
+
+pies.getAsHTML('type');
+// => ["pecan", "strawberries &amp; cream", "blueberry"]
+
+pies.getAsURL('type');
+// => ["pecan", "strawberries%20%26%20cream", "blueberry"]
+```
+
+<h3>List Events</h3>
+
+<p>
+Model List instances provide the following events:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th>When</th>
+      <th>Preventable?</th>
+      <th>Payload</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`add`</td>
+      <td>A model is added to the list.</td>
+      <td style="text-align:center;">Y</td>
+      <td>
+        <dl>
+          <dt>`model` (<em>Y.Model</em>)</dt>
+          <dd>
+            The model instance being added.
+          </dd>
+
+          <dt>`index` (<em>Number</em>)</dt>
+          <dd>
+            The index at which the model will be added.
+          </dd>
+        </dl>
+      </td>
+    </tr>
+
+    <tr>
+      <td>`create`</td>
+      <td>A model is created or updated via the `create()` method, but before that model is saved or added to the list, and before the `add` event fires.</td>
+      <td style="text-align:center;">&nbsp;</td>
+      <td>
+        <dl>
+          <dt>`model` (<em>Y.Model</em>)</dt>
+          <dd>
+            The model instance being created or updated.
+          </dd>
+        </dl>
+      </td>
+    </tr>
+
+    <tr>
+      <td>`error`</td>
+      <td>An error occurs, such as when an attempt is made to add a duplicate model to the list, or when a sync layer response can't be parsed.</td>
+      <td style="text-align:center;">&nbsp;</td>
+      <td>
+        <dl>
+          <dt>`error` (<em>Mixed</em>)</dt>
+          <dd>
+            Error message, object, or exception generated by the error. Calling `toString()` on this should result in a meaningful error message.
+          </dd>
+
+          <dt>`src` (<em>String</em>)</dt>
+          <dd>
+            <p>
+            Source of the error. May be one of the following (or any custom error source defined by a ModelList subclass):
+            </p>
+
+            <dl>
+              <dt>`add`</dt>
+              <dd>
+                Error while adding a model (probably because it's already in the list and can't be added again). The model in question will be provided as the `model` property on the event facade.
+              </dd>
+
+              <dt>`parse`</dt>
+              <dd>
+                An error parsing a JSON response. The response in question will be provided as the `response` property on the event facade.
+              </dd>
+
+              <dt>`remove`</dt>
+              <dd>
+                Error while removing a model (probably because it isn't in the list and can't be removed). The model in question will be provided as the `model` property on the event facade.
+              </dd>
+            </dl>
+        </dl>
+      </td>
+    </tr>
+
+    <tr>
+      <td>`load`</td>
+      <td>Models are loaded into the list from a sync layer.</td>
+      <td style="text-align:center;">&nbsp;</td>
+      <td>
+        <dl>
+          <dt>`parsed` (<em>Object</em>)</dt>
+          <dd>
+            The parsed version of the sync layer's response to the load request.
+          </dd>
+
+          <dt>`response` (<em>Mixed</em>)</dt>
+          <dd>
+            The sync layer's raw, unparsed response to the load request.
+          </dd>
+        </dl>
+      </td>
+    </tr>
+
+    <tr>
+      <td>`remove`</td>
+      <td>A model is removed from the list.</td>
+      <td style="text-align:center;">Y</td>
+      <td>
+        <dl>
+          <dt>`model` (<em>Y.Model</em>)</dt>
+          <dd>
+            The model instance being removed.
+          </dd>
+
+          <dt>`index` (<em>Number</em>)</dt>
+          <dd>
+            The index of the model being removed.
+          </dd>
+        </dl>
+      </td>
+    </tr>
+
+    <tr>
+      <td>`reset`</td>
+      <td>The list is completely reset or sorted.</td>
+      <td style="text-align:center;">Y</td>
+      <td>
+        <dl>
+          <dt>`models` (<em>Array</em>)</dt>
+          <dd>
+            Array of the list's new models after the reset.
+          </dd>
+
+          <dt>`src` (<em>String</em>)</dt>
+          <dd>
+            Source of the event. May be either "reset" or "sort".
+          </dd>
+        </dl>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+Some of these events are preventable, which means you can subscribe to the "on" phase of an event and call `e.preventDefault()` in your subscriber function to prevent the event from actually occurring. This works because "on" subscribers actually run before an event causes any default logic to run.
+</p>
+
+<p>
+For example, you could prevent a model from being added to the list like this:
+</p>
+
+```
+pies.on('add', function (e) {
+  if (e.model.get('type') === 'rhubarb') {
+    // Eww. No rhubarb for me please.
+    e.preventDefault();
+  }
+});
+```
+
+<p>
+If you only want to be notified <em>after</em> an event occurs, and only when that event wasn't prevented, subscribe to the "after" phase.
+</p>
+
+```
+pies.after('add', function (e) {
+  // Only runs after a model is successfully added to the list.
+});
+```
+
+<h4>Subscribing to Bubbled Model Events</h4>
+
+<p>
+A model's events bubble up to any model lists it belongs to. This means, for example, that you can subscribe to the `*:change` event on the list to be notified whenever the `change` event of any model in the list is fired.
+</p>
+
+```
+// Subscribe to change events from all models in the `pies` model list.
+pies.on('*:change', function (e) {
+  // e.target is a reference to the model instance that caused the event.
+  var model  = e.target,
+      slices = e.changed.slices;
+
+  if (slices && slices.newVal < slices.prevVal) {
+    Y.log('Somebody just ate a slice of ' + model.get('type') + ' pie!');
+  }
+});
+```
+
+<p>
+If a model exists in more than one list, its events will bubble up to all the lists it's in.
+</p>
+
+<h3>Manipulating the List</h3>
+
+<p>
+Model Lists extend `Y.ArrayList`, which means they provide many convenient array-like methods for manipulating the list of models.
+</p>
+
+<p>
+For example, you can use `each()` and `some()` to iterate over the list, `size()` to get the number of models in the list, and `map()` to pass each model in the list to a function and return an array of that function's return values.
+</p>
+
+<p>
+For more details, see the <a href="{{apiDocs}}/classes/ModelList.html">Model List API docs</a>.
+</p>
+
+<h2>Creating a Custom Sort Comparator</h2>
+
+<p>
+When a model is added to a list, it's automatically inserted at the correct index to maintain the sort order of the list. This sort order is determined by the return value of the list's optional `comparator()` function.
+</p>
+
+<p>
+By default, lists don't have a comparator function, so models are sorted in the order they're added. To customize how models are sorted, override your list's `comparator()` function with a function that accepts a single model instance as an argument and returns a value that should be compared with return values from other models to determine the sort order.
+</p>
+
+```
+Y.PieList = Y.Base.create('pieList', Y.ModelList, [], {
+  // ... prototype methods and properties ...
+
+  // Custom comparator to keep pies sorted by type.
+  comparator: function (model) {
+    return model.get('type');
+  }
+});
+```
+
+<p>
+If you change the comparator function after models have already been added to the list, you can call the list's `sort()` function to re-sort the entire list.
+</p>
+
+```
+// Change the comparator of a pie list and re-sort it after adding some pies.
+var pies = new Y.PieList();
+
+pies.add([
+  {type: 'chocolate cream', slices: 8},
+  {type: 'dutch apple', slices: 6}
+]);
+
+pies.get('type');
+// => ['chocolate cream', 'dutch apple']
+
+pies.comparator = function (model) {
+  return model.get('slices');
+};
+
+pies.sort();
+
+pies.get('type');
+// => ['dutch apple', 'chocolate cream']
+```
+
+<p>
+Behind the scenes, ModelList passes each model to the `comparator()` method and then performs a simple natural order comparison on the return values to determine whether a given model should be sorted above, below, or at the same position as another model. The logic looks like this:
+</p>
+
+```
+// `a` and `b` are both Model instances.
+function (a, b) {
+  // `this` is the current ModelList instance.
+  var aValue = this.comparator(a),
+      bValue = this.comparator(b);
+
+  return aValue < bValue ? -1 : (aValue > bValue ? 1 : 0);
+}
+```
+
+<p>
+<b>Note:</b> Once a `comparator()` method is defined, Model List can sort the items in descending order by specifying the descending option: `sort({descending: true})`
+</p>
+
+<p>
+If necessary, you can override ModelList's protected <a href="{{apiDocs}}/classes/ModelList.html#method__sort">`_sort()`</a> method (note the underscore prefix) to further customize this sorting logic.
+</p>
+
+<h2>Implementing a List Sync Layer</h2>
+
+<p>
+A list's <a href="{{apiDocs}}/classes/ModelList.html#method_load">`load()`</a> method internally calls the list's <a href="{{apiDocs}}/classes/ModelList.html#method_sync">`sync()`</a> method to carry out the load action. The default `sync()` method doesn't actually do anything, but by overriding the `sync()` method, you can provide a custom sync layer.
+</p>
+
+<p>
+A sync layer might make Ajax requests to a remote server, or it might act as a wrapper around local storage, or any number of other things.
+</p>
+
+<p>
+A Model List sync layer works exactly the same way as a <a href="../model/index.html">Model</a> sync layer, except that only the `read` action is currently supported.
+</p>
+
+<h3>The `sync()` Method</h3>
+
+<p>
+When the `sync()` method is called, it receives three arguments:
+</p>
+
+<dl>
+  <dt><strong>`action` (<em>String</em>)</strong></dt>
+  <dd>
+    <p>
+    A string that indicates the intended sync action. May be one of the following values:
+    </p>
+
+    <dl>
+      <dt><strong>`read`</strong></dt>
+      <dd>
+        <p>
+        Read an existing list of models.
+        </p>
+      </dd>
+
+      <dd><em>Other values are not currently supported, but may be added in a future release.</em></dd>
+    </dl>
+  </dd>
+
+  <dt><strong>`options` (<em>Object</em>)</strong></dt>
+  <dd>
+    <p>
+    A hash containing any options that were passed to the `load()` method. This may be used to pass custom options to a sync layer.
+    </p>
+  </dd>
+
+  <dt><strong>`callback` (<em>Function</em>)</strong></dt>
+  <dd>
+    <p>
+    A callback function that should be called when the sync operation is complete. The callback expects to receive the following arguments:
+    </p>
+
+    <dl>
+      <dt><strong>`err`</strong></dt>
+      <dd>
+        <p>
+        Error message or object if an error occured, `null` or `undefined` if the operation was successful.
+        </p>
+      </dd>
+
+      <dt><strong>`response`</strong></dt>
+      <dd>
+        <p>
+        Response from the persistence layer, if any. This will be passed to the `parse()` method to be parsed.
+        </p>
+      </dd>
+    </dl>
+  </dd>
+</dl>
+
+<p>
+Implementing a sync layer is as simple as handling the requested sync action and then calling the callback function. Here's a sample sync layer that loads a list of models from local storage:
+</p>
+
+```
+Y.PieList = Y.Base.create('pieList', Y.ModelList, [], {
+  // ... prototype methods and properties ...
+
+  // Custom sync layer.
+  sync: function (action, options, callback) {
+    var data;
+
+    if (action === 'read') {
+      data = localStorage.getItem('pies') || [];
+      callback(null, data);
+    } else {
+      callback('Unsupported sync action: ' + action);
+    }
+  }
+});
+```
+
+<h3>The `parse()` Method</h3>
+
+<p>
+Depending on the kind of response your sync layer returns, you may need to override the <a href="{{apiDocs}}/classes/ModelList.html#method_parse">`parse()`</a> method as well. The default `parse()` implementation can parse either a JavaScript array of model hashes or a JSON string that represents a JavaScript array of model hashes. If your response data is in another format, such as a nested JSON object or XML, override the `parse()` method to provide a custom parser implementation.
+</p>
+
+<p>
+If an error occurs while parsing a response, fire an `error` event with `type` "parse".
+</p>
+
+<p>
+This sample demonstrates a custom parser for responses in which the list data is contained in a `data` property of the response object.
+</p>
+
+```
+// Custom response parser.
+parse: function (response) {
+  if (response.data) {
+    return response.data;
+  }
+
+  this.fire('error', {
+    type : 'parse',
+    error: 'No data in the response.'
+  });
+}
+```
+
+<h2>LazyModelList</h2>
+
+<p>
+The <a href="{{apiDocs}}/classes/LazyModelList.html">LazyModelList</a> class is a subclass of ModelList that stores plain objects instead of fully instantiated Model instances. This can be useful when you're dealing with a large number of items that you don't want to instantiate up front for performance or memory usage reasons. To use a LazyModelList, load the `lazy-model-list` module and instantiate `Y.LazyModelList` instead of `Y.ModelList`.
+</p>
+
+```
+YUI().use('lazy-model-list', function (Y) {
+  var list = new Y.LazyModelList();
+
+  // ...
+});
+```
+
+<p>
+LazyModelList shares the same API as ModelList, but in all cases where ModelList provides or accepts a Model instance, LazyModelList provides or accepts a plain JavaScript object. An object in a LazyModelList can be revived into a full Model instance by passing it (or its index) to the list's <a href="{{apiDocs}}/classes/LazyModelList.html#method_revive">`revive()`</a> method.
+</p>
+
+<p>
+Once an item is revived, its model instance is cached internally for future use. To delete a cached model instance and free up memory, pass it (or its index) to the <a href="{{apiDocs}}/classes/LazyModelList.html#method_free">`free()`</a> method.
+</p>
+
+<p>
+Since the items stored in a LazyModelList are plain objects and not full Model instances, there are a few caveats to be aware of:
+</p>
+
+<ul>
+  <li>
+    <p>
+    Items contain properties rather than Model attributes. To retrieve a property, use
+    `item.foo` rather than `item.get('foo')`. To set a property, use
+    `item.foo = 'bar'` rather than `item.set('foo', 'bar')`.
+    </p>
+  </li>
+
+  <li>
+    <p>
+    Model attribute getters and setters aren't supported, since items in the
+    LazyModelList are stored and manipulated as plain objects with simple
+    properties.
+    </p>
+  </li>
+
+  <li>
+    <p>
+    Changes made to the plain object version of an item will not trigger or
+    bubble up Model `change` events. However, once an item is revived into a
+    full Model using the `revive()` method, changes to that Model instance
+    will trigger and bubble change events as expected.
+    </p>
+  </li>
+
+  <li>
+    <p>
+    Custom `idAttribute` fields are not supported.
+    </p>
+  </li>
+
+  <li>
+    <p>
+    `id` and `clientId` properties <em>are</em> supported. If an item doesn't have a
+    `clientId` property, one will be generated automatically when the item is
+    added to a LazyModelList.
+    </p>
+  </li>
+</ul>
+
+<p>
+LazyModelList is generally much more memory efficient than ModelList when managing large numbers of items, and adding/removing items is significantly faster. However, the tradeoff is that LazyModelList is only well-suited for storing very simple items without complex attributes, and consumers must explicitly revive items into full Model instances as needed (this is not done transparently for performance reasons).
+</p>

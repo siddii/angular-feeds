@@ -1,0 +1,36 @@
+<link href="{{componentAssets}}/node.css" rel="stylesheet" type="text/css">
+<div class="intro">
+    <p>This example shows how to show and hide <code>Node</code> instances.</p>
+</div>
+
+<div class="example">
+{{>node-view-source}}
+</div>
+
+<h2>Showing a Node</h2>
+<p>By default, Node instances are hidden using the node's <code>hidden</code> attribute and the CSS <code>display</code>.  Calling the <code>show</code> method displays the node.</p>
+```
+    Y.one('#demo').show();
+```
+
+<h2>Hiding a Node</h2>
+<p>The opposite of <code>show</code>, the <code>hide</code> method sets the node's <code>hidden</code> attribute to <code>true</code> and the CSS <code>display</code> to <code>none</code>.</p>
+```
+    Y.one('#demo').hide();
+```
+
+<h2>Toggling visibility</h2>
+<p>You can toggle the visibility between show and hide using <code>toggleView</code>.</p>
+```
+    Y.one('#demo').toggleView();
+```
+
+<h2>Checking visibility</h2>
+<p>You can detect whether a node is visible or not by checking for the hidden attribute:</p>
+```
+    var isHidden = Y.one('#demo').getAttribute('hidden') === 'true';
+```
+<h2>Complete Example Source</h2>
+```
+{{>node-view-source}}
+```

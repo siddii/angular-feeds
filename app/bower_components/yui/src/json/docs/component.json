@@ -1,0 +1,42 @@
+{
+    "name": "json",
+	"displayName": "JSON",
+	"description": "The JSON module provides methods for transforming data between native JavaScript objects and their JSON string equivalent.",
+	"author": "lsmith",
+
+    "use": ["json-parse", "json-stringify"],
+    "tags": ["utility", "json"],
+
+    "examples": [
+
+        {
+            "name": "json-connect",
+	        "displayName": "JSON with Y.io",
+	        "description": "Use JSON to parse data received via XMLHttpRequest via Y.io calls — a simple JSON use case.",
+	        "modules": ["json"],
+	        "useModules": ["node","io","dump","json-parse"],
+
+            "hideTableOfContents": true
+        },
+
+        {
+            "name": "json-freeze-thaw",
+	        "displayName": "Rebuilding Class Instances from JSON Data",
+	        "description": "Use the replacer and reviver parameters to reconstitute object instances that have been serialized to JSON.",
+	        "modules": ["json"],
+	        "useModules": ["node","json"],
+
+            "hideTableOfContents": true
+        },
+
+        {
+            "name": "json-convert-values",
+	        "displayName": "Adding New Object Members During Parsing",
+	        "description": "Use a currency conversion calculation to add a new price member to a JSON response, demonstrating how JSON data, once retrieved, can be transformed during parsing.",
+	        "modules": ["json"],
+	        "useModules": ["node","io","json-parse"],
+
+            "hideTableOfContents": true
+        }
+    ]
+}

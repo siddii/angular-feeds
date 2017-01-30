@@ -1,0 +1,33 @@
+<div class="intro">
+    <p>In this example, we'll use a snapshot of the <a href="http://www.w3.org/TR/html401/present/styles.html">W3C HTML 4.01 specification for Style Sheets</a> and add a custom dynamic StyleSheet to apply some color and font size changes.</p>
+
+    <p>A Progressive enhancement strategy is used to extract a static form on the page into a draggable Overlay.  Additionally, one of the form inputs is replaced with a Slider.  Enter any valid CSS color value into the other inputs (e.g. `#123456`, `#135`, `rgb(0,0,0)`, or `red`).</p>
+</div>
+
+<div class="example newwindow">
+    <a href="stylesheet-theme-example.html" target="_blank" class="button">
+        View Example in New Window
+    </a>
+</div>
+
+<h3 class="first">Full code listing</h3>
+<h4 id="markup">Markup</h4>
+<p>The markup as stated above is a local snapshot of the HTML 4.01 spec, but with the following markup added to the end of the <code>&lt;body&gt;</code> to show a progressive enhancement model.</p>
+
+```
+{{>stylesheet-theme-markup}}
+```
+
+<h4>JavaScript</h4>
+
+```
+{{>stylesheet-theme-js}}
+```
+
+<h4>CSS</h4>
+<p>This is the CSS added to the page to skin the Overlay and its content.</p>
+
+```
+{{>stylesheet-theme-css}}
+```
+

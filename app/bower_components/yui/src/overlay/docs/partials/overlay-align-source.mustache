@@ -1,0 +1,126 @@
+<div class="overlay-example" id="overlay-align">
+
+    <div class="example-head">
+        <button type="button" class="button" id="align">View Next Alignment</button>
+        <pre class="code" id="alignment"></pre>
+    </div>
+    <div class="yui3-g">
+        <div class="yui3-u-1-8">
+            <ul class="nav">
+                <li>Nibh</li>
+                <li id="align1" class="align-box"><span class="title">#align1</span></li>
+                <li>Arcu</li>
+                <li>Congue</li>
+                <li>Purus</li>
+                <li>Quam</li>
+                <li>Neque</li>
+                <li>Aiquam</li>
+                <li>Eget</li>
+                <li>Etiam</li>
+            </ul>
+        </div>
+        <div class="yui3-u-5-8">
+            <div class="content">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc pretium quam
+                eu mi varius pulvinar. Duis orci arcu, ullamcorper sit amet,
+                luctus ut,
+                interdum ac, quam. Pellentesque euismod. Nam tincidunt, purus in ultrices
+                <img id="align2" class="align-box" src="{{{componentAssets}}}/img/nevada.png" alt="Nevada landscape (id='align2')"/>
+                congue, urna neque posuere arcu, aliquam tristique purus sapien id nulla.
+                Etiam rhoncus nulla at leo. Cras scelerisque nisl in nibh. Sed eget odio.
+            </div>
+        </div>
+        <div class="yui3-u-1-4">
+            <div class="content">
+                <div id="align3" class="align-box"><span class="title">#align3</span></div>
+                Morbi elit elit, porta a, convallis sit amet, rhoncus non, felis. Mauris
+                nulla pede, pretium eleifend, porttitor at, rutrum id, orci. Quisque non
+                urna. Nulla aliquam rhoncus est.
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+YUI().use("overlay", function(Y) {
+
+    /* Create Overlay from script, this time. No footer */
+    var overlay = new Y.Overlay({
+        width:"16em",
+        headerContent: 'Aligned Overlay<span id="step"></span>',
+        bodyContent: '<div class="descr"></div>',
+        zIndex:2
+    });
+
+    /* Render it to #overlay-align element */
+    overlay.render("#overlay-align");
+
+    var alignment = Y.one("#alignment");
+    var stepNumber = Y.one("#step");
+    var descr = Y.one('.yui3-widget-bd .descr');
+
+    /* Setup local variable for Y.WidgetPositionAlign, since we use it multiple times */
+    var a = Y.WidgetPositionAlign,
+        declareA = "var a = Y.WidgetPositionAlign; // Local variable<br><br>",
+        dontDeclareA = "<br><br>";
+
+    var steps = [
+        function() {
+            /* Align top-left corner of overlay, with top-right corner of #align1 */
+            alignment.setHTML(declareA + 'overlay.set("align", {<br>    node: "#align1",<br>    points: [a.TL, a.TR]<br>});');
+            descr.setHTML('Align top-left corner of overlay, with top-right corner of #align1');
+            Y.one('#align1').addClass('aligned-to');
+            overlay.set("align", {node:"#align1", points: [a.TL, a.TR]});
+        },
+        function() {
+            /* Center overlay in #align2 */
+            alignment.setHTML(dontDeclareA + 'overlay.set("centered", "#align2");');
+            descr.setHTML('Center overlay in #align2 <br>(an image)');
+            Y.one('#align2').addClass('aligned-to');
+            overlay.set("centered", "#align2");
+        },
+        function() {
+            /* Align top-center edge of overlay with bottom-center edge of #align3 */
+            alignment.setHTML(declareA + 'overlay.set("align", {<br>    node: "#align3",<br>    points: [a.TC, a.BC]<br>});');
+            descr.setHTML('Align top-center edge of overlay with bottom-center edge of #align3');
+            Y.one('#align3').addClass('aligned-to');
+            overlay.set("align", {node:"#align3", points:[a.TC, a.BC]});
+        },
+        function() {
+            /* Align right-center edge of overlay with right-center edge of viewport */
+            alignment.setHTML(declareA + 'overlay.set("align", {<br>    points: [a.RC, a.RC]<br>});');
+            descr.setHTML('Align right-center edge of overlay with right-center edge of viewport');
+            overlay.set("align", {points:[a.RC, a.RC]});
+        },
+        function() {
+            /* Center overlay in viewport */
+            alignment.setHTML(dontDeclareA + 'overlay.set("centered", true);');
+            descr.setHTML('Center overlay in viewport');
+            overlay.set("centered", true);
+        },
+        function() {
+            /* Center in #overlay-align */
+            alignment.setHTML(declareA + 'overlay.set("align", {<br>    node: "#overlay-align",<br>    points: [a.CC, a.CC]<br>});');
+            descr.setHTML('Center in #overlay-align');
+            Y.one('#overlay-align').addClass('aligned-to');
+            overlay.set("align", {node:"#overlay-align", points:[a.CC, a.CC]});
+        }
+    ];
+
+    var step = 0;
+    var totalSteps = steps.length;
+
+    function alignNext() {
+        stepNumber.setHTML((step+1) + " of " + totalSteps);
+        Y.all('.aligned-to').removeClass('aligned-to');
+        steps[step]();
+        step = (++step)%(totalSteps);
+    }
+
+    alignNext();
+
+    Y.on("click", alignNext, "#align");
+});
+</script>

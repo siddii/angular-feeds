@@ -1,0 +1,14 @@
+{
+    "name": "YUI 3",
+    "description": "YUI 3 JavaScript Framework",
+    "version": "3.5.0",
+    "url": "http://yuilibrary.com/",
+    "options": {
+        "linkNatives": "true",
+        "attributesEmit": "true",
+        "selleck": "true",
+        "ignorePaths": [],
+        "paths": "*/js",
+        "outdir": "../api-js"
+    }
+}

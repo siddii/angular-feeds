@@ -1,0 +1,44 @@
+<div class="intro">
+    <p>In this example we will create an external module and use it as a core module.</p>
+</div>
+
+<div class="example">
+{{>external-html}}
+</div>
+
+<h2>Creating your external module</h2>
+<p>This is a simple example of creating an external module with `YUI.add`.</p>
+<p>This module simply adds an `External` namespace to the `Y` object and
+exports a single `run` method.</p>
+
+```
+{{>external-module}}
+```
+
+<h2>Using the instance config</h2>
+
+<p>Now that we have our external module, we need to add it to the `modules` config
+on the `YUI` instance that you want to attach this module to.</p>
+
+
+```
+{{>external-config}}
+```
+
+<h2>Setting up for the module</h2>
+
+<p>Now we add the HTML needed to make this module run:</p>
+
+```
+{{>external-html}}
+```
+
+<p>Now we put it all together and you should see the message in the example box above.</p>
+
+```
+{{>external-js}}
+```
+
+<script>
+{{>external-js}}
+</script>

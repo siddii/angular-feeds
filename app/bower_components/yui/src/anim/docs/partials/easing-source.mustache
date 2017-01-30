@@ -1,0 +1,19 @@
+{{>easing-source-html}}
+
+<script type="text/javascript">
+YUI().use('anim', function(Y) {
+    var anim = new Y.Anim({
+        node: '#demo .yui3-bd',
+        to: { height: 0 },
+        easing: 'backIn'
+    });
+
+    var onClick = function(e) {
+        e.preventDefault();
+        anim.run();
+    };
+    Y.one('#demo .yui3-toggle').on('click', onClick);
+
+});
+
+</script>

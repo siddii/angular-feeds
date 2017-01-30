@@ -1,0 +1,27 @@
+{
+    "loader": {
+        "use": [ "loader-base", "loader-rollup", "loader-yui3" ],
+        "submodules": {
+            "loader-base": {
+                "requires": [
+                    "get",
+                    "features"
+                ]
+            },
+            "loader-rollup": {
+                "requires": [
+                    "loader-base"
+                ]
+            },
+            "loader-yui3": {
+                "requires": [
+                    "loader-base"
+                ]
+            },
+            "loader-pathogen-combohandler": {},
+            "loader-pathogen-encoder": {
+                "use" : ["loader-base", "loader-rollup", "loader-yui3", "loader-pathogen-combohandler" ]
+            }
+        }
+    }
+}

@@ -1,0 +1,115 @@
+<style>
+/* custom styles for this example */
+.example .yui3-datatable {
+    margin-bottom: 1em;
+}
+
+/* css to counter global site css */
+.example table {
+    width: auto;
+}
+.example caption {
+    display: table-caption;
+}
+.example th,
+.example td {
+    text-transform: none;
+    border: 0 none;
+}
+</style>
+
+<div class="intro">
+    <p>
+        This example shows a few ways to configure your columns to populate
+        cells with formatted values.
+    </p>
+</div>
+
+<h2>Formatting with Template Strings</h2>
+
+<div class="example yui3-skin-sam">
+    <div id="template" class="yui3-skin-sam dt-example"></div>
+</div>
+<script>
+{{>datatable-formatting-string}}
+</script>
+{{>need-skin-note}}
+```
+<body class="yui3-skin-sam"> {{>need-skin-comment}}
+```
+<p>
+    Data can be stored in one format but displayed in a different format.
+    For instance, prices can be stored as numbers but displayed as "$2.99",
+    and birthdays can be stored as Date objects but displayed as
+    "12/9/2009".
+</p>
+
+<p>
+    Simple formatting can be defined with a string template on the column
+    definition.
+</p>
+
+```
+{{>datatable-formatting-string}}
+```
+
+<h2>Formatting with Functions</h2>
+
+<div class="example yui3-skin-sam">
+    <div id="function" class="yui3-skin-sam dt-example"></div>
+</div>
+<script>
+{{>datatable-formatting-function}}
+</script>
+
+<p>
+    When a calculation is needed, define a custom function that generates
+    markup for the data cell. The custom formatter function receives an object
+    with the properties listed in <a href="index.html#formatter-props">Appendix
+    B</a> in the DataTable user guide.  Also see the section on
+    <a href="index.html#formatter-function">setting content with `formatter`
+    functions</a>.
+</p>
+
+```
+{{>datatable-formatting-function}}
+```
+
+<h2>Populating Cells with HTML</h2>
+
+<div class="example yui3-skin-sam">
+    <div id="allowhtml" class="yui3-skin-sam dt-example"></div>
+</div>
+<script>
+{{>datatable-formatting-allowhtml}}
+</script>
+
+<p>
+    By default, DataTable will HTML escape cell values (regardless of
+    formatters).  If you want HTML to be preserved, include `allowHTML: true`
+    in the column configuration.
+</p>
+
+```
+{{>datatable-formatting-allowhtml}}
+```
+
+<h2>Using `emptyCellValue` for Missing Data</h2>
+
+<div class="example yui3-skin-sam">
+    <div id="dates" class="yui3-skin-sam dt-example"></div>
+</div>
+<script>
+{{>datatable-formatting-datatype}}
+</script>
+
+<p>
+    Use the `emptyCellValue` column configuration to supply a custom cell value
+    in the case of missing data.  If the `emptyCellValue` includes HTML
+    formatting, be sure to also set `allowHTML: true` for the column.  Note,
+    the DataType utility is also used by the formatter in this example.
+</p>
+
+```
+{{>datatable-formatting-datatype}}
+```

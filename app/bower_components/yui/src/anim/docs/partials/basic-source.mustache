@@ -1,0 +1,20 @@
+{{>basic-source-html}}
+
+<script type="text/javascript">
+YUI().use('anim', function(Y) {
+    var anim = new Y.Anim({
+        node: '#demo',
+        to: { opacity: 0 }
+    });
+
+    var onClick = function(e) {
+        e.preventDefault();
+        anim.run();
+    };
+
+    Y.one('#demo .yui3-remove').on('click', onClick);
+
+});
+
+</script>
+
