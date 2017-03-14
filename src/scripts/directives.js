@@ -47,7 +47,9 @@ function feedDirective (feedService, $compile, $templateCache, $http) {
 
         function fetchFeed (url) {
             feedService.getFeeds(url, $attrs.count).then(function (feedsObj) {
-                if ($attrs.templateUrl) {
+                if ($attrs.template && $templateCache.get($attrs.template)) {
+                    renderTemplate($templateCache.get($attrs.template), feedsObj);
+                } else if ($attrs.templateUrl) {
                     $http.get($attrs.templateUrl, {cache: $templateCache}).success(function (templateHtml) {
                         renderTemplate(templateHtml, feedsObj);
                     });
