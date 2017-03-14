@@ -1,5 +1,5 @@
 /**
- * angular-feeds - v0.0.4 - 2017-03-14 7:48 AM
+ * angular-feeds - v0.0.4 - 2017-03-14 8:09 AM
  * https://github.com/siddii/angular-feeds
  *
  * Copyright (c) 2017 
@@ -106,7 +106,7 @@ angular.module('feeds-services', []);
 
 angular
     .module('feeds-services')
-    .factory('feedService', ['$q', '$sce', 'feedCache', feedService]);
+    .factory('feedService', ['$window', '$q', '$sce', 'feedCache', feedService]);
 angular
     .module('feeds-services')
     .factory('feedCache', feedCache);

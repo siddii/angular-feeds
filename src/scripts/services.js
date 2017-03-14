@@ -4,7 +4,7 @@ angular.module('feeds-services', []);
 
 angular
     .module('feeds-services')
-    .factory('feedService', ['$q', '$sce', 'feedCache', feedService]);
+    .factory('feedService', ['$window', '$q', '$sce', 'feedCache', feedService]);
 angular
     .module('feeds-services')
     .factory('feedCache', feedCache);
