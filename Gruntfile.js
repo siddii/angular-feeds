@@ -15,6 +15,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-bower-install');
+
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -29,6 +32,25 @@ module.exports = function (grunt) {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
       dist: 'dist'
+    },
+
+    bowerInstall: {
+      target: {
+
+        src: [
+          './app/angular-feeds/'
+        ],
+
+        // Optional:
+        // ---------
+        cwd: '',
+        dependencies: true,
+        devDependencies: false,
+        exclude: [],
+        fileTypes: {},
+        ignorePath: '',
+        overrides: {}
+      }
     },
 
     // Watches files for changes and runs tasks based on the changed files
