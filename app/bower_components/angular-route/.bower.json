@@ -12,6 +12,7 @@
     "tag": "v1.2.6",
     "commit": "13c62ba4fc177693ff31d5c078901e202b2aed33"
   },
-  "_source": "git://github.com/angular/bower-angular-route.git",
-  "_target": "1.2.6"
+  "_source": "https://github.com/angular/bower-angular-route.git",
+  "_target": "1.2.6",
+  "_originalSource": "angular-route"
 }

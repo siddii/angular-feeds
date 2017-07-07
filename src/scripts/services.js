@@ -4,12 +4,12 @@ angular.module('feeds-services', []);
 
 angular
     .module('feeds-services')
-    .factory('feedService', ['$q', '$sce', 'feedCache', feedService]);
+    .factory('feedService', ['$window', '$q', '$sce', 'feedCache', feedService]);
 angular
     .module('feeds-services')
     .factory('feedCache', feedCache);
 
-function feedService ($q, $sce, feedCache) {
+function feedService ($window, $q, $sce, feedCache) {
 
     return {
         getFeeds: getFeeds,
@@ -23,7 +23,6 @@ function feedService ($q, $sce, feedCache) {
     }
 
     function getFeeds (feedURL, count) {
-
         var deferredFeedsFetch = $q.defer();
 
         if (count === 0) {
@@ -40,21 +39,21 @@ function feedService ($q, $sce, feedCache) {
 
         function fetchFeed (feedURL) {
             try {
-                YUI().use('yql', performYQLQuery(feedURL))
+                YUI().use('yql', performYQLQuery(feedURL));
             } catch (ex) {
                 deferredFeedsFetch.reject(ex);
             }
-
         }
 
         function performYQLQuery (feedURL) {
             return function (Y) {
-                var query = 'select * from feed(0,' + count + ') where url = "' + feedURL + '"';
-                Y.YQL(query, parseYQLResponse);
-            }
+                var query = 'select * from feed(0,' + count + ') where url = "' + feedURL + '"',
+                    href = $window.location && $window.location.href ? $window.location.href : null,
+                    proto = href && (href.toLowerCase().indexOf('https') === 0) ? 'https' : 'http';
 
+                Y.YQL(query, parseYQLResponse, {}, {proto: proto});
+            };
         }
-
 
         function parseYQLResponse (rawResponse) {
 
@@ -68,14 +67,11 @@ function feedService ($q, $sce, feedCache) {
             }
 
             resolve(response);
-
         }
 
         function resolve (withData) {
             deferredFeedsFetch.resolve(withData);
         }
-
-
     }
 
     function sanitizeFeedEntry (feedEntry) {
